@@ -1,3 +1,0 @@
-AppDelegate.swift filter=git-crypt diff=git-crypt
-GoogleService-Info.plist filter=git-crypt diff=git-crypt
-.gitattributes !filter !diff
