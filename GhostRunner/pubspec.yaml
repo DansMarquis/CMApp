@@ -1,0 +1,66 @@
+name: rider
+description: The Fliver Rider app
+version: 1.1.3+6
+
+environment:
+  sdk: ">=2.2.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  firebase_core: ^0.4.0  # add dependency for Firebase Core
+  cloud_firestore: ^0.12.9
+  cupertino_icons: ^0.1.2
+  dynamic_theme: ^1.0.0
+  firebase_analytics: ^5.0.9
+  flare_flutter: ^1.6.2
+  flutter_local_notifications: ^1.1.2
+  flutter_offline: ^0.2.4
+  flutter_speed_dial: ^1.2.1
+  geoflutterfire: ^2.0.3
+  geolocator: ^5.1.5
+  google_maps_flutter: ^0.5.11+1
+  location: ^2.5.0
+  flutter_polyline_points: ^0.1.0
+  intl: ^0.16.0
+  liquid_swipe: '1.2.0'
+  share: ^0.6.3
+  shared_preferences: ^0.5.3
+  url_launcher: ^5.2.4
+  uuid: ^2.0.4
+
+  great_circle_distance:
+    git:
+      url: git://github.com/fliverdev/great_circle_distance.git
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_launcher_icons: ^0.7.3
+
+flutter_icons:
+  android: 'launcher_icon'
+  image_path_android: 'assets/icon/icon-legacy.png'
+  adaptive_icon_foreground: 'assets/icon/icon-adaptive.png'
+  adaptive_icon_background: '#1de9b6'
+
+  ios: true
+  image_path_ios: 'assets/icon/icon-ios.png'
+
+flutter:
+  uses-material-design: true
+
+  assets:
+     - assets/credits/
+     - assets/flare/
+     - assets/logo/
+     - assets/other/
+     - assets/photos/
+     - assets/fitness_app/
+     - assets/tracks/
+     - assets/
+
+  fonts:
+    - family: AvenirNextRounded
+      fonts:
+        - asset: assets/fonts/AvenirNextRounded/AvenirNextRounded-Medium.ttf
