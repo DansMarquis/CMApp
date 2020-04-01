@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:rider/utils/ui_helpers.dart';
+import 'package:ghostrunner/utils/ui_helpers.dart';
 
 class SexyTile extends StatelessWidget {
   const SexyTile({

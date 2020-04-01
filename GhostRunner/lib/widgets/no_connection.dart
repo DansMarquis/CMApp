@@ -1,7 +1,7 @@
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
-import 'package:rider/utils/colors.dart';
-import 'package:rider/utils/text_styles.dart';
+import 'package:ghostrunner/utils/colors.dart';
+import 'package:ghostrunner/utils/text_styles.dart';
 
 class NoConnection extends StatelessWidget {
   @override

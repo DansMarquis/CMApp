@@ -18,11 +18,11 @@ Replace the encrypted `AndroidManifest.xml` with the following contents, and rep
 ```
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="dev.fliver.rider">
+    package="com.cm.ghostrunner">
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="Fliver Rider"
+        android:label="GhostRunner"
         android:icon="@mipmap/launcher_icon"
         tools:ignore="GoogleAppIndexingWarning">
         <activity

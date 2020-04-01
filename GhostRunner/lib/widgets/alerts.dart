@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:rider/services/firebase_analytics.dart';
-import 'package:rider/utils/colors.dart';
-import 'package:rider/utils/text_styles.dart';
-import 'package:rider/utils/ui_helpers.dart';
+import 'package:ghostrunner/services/firebase_analytics.dart';
+import 'package:ghostrunner/utils/colors.dart';
+import 'package:ghostrunner/utils/text_styles.dart';
+import 'package:ghostrunner/utils/ui_helpers.dart';
 import 'package:share/share.dart';
 
 void showNearbyRidersAlert(BuildContext context) {
@@ -19,7 +19,7 @@ void showNearbyRidersAlert(BuildContext context) {
             : TitleStyles.black,
       ),
       content: Text(
-        'There are enough Riders in your area. Drivers can now see your hotspot and come to pick you up.',
+        'There are enough Runners in your area. Drivers can now see your hotspot and come to pick you up.',
         style:
             isThemeCurrentlyDark(context) ? BodyStyles.white : BodyStyles.black,
       ),
@@ -47,13 +47,13 @@ void showNotEnoughRidersAlert(BuildContext context) {
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(10.0))),
       title: Text(
-        'Not Enough Riders',
+        'Not Enough Runners',
         style: isThemeCurrentlyDark(context)
             ? TitleStyles.white
             : TitleStyles.black,
       ),
       content: Text(
-        'There aren\'t enough Riders in your area. Tell your friends to download the app and mark their locations!',
+        'There aren\'t enough Runners in your area. Tell your friends to download the app and mark their locations!',
         style:
             isThemeCurrentlyDark(context) ? BodyStyles.white : BodyStyles.black,
       ),
@@ -77,7 +77,7 @@ void showNotEnoughRidersAlert(BuildContext context) {
           onPressed: () {
             Navigator.pop(context);
             Share.share(
-                'Download Fliver Rider and help me get a Rickshaw! https://fliverdev.github.io/');
+                'Download GhostRunner');
             logAnalyticsEvent('share_click');
           },
         ),

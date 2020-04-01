@@ -1,9 +1,9 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
-import 'package:rider/global.dart';
-import 'package:rider/ui/screens/details.dart';
-import 'package:rider/ui/widgets/mybottomnavbar.dart';
+import 'package:ghostrunner/global.dart';
+import 'package:ghostrunner/ui/screens/details.dart';
+import 'package:ghostrunner/ui/widgets/mybottomnavbar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatelessWidget {

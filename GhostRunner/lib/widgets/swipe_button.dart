@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/physics.dart';
-import 'package:rider/utils/colors.dart';
+import 'package:ghostrunner/utils/colors.dart';
 
 enum SwipePosition {
   SwipeLeft,

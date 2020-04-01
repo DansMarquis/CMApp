@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:rider/global.dart';
+import 'package:ghostrunner/global.dart';
 
 import 'home.dart';
 

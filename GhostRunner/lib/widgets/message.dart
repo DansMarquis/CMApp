@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:rider/utils/colors.dart';
-import 'package:rider/utils/text_styles.dart';
-import 'package:rider/utils/ui_helpers.dart';
+import 'package:ghostrunner/utils/colors.dart';
+import 'package:ghostrunner/utils/text_styles.dart';
+import 'package:ghostrunner/utils/ui_helpers.dart';
 
 class Message extends StatelessWidget {
   final bool isMe;

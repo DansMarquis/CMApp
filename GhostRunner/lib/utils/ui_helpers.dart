@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:rider/utils/colors.dart';
+import 'package:ghostrunner/utils/colors.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 void doNothing() {

@@ -3,17 +3,17 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
-import 'package:rider/pages/map_view_page.dart';
-import 'package:rider/ui/widgets/mybottomnavbar.dart';
+import 'package:ghostrunner/pages/map_view_page.dart';
+import 'package:ghostrunner/ui/widgets/mybottomnavbar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'models/pin_pill_info.dart';
 import 'trail_model.dart';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
-import 'package:rider/global.dart';
-import 'package:rider/ui/screens/details.dart';
-import 'package:rider/ui/widgets/mybottomnavbar.dart';
+import 'package:ghostrunner/global.dart';
+import 'package:ghostrunner/ui/screens/details.dart';
+import 'package:ghostrunner/ui/widgets/mybottomnavbar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 const double CAMERA_ZOOM = 16;

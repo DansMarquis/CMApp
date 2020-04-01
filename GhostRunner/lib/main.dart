@@ -1,11 +1,11 @@
 import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:rider/pages/map_view_page.dart';
-import 'package:rider/pages/onboarding_page.dart';
-import 'package:rider/ui/screens/home.dart';
-import 'package:rider/utils/colors.dart';
-import 'package:rider/utils/first_page.dart';
+import 'package:ghostrunner/pages/map_view_page.dart';
+import 'package:ghostrunner/pages/onboarding_page.dart';
+import 'package:ghostrunner/ui/screens/home.dart';
+import 'package:ghostrunner/utils/colors.dart';
+import 'package:ghostrunner/utils/first_page.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

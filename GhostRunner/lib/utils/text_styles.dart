@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rider/utils/colors.dart';
+import 'package:ghostrunner/utils/colors.dart';
 
 class TitleStyles {
   static const white = TextStyle(

@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:geoflutterfire/geoflutterfire.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:great_circle_distance/great_circle_distance.dart';
-import 'package:rider/services/censor.dart';
-import 'package:rider/services/firebase_analytics.dart';
-import 'package:rider/utils/text_styles.dart';
-import 'package:rider/utils/ui_helpers.dart';
-import 'package:rider/widgets/message.dart';
-import 'package:rider/widgets/message_placeholder.dart';
+import 'package:ghostrunner/services/censor.dart';
+import 'package:ghostrunner/services/firebase_analytics.dart';
+import 'package:ghostrunner/utils/text_styles.dart';
+import 'package:ghostrunner/utils/ui_helpers.dart';
+import 'package:ghostrunner/widgets/message.dart';
+import 'package:ghostrunner/widgets/message_placeholder.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MyChatPage extends StatefulWidget {
@@ -222,7 +222,7 @@ class _MyChatPageState extends State<MyChatPage> {
                             return messagePlaceholder(
                                 context,
                                 widget.nearbyRiders == 1
-                                    ? 'No Riders nearby to chat with!'
+                                    ? 'No Runners nearby to chat with!'
                                     : 'Chat with ${widget.nearbyRiders - 1} others near you');
 
                           return Stack(

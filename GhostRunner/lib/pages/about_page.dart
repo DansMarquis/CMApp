@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:rider/services/firebase_analytics.dart';
-import 'package:rider/utils/colors.dart';
-import 'package:rider/utils/text_styles.dart';
-import 'package:rider/utils/ui_helpers.dart';
-import 'package:rider/widgets/sexy_tile.dart';
+import 'package:ghostrunner/services/firebase_analytics.dart';
+import 'package:ghostrunner/utils/colors.dart';
+import 'package:ghostrunner/utils/text_styles.dart';
+import 'package:ghostrunner/utils/ui_helpers.dart';
+import 'package:ghostrunner/widgets/sexy_tile.dart';
 
 class MyAboutPage extends StatefulWidget {
   @override

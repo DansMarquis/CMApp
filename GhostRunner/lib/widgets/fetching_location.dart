@@ -1,7 +1,7 @@
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
-import 'package:rider/utils/text_styles.dart';
-import 'package:rider/utils/ui_helpers.dart';
+import 'package:ghostrunner/utils/text_styles.dart';
+import 'package:ghostrunner/utils/ui_helpers.dart';
 
 class FetchingLocation extends StatelessWidget {
   @override

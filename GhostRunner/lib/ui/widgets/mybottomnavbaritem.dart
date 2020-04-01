@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rider/global.dart';
+import 'package:ghostrunner/global.dart';
 
 class MyBottomNavBarItem extends StatelessWidget {
   final int id;

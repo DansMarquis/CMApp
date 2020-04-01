@@ -3,13 +3,13 @@ import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:liquid_swipe/liquid_swipe.dart';
-import 'package:rider/pages/map_view_page.dart';
-import 'package:rider/services/firebase_analytics.dart';
-import 'package:rider/ui/screens/home.dart';
-import 'package:rider/utils/colors.dart';
-import 'package:rider/utils/text_styles.dart';
-import 'package:rider/utils/ui_helpers.dart';
-import 'package:rider/widgets/sexy_tile.dart';
+import 'package:ghostrunner/pages/map_view_page.dart';
+import 'package:ghostrunner/services/firebase_analytics.dart';
+import 'package:ghostrunner/ui/screens/home.dart';
+import 'package:ghostrunner/utils/colors.dart';
+import 'package:ghostrunner/utils/text_styles.dart';
+import 'package:ghostrunner/utils/ui_helpers.dart';
+import 'package:ghostrunner/widgets/sexy_tile.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MyOnboardingPage extends StatefulWidget {
@@ -181,14 +181,14 @@ class _MyOnboardingPageState extends State<MyOnboardingPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(
-                              'How do Drivers know?',
+                              'How do Runners know?',
                               style: SubHeadingStyles.white,
                             ),
                             SizedBox(
                               height: 5.0,
                             ),
                             Text(
-                              'When many Riders in an area mark their location, a hotspot is created for Drivers to see.',
+                              'When many Runners in an area mark their location, a hotspot is created for Runners to see.',
                               style: BodyStyles.white,
                             ),
                           ],
@@ -356,7 +356,7 @@ class _MyOnboardingPageState extends State<MyOnboardingPage> {
                               height: 5.0,
                             ),
                             Text(
-                              'Privately talk to Riders within your hotspot to discuss carpooling with them.',
+                              'Privately talk to Runners within your hotspot to discuss carpooling with them.',
                               style: BodyStyles.black,
                             ),
                           ],
@@ -401,7 +401,7 @@ class _MyOnboardingPageState extends State<MyOnboardingPage> {
                               height: 5.0,
                             ),
                             Text(
-                              'Talk to all Fliver Riders and Drivers!',
+                              'Talk to all Runners!',
                               style: BodyStyles.black,
                             ),
                           ],

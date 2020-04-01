@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:rider/services/firebase_analytics.dart';
-import 'package:rider/utils/colors.dart';
-import 'package:rider/utils/text_styles.dart';
-import 'package:rider/utils/ui_helpers.dart';
+import 'package:ghostrunner/services/firebase_analytics.dart';
+import 'package:ghostrunner/utils/colors.dart';
+import 'package:ghostrunner/utils/text_styles.dart';
+import 'package:ghostrunner/utils/ui_helpers.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 void showEmergencyPopup(BuildContext context) {
