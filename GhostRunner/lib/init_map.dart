@@ -3,18 +3,14 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
-import 'package:ghostrunner/pages/map_view_page.dart';
 import 'package:ghostrunner/ui/widgets/mybottomnavbar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'models/pin_pill_info.dart';
 import 'trail_model.dart';
-import 'dart:math' as math;
+import 'package:ghostrunner/utils/text_styles.dart';
 
-import 'package:flutter/material.dart';
-import 'package:ghostrunner/global.dart';
-import 'package:ghostrunner/ui/screens/details.dart';
-import 'package:ghostrunner/ui/widgets/mybottomnavbar.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
+
 
 const double CAMERA_ZOOM = 16;
 const double CAMERA_TILT = 80;
@@ -64,18 +60,18 @@ class MapPageState extends State<MapPage> {
   ///////////////////////////////////////////
 
   GoogleMapController _controller2;
+ 
   List<Marker> allMarkers = [];
 
   PageController _pageController;
 
   int prevPage;
+  bool showTrailOnMap = false;
 ////////////////////////////////////////////////////
   @override
   void initState() {
     super.initState();
-
     //////////////////////////////////////////////////////////////
-
     _pageController = PageController(initialPage: 1, viewportFraction: 0.8)
       ..addListener(_onScroll);
     //////////////////////////////////////////////////////////////////////////
@@ -97,6 +93,7 @@ class MapPageState extends State<MapPage> {
     setSourceAndDestinationIcons();
     // set the initial location
     setInitialLocation();
+
   }
 
   ////////////////////////////////////////////////////////////////////////////////////////
@@ -106,7 +103,7 @@ class MapPageState extends State<MapPage> {
       moveCamera();
     }
   }
-
+  
   moveCamera() {
     _controller2.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
         target: trails[_pageController.page.toInt()].locationCoords,
@@ -115,6 +112,7 @@ class MapPageState extends State<MapPage> {
         tilt: 45.0)));
   }
 
+  
   void mapCreated2(controller) {
     setState(() {
       _controller2 = controller;
@@ -138,15 +136,16 @@ class MapPageState extends State<MapPage> {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    currentLocation =
-        LocationData.fromMap({"latitude": 40.581979, "longitude": -8.080434});
-
+    currentLocation = await location.getLocation();
+    
+          
     // hard-coded destination for this example
     destinationLocation =
-        LocationData.fromMap({"latitude": 40.611561, "longitude": -8.101829});
+        LocationData.fromMap({"latitude": DEST_LOCATION.latitude, "longitude": DEST_LOCATION.longitude});
   }
 
   _trailsList(index) {
+    if(showTrailOnMap){
     return AnimatedBuilder(
       animation: _pageController,
       builder: (BuildContext context, Widget widget) {
@@ -165,7 +164,7 @@ class MapPageState extends State<MapPage> {
       },
       child: InkWell(
         onTap: () {
-          // moveCamera();
+          //moveCamera();
         },
         child: Stack(children: [
           Center(
@@ -336,6 +335,7 @@ class MapPageState extends State<MapPage> {
         ]),
       ),
     );
+    }
   }
 
   @override
@@ -345,6 +345,7 @@ class MapPageState extends State<MapPage> {
         tilt: CAMERA_TILT,
         bearing: CAMERA_BEARING,
         target: SOURCE_LOCATION);
+
     if (currentLocation != null) {
       initialCameraPosition = CameraPosition(
           target: LatLng(currentLocation.latitude, currentLocation.longitude),
@@ -358,19 +359,26 @@ class MapPageState extends State<MapPage> {
           GoogleMap(
               myLocationEnabled: true,
               compassEnabled: true,
-              tiltGesturesEnabled: true,
+              tiltGesturesEnabled: false,
               markers: _markers,
-              onMapCreated: mapCreated2,
               polylines: _polylines,
               mapType: MapType.satellite,
-              initialCameraPosition:
-                  CameraPosition(target: LatLng(40.7128, -74.0060), zoom: 12.0),
+              initialCameraPosition:initialCameraPosition,
+              onMapCreated: (GoogleMapController controller) {
+                _controller.complete(controller);            
+              // my map has completed being created;
+              // i'm ready to show the pins on the map
+                showPinsOnMap();
+               
+              },
+
               onTap: (LatLng loc) {
                 pinPillPosition = -100;
               }),
-          MapPinPillComponent(
+          /*MapPinPillComponent(
               pinPillPosition: pinPillPosition,
-              currentlySelectedPin: currentlySelectedPin),
+              currentlySelectedPin: currentlySelectedPin),*/
+         
           Positioned(
             bottom: 20.0,
             child: Container(
@@ -384,7 +392,37 @@ class MapPageState extends State<MapPage> {
                 },
               ),
             ),
-          ),    Positioned(
+          ),    
+        
+          Positioned(
+            left: (MediaQuery.of(context).size.width)/2 - 90,
+            bottom: showTrailOnMap
+            ? 220
+            : 60,
+            child: ButtonTheme(
+                      height: 50.0,
+                      minWidth: 180.0,
+                      child: RaisedButton(
+                        child: Text(
+                          showTrailOnMap
+                          ? 'Hide Routes'
+                          : 'Show Routes',
+                          style: BodyStyles.black,
+                        ),
+                        color:  Colors.blue,
+                        splashColor: Colors.blue,
+                        elevation: 3.0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(50.0)),
+                        ),
+                        onPressed: () async {
+                          if(showTrailOnMap) showTrailOnMap = false;
+                          else showTrailOnMap = true;
+                        },
+                      ),
+                    )
+          ),
+          Positioned(
                   bottom: 0,
                   height: 70,
                   left: 0,
@@ -416,14 +454,14 @@ class MapPageState extends State<MapPage> {
         locationName: "Start Location",
         location: SOURCE_LOCATION,
         pinPath: "assets/driving_pin.png",
-        avatarPath: "assets/friend1.jpg",
+        avatarPath: "assets/maps/avatar.jpg",
         labelColor: Colors.blueAccent);
 
     destinationPinInfo = PinInformation(
         locationName: "End Location",
         location: DEST_LOCATION,
         pinPath: "assets/destination_map_marker.png",
-        avatarPath: "assets/friend2.jpg",
+        avatarPath: "assets/maps/avatar.jpg",
         labelColor: Colors.purple);
 
     // add the initial source location pin
@@ -484,7 +522,7 @@ class MapPageState extends State<MapPage> {
       });
     }
   }
-
+  
   void updatePinOnMap() async {
     // create a new CameraPosition instance
     // every time the location changes, so the camera
@@ -495,11 +533,13 @@ class MapPageState extends State<MapPage> {
       bearing: CAMERA_BEARING,
       target: LatLng(currentLocation.latitude, currentLocation.longitude),
     );
-    final GoogleMapController controller = await _controller.future;
-    controller.animateCamera(CameraUpdate.newCameraPosition(cPosition));
+    try{
+      final GoogleMapController controller = await _controller.future;    
+      controller.animateCamera(CameraUpdate.newCameraPosition(cPosition));
     // do this inside the setState() so Flutter gets notified
     // that a widget update is due
-    setState(() {
+    
+      setState(() {
       // updated position
       var pinPosition =
           LatLng(currentLocation.latitude, currentLocation.longitude);
@@ -520,6 +560,11 @@ class MapPageState extends State<MapPage> {
           position: pinPosition, // updated position
           icon: sourceIcon));
     });
+
+    }catch(Exception ){
+      return;
+    }
+
   }
 }
 
@@ -702,4 +747,5 @@ class RadiantGradientMask extends StatelessWidget {
       child: child,
     );
   }
+
 }

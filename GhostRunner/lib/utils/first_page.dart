@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ghostrunner/pages/map_view_page.dart';
 import 'package:ghostrunner/pages/onboarding_page.dart';
 import 'package:ghostrunner/ui/screens/home.dart';
 import 'package:ghostrunner/utils/ui_helpers.dart';

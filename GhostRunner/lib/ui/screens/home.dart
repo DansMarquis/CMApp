@@ -55,7 +55,7 @@ class HomeScreen extends StatelessWidget {
                       children: <Widget>[
                         Spacer(),
                         Text(
-                          "My Diary",
+                          "My Stats",
                           style: Theme.of(context)
                               .textTheme
                               .display1

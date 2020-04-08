@@ -1,9 +1,6 @@
-import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:ghostrunner/global.dart';
-
-import 'home.dart';
 
 class DetailsScreen extends StatelessWidget {
   final int id;

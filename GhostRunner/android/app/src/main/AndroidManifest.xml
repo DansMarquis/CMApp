@@ -3,8 +3,8 @@
     package="com.cm.ghostrunner">
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="Fliver Driver"
-        android:icon="@mipmap/launcher_icon"
+        android:label="GhostRunner"
+        android:icon="@mipmap/ic_launcher"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
             android:name=".MainActivity"

@@ -51,7 +51,6 @@ flutter:
   uses-material-design: true
 
   assets:
-     - assets/credits/
      - assets/flare/
      - assets/logo/
      - assets/other/

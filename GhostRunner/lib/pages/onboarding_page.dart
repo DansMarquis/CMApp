@@ -1,15 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dynamic_theme/dynamic_theme.dart';
-import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:liquid_swipe/liquid_swipe.dart';
-import 'package:ghostrunner/pages/map_view_page.dart';
 import 'package:ghostrunner/services/firebase_analytics.dart';
 import 'package:ghostrunner/ui/screens/home.dart';
 import 'package:ghostrunner/utils/colors.dart';
 import 'package:ghostrunner/utils/text_styles.dart';
 import 'package:ghostrunner/utils/ui_helpers.dart';
-import 'package:ghostrunner/widgets/sexy_tile.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MyOnboardingPage extends StatefulWidget {
@@ -44,10 +41,10 @@ class _MyOnboardingPageState extends State<MyOnboardingPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Container(
-                  width: 240.0,
-                  height: 74.0,
+                  width: 234.0,
+                  height: 142.0,
                   child: Image.asset(
-                    'assets/logo/mw-purple.png',
+                    'assets/logo/CMlogoVertical.png',
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -66,16 +63,8 @@ class _MyOnboardingPageState extends State<MyOnboardingPage> {
                   height: 50.0,
                 ),
                 Text(
-                  'Run with Me!',
+                  'Swipe left to get started!',
                   style: HeadingStyles.white,
-                  textAlign: TextAlign.center,
-                ),
-                SizedBox(
-                  height: 5.0,
-                ),
-                Text(
-                  'Swipe left to get started.',
-                  style: SubHeadingStyles.white,
                   textAlign: TextAlign.center,
                 ),
               ],
@@ -136,14 +125,14 @@ class _MyOnboardingPageState extends State<MyOnboardingPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(
-                              'Looking for a Rickshaw?',
+                              'Run against you or your ghost friends',
                               style: SubHeadingStyles.white,
                             ),
                             SizedBox(
                               height: 5.0,
                             ),
                             Text(
-                              'Swipe the button to let Drivers know about your location.',
+                              'escrever aqui cenas',
                               style: BodyStyles.white,
                             ),
                           ],
@@ -181,14 +170,14 @@ class _MyOnboardingPageState extends State<MyOnboardingPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(
-                              'How do Runners know?',
+                              'Create a route or explore one made by friends',
                               style: SubHeadingStyles.white,
                             ),
                             SizedBox(
                               height: 5.0,
                             ),
                             Text(
-                              'When many Runners in an area mark their location, a hotspot is created for Runners to see.',
+                              'Escrever aqui mais cenas',
                               style: BodyStyles.white,
                             ),
                           ],
@@ -226,279 +215,26 @@ class _MyOnboardingPageState extends State<MyOnboardingPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(
-                              'What\'s next?',
+                              'See your stats!',
                               style: SubHeadingStyles.white,
                             ),
                             SizedBox(
                               height: 5.0,
                             ),
                             Text(
-                              'Drivers will see the high demand and come to pick you up!',
+                              'Nao esquecer de escrever aqui coisas',
                               style: BodyStyles.white,
                             ),
                           ],
                         ),
                       ),
+
                     ],
                   ),
-                  SizedBox(
-                    height: 30.0,
-                  ),
-                  
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-      Container(
-        color: MyColors.white,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Container(
-              width: width,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  SizedBox(
-                    height: 60.0,
-                  ),
-                  Container(
-                    width: 295.0,
-                    height: 140.0,
-                    child: Image.asset(
-                      'assets/other/trail.gif',
-                      fit: BoxFit.cover,
+                    SizedBox(
+                        height: 50.0,
                     ),
-                  ),
-                  SizedBox(
-                    height: 90.0,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Container(
-                            width: 36.0,
-                            height: 36.0,
-                            child: Image.asset(
-                      'assets/other/timelapse.gif',
-                      fit: BoxFit.cover,
-                    ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        width: 10.0,
-                      ),
-                      Expanded(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text(
-                              'Timelapse Track',
-                              style: SubHeadingStyles.black,
-                            ),
-                            SizedBox(
-                              height: 5.0,
-                            ),
-                            Text(
-                              'You can use the new chat feature to talk to other Fliver users.',
-                              style: BodyStyles.black,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 30.0,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Container(
-                            width: 36.0,
-                            height: 38.0,
-                            child: Image.asset(
-                              'assets/other/ranking.gif',
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        width: 10.0,
-                      ),
-                      Expanded(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text(
-                              'Beat Your Frinds',
-                              style: SubHeadingStyles.black,
-                            ),
-                            SizedBox(
-                              height: 5.0,
-                            ),
-                            Text(
-                              'Privately talk to Runners within your hotspot to discuss carpooling with them.',
-                              style: BodyStyles.black,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 30.0,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Container(
-                            width: 38.0,
-                            height: 36.0,
-                            child: Image.asset(
-                              'assets/other/rickshaws.png',
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        width: 10.0,
-                      ),
-                      Expanded(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text(
-                              'Global Chat',
-                              style: SubHeadingStyles.black,
-                            ),
-                            SizedBox(
-                              height: 5.0,
-                            ),
-                            Text(
-                              'Talk to all Runners!',
-                              style: BodyStyles.black,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 30.0,
-                  ),
-                 /* RaisedButton(
-                    child: Text('FAQ'),
-                    color: MyColors.black,
-                    textColor: MyColors.white,
-                    elevation: 3.0,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(5.0))),
-                    onPressed: () async {
-                      launchUrl('https://fliverdev.github.io/faq/');
-                      logAnalyticsEvent('url_click_faq');
-                    },
-                  ),*/
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-      Container(
-        color: dynamicColor,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Container(
-              width: width,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  SizedBox(
-                    height: 60.0,
-                  ),
-                  Text(
-                    'Select a Theme',
-                    style: isColorCurrentlyDark(dynamicColor)
-                        ? HeadingStyles.primary
-                        : HeadingStyles.blue,
-                  ),
-                  SizedBox(
-                    height: 90.0,
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      SexyTile(
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(15.0),
-                          child: Image.asset(
-                            'assets/other/light.png',
-                            fit: BoxFit.cover,
-                            width: 250.0,
-                            height: 180.0,
-                          ),
-                        ),
-                        onTap: () {
-                          setState(() {
-                            dynamicColor = MyColors.white;
-                          });
-                        },
-                      ),
-                      SizedBox(
-                        height: 10.0,
-                      ),
-                      SexyTile(
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(15.0),
-                          child: Image.asset(
-                            'assets/other/dark.png',
-                            fit: BoxFit.cover,
-                            width: 250.0,
-                            height: 180.0,
-                          ),
-                        ),
-                        onTap: () {
-                          setState(() {
-                            dynamicColor = MyColors.black;
-                          });
-                        },
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 30.0,
-                  ),
-                  ButtonTheme(
+                    ButtonTheme(
                     height: 50.0,
                     minWidth: 180.0,
                     child: RaisedButton(
@@ -545,7 +281,7 @@ class _MyOnboardingPageState extends State<MyOnboardingPage> {
                   ),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),
@@ -555,7 +291,7 @@ class _MyOnboardingPageState extends State<MyOnboardingPage> {
       pages: pages,
       fullTransitionValue: 350.0,
       enableLoop: false,
-      enableSlideIcon: true,
+      enableSlideIcon: false,
       slideIconWidget: Icon(
         Icons.arrow_back_ios,
         color: dynamicColor,
