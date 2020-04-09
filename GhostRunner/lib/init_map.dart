@@ -3,12 +3,14 @@ import 'package:geolocator/geolocator.dart' as geo;
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:flutter/material.dart';
-import 'dart:async';
 import 'package:ghostrunner/ui/widgets/mybottomnavbar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'models/pin_pill_info.dart';
 import 'trail_model.dart';
 import 'package:ghostrunner/utils/text_styles.dart';
+import 'dart:async';
+import 'package:ghostrunner/classes/dependencies.dart';
+import 'package:ghostrunner/widgets/timer_clock.dart';
 
 const double CAMERA_ZOOM = 16;
 const double CAMERA_TILT = 80;
@@ -19,13 +21,31 @@ const LatLng DEST_LOCATION = LatLng(40.611561, -8.101829);
 class MapPage extends StatefulWidget {
   final SharedPreferences helper;
   final String identity;
+   final Dependencies dependencies;
 
-  const MapPage({Key key, this.helper, this.identity}) : super(key: key);
+  const MapPage({Key key, this.helper, this.identity, this.dependencies}) : super(key: key);
   @override
   State<StatefulWidget> createState() => MapPageState();
 }
 
 class MapPageState extends State<MapPage> {
+  //TIMER
+  Icon leftButtonIcon;
+  Icon rightButtonIcon;
+
+  Color leftButtonColor;
+  Color rightButtonColor;
+
+  Timer timer;
+
+  updateTime(Timer timer) {
+    if (widget.dependencies.stopwatch.isRunning) {
+      setState(() {});
+    } else {
+      timer.cancel();
+    }
+  }
+
  GoogleMapController mapController;
   Set<Marker> _markers = Set<Marker>();
 // for my drawn routes on the map
@@ -72,6 +92,21 @@ class MapPageState extends State<MapPage> {
 ////////////////////////////////////////////////////
   @override
   void initState() {
+    if (widget.dependencies.stopwatch.isRunning) {
+      timer = new Timer.periodic(new Duration(milliseconds: 20), updateTime);
+      leftButtonIcon = Icon(Icons.pause);
+      leftButtonColor = Colors.red;
+      rightButtonIcon = Icon(
+        Icons.fiber_manual_record,
+        color: Colors.red,
+      );
+      rightButtonColor = Colors.white70;
+    } else {
+      leftButtonIcon = Icon(Icons.play_arrow);
+      leftButtonColor = Colors.green;
+      rightButtonIcon = Icon(Icons.refresh);
+      rightButtonColor = Colors.blue;
+    }
     super.initState();
     //////////////////////////////////////////////////////////////
     _pageController = PageController(initialPage: 1, viewportFraction: 0.8)
@@ -332,6 +367,14 @@ class MapPageState extends State<MapPage> {
           ),
         ]));
   }
+  @override
+  void dispose() {
+    if (timer.isActive) {
+      timer.cancel();
+      timer = null;
+    }
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -351,6 +394,7 @@ class MapPageState extends State<MapPage> {
     return Scaffold(
       body: Stack(
         children: <Widget>[
+          
           GoogleMap(
               myLocationEnabled: true,
               compassEnabled: true,
@@ -366,6 +410,43 @@ class MapPageState extends State<MapPage> {
               onTap: (LatLng loc) {
                 pinPillPosition = -100;
               }),
+               
+          !_showTrailOnMap ? Positioned(
+            top: 30.0,
+            child: Container(
+          height: 170.0,
+          width: 170.0,
+          child: TimerClock(widget.dependencies),
+        ),
+          ) : Text(""),
+           !_showTrailOnMap ? Positioned(
+            top: 190.0,
+            left: 20,
+            child: Container(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    FloatingActionButton(
+                      heroTag: 'playPause',
+                        backgroundColor: leftButtonColor,
+                        onPressed: startOrStopWatch,
+                        child: leftButtonIcon),
+                    SizedBox(width: 20.0),
+                    FloatingActionButton(
+                      heroTag: 'reset',
+                        backgroundColor: rightButtonColor,
+                        onPressed: saveOrRefreshWatch,
+                        child: rightButtonIcon),
+                  ],
+                )
+              ],
+            ),
+          ),
+          ) : Text(""),
+          
           Positioned(
             bottom: 20.0,
             child: Container(
@@ -411,10 +492,47 @@ class MapPageState extends State<MapPage> {
               child: MyBottomNavBar(
                   helper: widget.helper, identity: widget.identity, act: 1),
             ),
-          )
+          ),
+          
+         
+    
         ],
       ),
     );
+  }
+startOrStopWatch() {
+    if (widget.dependencies.stopwatch.isRunning) {
+      leftButtonIcon = Icon(Icons.play_arrow);
+      leftButtonColor = Colors.green;
+      rightButtonIcon = Icon(Icons.refresh);
+      rightButtonColor = Colors.blue;
+      widget.dependencies.stopwatch.stop();
+      setState(() {});
+    } else {
+      leftButtonIcon = Icon(Icons.pause);
+      leftButtonColor = Colors.red;
+      rightButtonIcon = Icon(
+        Icons.fiber_manual_record,
+        color: Colors.red,
+      );
+      rightButtonColor = Colors.white70;
+      widget.dependencies.stopwatch.start();
+      timer = new Timer.periodic(new Duration(milliseconds: 20), updateTime);
+    }
+  }
+
+  saveOrRefreshWatch() {
+    setState(() {
+      if (widget.dependencies.stopwatch.isRunning) {
+        widget.dependencies.savedTimeList.insert(
+            0,
+            widget.dependencies.transformMilliSecondsToString(
+                widget.dependencies.stopwatch.elapsedMilliseconds));
+      } else {
+        widget.dependencies.stopwatch.reset();
+        widget.dependencies.savedTimeList.clear();
+      }
+    });
   }
 
   void showPinsOnMap() {
