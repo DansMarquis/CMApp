@@ -35,6 +35,7 @@ class MapPageState extends State<MapPage> {
   String googleAPIKey = 'AIzaSyD4Qdvrk2evUhs_EeBG9jVAPAMaya43yrs';
 // for my custom marker pins
   BitmapDescriptor sourceIcon;
+  BitmapDescriptor sourceIconTrail;
   BitmapDescriptor destinationIcon;
 // the user's initial location and current location
 // as it moves
@@ -105,11 +106,19 @@ class MapPageState extends State<MapPage> {
   ////////////////////////////////////////////////////////////////////////////////////////
   void _onScroll() {
     if (_pageController.page.toInt() != prevPage && _showTrailOnMap) {
+      _markers.removeWhere((m) => m.markerId.value == 'finish');
       prevPage = _pageController.page.toInt();
       polylineCoordinates.clear();
       setPolylinesTrails(
           trails[_pageController.page.toInt()].locationCoordsStart,
           trails[_pageController.page.toInt()].locationCoordsFinish);
+      _markers.add(Marker(
+          markerId: MarkerId("finish"),
+          draggable: false,
+          infoWindow:
+              InfoWindow(title:trails[_pageController.page.toInt()].trailName, snippet: 'Finish Line'),
+          position: trails[_pageController.page.toInt()].locationCoordsFinish,
+          icon: destinationIcon));
       moveCamera();
     }
   }
@@ -122,17 +131,14 @@ class MapPageState extends State<MapPage> {
         tilt: 45.0)));
   }
 
-  void mapCreated2(controller) {
-    setState(() {
-      _controller2 = controller;
-      showPinsOnMap();
-    });
-  }
+  
 
 //////////////////////////////////////////////////////////////////////////////////////
   void setSourceAndDestinationIcons() async {
     sourceIcon = await BitmapDescriptor.fromAssetImage(
         ImageConfiguration(devicePixelRatio: 2.5), 'assets/driving_pin.png');
+    sourceIconTrail = await BitmapDescriptor.fromAssetImage(
+        ImageConfiguration(devicePixelRatio: 2.5), 'assets/start_map_marker.png');
 
     destinationIcon = await BitmapDescriptor.fromAssetImage(
         ImageConfiguration(devicePixelRatio: 2.5),
@@ -461,9 +467,9 @@ class MapPageState extends State<MapPage> {
           markerId: MarkerId(element.trailName),
           draggable: false,
           infoWindow:
-              InfoWindow(title: element.trailName, snippet: element.address),
+              InfoWindow(title: element.trailName, snippet: 'Start'),
           position: element.locationCoordsStart,
-          icon: destinationIcon));
+          icon: sourceIconTrail));
     });
     // set the route lines on the map from source to destination
     // for more info follow this tutorial
