@@ -26,7 +26,7 @@ class MapPage extends StatefulWidget {
 }
 
 class MapPageState extends State<MapPage> {
-  Completer<GoogleMapController> _controller = Completer();
+ GoogleMapController mapController;
   Set<Marker> _markers = Set<Marker>();
 // for my drawn routes on the map
   Set<Polyline> _polylines = Set<Polyline>();
@@ -42,7 +42,6 @@ class MapPageState extends State<MapPage> {
 // a reference to the destination location
   geo.Position destinationLocation;
 // wrapper around the location API
-  Location location;
   double pinPillPosition = -100;
   PinInformation currentlySelectedPin = PinInformation(
       pinPath: '',
@@ -57,12 +56,18 @@ class MapPageState extends State<MapPage> {
   GoogleMapController _controller2;
 
   List<Marker> allMarkers = [];
-geo.Geolocator geolocator = new geo.Geolocator();
+  geo.Geolocator geolocator = new geo.Geolocator();
   PageController _pageController;
   geo.Position thisTrailStart;
   geo.Position thisTrailFinish;
   int prevPage;
-  bool showTrailOnMap = false;
+  bool _showTrailOnMap = false;
+  void showTrails() {
+    setState(() {
+      _showTrailOnMap = !_showTrailOnMap;
+    });
+  }
+
 ////////////////////////////////////////////////////
   @override
   void initState() {
@@ -72,16 +77,12 @@ geo.Geolocator geolocator = new geo.Geolocator();
       ..addListener(_onScroll);
     //////////////////////////////////////////////////////////////////////////
     // create an instance of Location
-    location = new Location();
     polylinePoints = PolylinePoints();
-  currentLocation = geo.Position.fromMap({
-      "latitude": 40.581979,
-      "longitude":  -8.080434
-    });
+    currentLocation =
+        geo.Position.fromMap({"latitude": 40.581979, "longitude": -8.080434});
     // subscribe to changes in the user's location
     // by "listening" to the location's onLocationChanged event
     geolocator.getPositionStream().listen((position) {
-
       print('Accuracy = ${position.accuracy}');
       print('Altitude = ${position.altitude}');
       print('Speed = ${position.speed}');
@@ -91,10 +92,10 @@ geo.Geolocator geolocator = new geo.Geolocator();
       print('Lat = ${position.latitude}');
       print('Long = ${position.longitude}');
       print("------------------------");
-  currentLocation = position;
-   updatePinOnMap();
-});
-    
+      currentLocation = position;
+      updatePinOnMap();
+    });
+
     // set custom marker pins
     setSourceAndDestinationIcons();
     // set the initial location
@@ -103,9 +104,9 @@ geo.Geolocator geolocator = new geo.Geolocator();
 
   ////////////////////////////////////////////////////////////////////////////////////////
   void _onScroll() {
-    if (_pageController.page.toInt() != prevPage) {
+    if (_pageController.page.toInt() != prevPage && _showTrailOnMap) {
       prevPage = _pageController.page.toInt();
-      _polylines.clear();
+      polylineCoordinates.clear();
       setPolylinesTrails(
           trails[_pageController.page.toInt()].locationCoordsStart,
           trails[_pageController.page.toInt()].locationCoordsFinish);
@@ -114,7 +115,7 @@ geo.Geolocator geolocator = new geo.Geolocator();
   }
 
   moveCamera() {
-    _controller2.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
+    mapController.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
         target: trails[_pageController.page.toInt()].locationCoordsStart,
         zoom: 14.0,
         bearing: 45.0,
@@ -147,7 +148,7 @@ geo.Geolocator geolocator = new geo.Geolocator();
     print('getPosition() calling Geolocator.getCurrentPosition()');
     print('getPosition() got position=$currentLocation');
     // hard-coded destination for this example
-    
+
     destinationLocation = geo.Position.fromMap({
       "latitude": DEST_LOCATION.latitude,
       "longitude": DEST_LOCATION.longitude
@@ -155,200 +156,175 @@ geo.Geolocator geolocator = new geo.Geolocator();
   }
 
   _trailsList(index) {
-    if (showTrailOnMap) {
-      return AnimatedBuilder(
-        animation: _pageController,
-        builder: (BuildContext context, Widget widget) {
-          double value = 1;
-          if (_pageController.position.haveDimensions) {
-            value = _pageController.page - index;
-            value = (1 - (value.abs() * 0.3) + 0.06).clamp(0.0, 1.0);
-          }
-          return Center(
-            child: SizedBox(
-              height: Curves.easeInOut.transform(value) * 525.0,
-              width: Curves.easeInOut.transform(value) * 400.0,
-              child: widget,
-            ),
-          );
-        },
-        child: InkWell(
-          onTap: () {
-            //moveCamera();
-          },
-          child: Stack(children: [
-            Center(
-              child: Container(
-                margin:
-                    const EdgeInsets.symmetric(horizontal: 15.0, vertical: 1.0),
-                height: 210.0,
-                width: 325.0,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(15.0),
-                  child: Stack(
-                    children: <Widget>[
-                      Positioned(
-                        top: -60.0,
-                        child: Image.asset(
-                          trails[index].thumbNail,
-                          fit: BoxFit.cover,
-                          width: 325,
-                          height: 210,
-                          alignment: Alignment.center,
-                        ),
+    return Visibility(
+        visible: _showTrailOnMap,
+        child: Stack(children: [
+          Center(
+            child: Container(
+              margin:
+                  const EdgeInsets.symmetric(horizontal: 15.0, vertical: 1.0),
+              height: 210.0,
+              width: 325.0,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(15.0),
+                child: Stack(
+                  children: <Widget>[
+                    Positioned(
+                      top: -60.0,
+                      child: Image.asset(
+                        trails[index].thumbNail,
+                        fit: BoxFit.cover,
+                        width: 325,
+                        height: 210,
+                        alignment: Alignment.center,
                       ),
-                      Positioned(
-                        bottom: 49,
-                        left: 0,
-                        right: 0,
-                        child: Container(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 9.0, vertical: 15.0),
-                          decoration: BoxDecoration(
-                            color: Color.fromRGBO(0, 0, 0, 0.6),
-                            borderRadius: BorderRadius.only(
-                              topRight: Radius.circular(15),
-                            ),
+                    ),
+                    Positioned(
+                      bottom: 49,
+                      left: 0,
+                      right: 0,
+                      child: Container(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 9.0, vertical: 15.0),
+                        decoration: BoxDecoration(
+                          color: Color.fromRGBO(0, 0, 0, 0.6),
+                          borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(15),
                           ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 2, left: 4.0, bottom: 6.0),
-                                    child: Text(trails[index].trailName,
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            fontSize: 17,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.white)),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: <Widget>[
-                                      Row(
-                                        children: <Widget>[
-                                          RadiantGradientMask(
-                                            child: Icon(
-                                              Icons.alarm,
-                                              size: 16,
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                left: 4.0),
-                                            child: Text(
-                                              "54 min",
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: 14,
-                                                letterSpacing: 0.0,
-                                                color: Colors.white,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Row(
-                                        children: <Widget>[
-                                          RadiantGradientMask(
-                                            child: Icon(
-                                              Icons.assistant_photo,
-                                              size: 16,
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                left: 4.0),
-                                            child: Text(
-                                              "1324 m",
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: 14,
-                                                letterSpacing: 0.0,
-                                                color: Colors.white,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Row(
-                                        children: <Widget>[
-                                          RadiantGradientMask(
-                                            child: Icon(
-                                              Icons.av_timer,
-                                              size: 16,
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                left: 4.0),
-                                            child: Text(
-                                              "32 km/h",
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: 14,
-                                                letterSpacing: 0.0,
-                                                color: Colors.white,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: <Widget>[
-                                      Padding(
-                                        padding:
-                                            const EdgeInsets.only(left: 20.0),
-                                        child: Text(
-                                          "22 Nov, 2019",
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: 14,
-                                            letterSpacing: 0.0,
-                                            decoration:
-                                                TextDecoration.underline,
-                                            color:
-                                                Colors.white.withOpacity(0.6),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      top: 2, left: 4.0, bottom: 6.0),
+                                  child: Text(trails[index].trailName,
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontSize: 17,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white)),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: <Widget>[
+                                    Row(
+                                      children: <Widget>[
+                                        RadiantGradientMask(
+                                          child: Icon(
+                                            Icons.alarm,
+                                            size: 16,
+                                            color: Colors.white,
                                           ),
                                         ),
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(left: 4.0),
+                                          child: Text(
+                                            "54 min",
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 14,
+                                              letterSpacing: 0.0,
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: <Widget>[
+                                        RadiantGradientMask(
+                                          child: Icon(
+                                            Icons.assistant_photo,
+                                            size: 16,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(left: 4.0),
+                                          child: Text(
+                                            "1324 m",
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 14,
+                                              letterSpacing: 0.0,
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: <Widget>[
+                                        RadiantGradientMask(
+                                          child: Icon(
+                                            Icons.av_timer,
+                                            size: 16,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(left: 4.0),
+                                          child: Text(
+                                            "32 km/h",
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 14,
+                                              letterSpacing: 0.0,
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: <Widget>[
+                                    Padding(
+                                      padding:
+                                          const EdgeInsets.only(left: 20.0),
+                                      child: Text(
+                                        "22 Nov, 2019",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 14,
+                                          letterSpacing: 0.0,
+                                          decoration: TextDecoration.underline,
+                                          color: Colors.white.withOpacity(0.6),
+                                        ),
                                       ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
-                      )
-                    ],
-                  ),
+                      ),
+                    )
+                  ],
                 ),
               ),
             ),
-          ]),
-        ),
-      );
-    }
+          ),
+        ]));
   }
 
   @override
@@ -372,24 +348,18 @@ geo.Geolocator geolocator = new geo.Geolocator();
           GoogleMap(
               myLocationEnabled: true,
               compassEnabled: true,
-              tiltGesturesEnabled: false,
+              tiltGesturesEnabled: true,
               markers: _markers,
               polylines: _polylines,
               mapType: MapType.satellite,
               initialCameraPosition: initialCameraPosition,
               onMapCreated: (GoogleMapController controller) {
-                _controller.complete(controller);
-                // my map has completed being created;
-                // i'm ready to show the pins on the map
+                mapController = controller;
                 showPinsOnMap();
               },
               onTap: (LatLng loc) {
                 pinPillPosition = -100;
               }),
-          /*MapPinPillComponent(
-              pinPillPosition: pinPillPosition,
-              currentlySelectedPin: currentlySelectedPin),*/
-
           Positioned(
             bottom: 20.0,
             child: Container(
@@ -405,25 +375,24 @@ geo.Geolocator geolocator = new geo.Geolocator();
             ),
           ),
           Positioned(
-              left: (MediaQuery.of(context).size.width) / 2 - 60,
-              bottom: showTrailOnMap ? 220 : 60,
+              left: (MediaQuery.of(context).size.width) / 2 - 68,
+              bottom: _showTrailOnMap ? 230 : 65,
               child: ButtonTheme(
                 height: 50.0,
                 minWidth: 100.0,
                 child: FlatButton.icon(
-          color: Colors.blue,
-          icon: Icon(showTrailOnMap ? Icons.keyboard_arrow_down : Icons.keyboard_arrow_up), //`Icon` to display
-          label: Text(showTrailOnMap ? 'Hide Trails' : 'Show trails'), //`Text` to display
-          shape: RoundedRectangleBorder(
+                  color: Colors.blue,
+                  icon: Icon(
+                      _showTrailOnMap
+                          ? Icons.keyboard_arrow_down
+                          : Icons.keyboard_arrow_up,
+                      color: Colors.white),
+                  label: Text(_showTrailOnMap ? 'Hide Trails' : 'Show Trails',
+                      style: BodyStyles.white),
+                  shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(50.0)),
-
                   ),
-          onPressed: () {
-                    if (showTrailOnMap)
-                      showTrailOnMap = false;
-                    else
-                      showTrailOnMap = true;
-                  },
+                  onPressed: showTrails,
                 ),
               )),
           Positioned(
@@ -541,7 +510,7 @@ geo.Geolocator geolocator = new geo.Geolocator();
         _polylines.add(Polyline(
             width: 5, // set the width of the polylines
             polylineId: PolylineId("poly"),
-            color: Color.fromARGB(255, 255, 0, 0),
+            color: Color.fromARGB(125, 255, 0, 0),
             points: polylineCoordinates));
       });
     }
@@ -558,8 +527,9 @@ geo.Geolocator geolocator = new geo.Geolocator();
       target: LatLng(currentLocation.latitude, currentLocation.longitude),
     );
     try {
-      final GoogleMapController controller = await _controller.future;
-      controller.animateCamera(CameraUpdate.newCameraPosition(cPosition));
+      if(_showTrailOnMap == false){
+        mapController.animateCamera(CameraUpdate.newCameraPosition(cPosition));
+      }
       // do this inside the setState() so Flutter gets notified
       // that a widget update is due
 
@@ -770,3 +740,54 @@ class RadiantGradientMask extends StatelessWidget {
     );
   }
 }
+// FOR LATER DISTANCE CALCULATION
+/*import 'dart:math' show cos, sqrt, asin;
+void main() {
+  double calculateDistance(lat1, lon1, lat2, lon2){
+    var p = 0.017453292519943295;
+    var c = cos;
+    var a = 0.5 - c((lat2 - lat1) * p)/2 + 
+          c(lat1 * p) * c(lat2 * p) * 
+          (1 - c((lon2 - lon1) * p))/2;
+    return 12742 * asin(sqrt(a));
+  }
+  List<dynamic> data = [
+    {
+      "lat": 44.968046,
+      "lng": -94.420307
+    },{
+      "lat": 44.33328,
+      "lng": -89.132008
+    },{
+      "lat": 33.755787,
+      "lng": -116.359998
+    },{
+      "lat": 33.844843,
+      "lng": -116.54911
+    },{
+      "lat": 44.92057,
+      "lng": -93.44786
+    },{
+      "lat": 44.240309,
+      "lng": -91.493619
+    },{
+      "lat": 44.968041,
+      "lng": -94.419696
+    },{
+      "lat": 44.333304,
+      "lng": -89.132027
+    },{
+      "lat": 33.755783,
+      "lng": -116.360066
+    },{
+      "lat": 33.844847,
+      "lng": -116.549069
+    },
+  ];
+  double totalDistance = 0;
+  for(var i = 0; i < data.length-1; i++){
+    totalDistance += calculateDistance(data[i]["lat"], data[i]["lng"], data[i+1]["lat"], data[i+1]["lng"]);
+  }
+  print(totalDistance);
+}
+*/
