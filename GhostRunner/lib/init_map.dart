@@ -71,6 +71,7 @@ class MapPageState extends State<MapPage> {
   List<Polyline> polylinesForDistance = [];
   List<LatLng> polylineCoordinates = [];
   PolylinePoints polylinePoints;
+   PolylinePoints points;
   String googleAPIKey = 'AIzaSyD4Qdvrk2evUhs_EeBG9jVAPAMaya43yrs';
 // for my custom marker pins
   BitmapDescriptor sourceIcon;
@@ -142,6 +143,7 @@ class MapPageState extends State<MapPage> {
     //////////////////////////////////////////////////////////////////////////
     // create an instance of Location
     polylinePoints = PolylinePoints();
+    points = PolylinePoints();
     currentLocation =
         geo.Position.fromMap({"latitude": 40.581979, "longitude": -8.080434});
     // subscribe to changes in the user's location
@@ -180,7 +182,8 @@ class MapPageState extends State<MapPage> {
       polylineCoordinates.clear();
       setPolylinesTrails(
           trails[_pageController.page.toInt()].locationCoordsStart,
-          trails[_pageController.page.toInt()].locationCoordsFinish);
+          trails[_pageController.page.toInt()].locationCoordsFinish,
+          trails[_pageController.page.toInt()].trailID);
       _markers.add(Marker(
           markerId: MarkerId("finish"),
           draggable: false,
@@ -194,7 +197,8 @@ class MapPageState extends State<MapPage> {
   void _showFirstTrail() {
       setPolylinesTrails(
           trails[_pageController.page.toInt()].locationCoordsStart,
-          trails[_pageController.page.toInt()].locationCoordsFinish);
+          trails[_pageController.page.toInt()].locationCoordsFinish,
+          trails[_pageController.page.toInt()].trailID);
       _markers.add(Marker(
           markerId: MarkerId("finish"),
           draggable: false,
@@ -350,7 +354,7 @@ class MapPageState extends State<MapPage> {
                                           padding:
                                               const EdgeInsets.only(left: 4.0),
                                           child: Text(
-                                            trails[index].distance,
+                                            trails[index].distance+"km",
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                               fontWeight: FontWeight.w500,
@@ -731,9 +735,6 @@ startOrStopWatch() {
         },
         icon: sourceIcon));
     trails.forEach((element) {
-      element.distance = "x";
-      //getDistance(polylinesForDistance[element.trailID].points).toString();
-      
       _markers.add(Marker(
           markerId: MarkerId(element.trailName),
           draggable: false,
@@ -744,7 +745,7 @@ startOrStopWatch() {
     });
   }
 
-  void setPolylinesTrails(LatLng start, LatLng finish) async {
+  void setPolylinesTrails(LatLng start, LatLng finish, int id) async {
     List<PointLatLng> result = await polylinePoints.getRouteBetweenCoordinates(
         googleAPIKey,
         start.latitude,
@@ -756,13 +757,8 @@ startOrStopWatch() {
       result.forEach((PointLatLng point) {
         polylineCoordinates.add(LatLng(point.latitude, point.longitude));
       });
-   
+   trails[id].distance = getDistance(polylineCoordinates).toStringAsFixed(3);
       setState(() {
-        polylinesForDistance.add(Polyline(
-            width: 5, // set the width of the polylines
-            polylineId: PolylineId("poly"),
-            color: Color.fromARGB(125, 0, 0, 255),
-            points: polylineCoordinates));
         _polylines.add(Polyline(
             width: 5, // set the width of the polylines
             polylineId: PolylineId("poly"),

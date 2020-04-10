@@ -40,7 +40,7 @@ final List<Trail> trails = [
       thumbNail: 'assets/1.png',
       duration: '53min',
       velocity: '5km/h',
-      distance: '5222m',
+      distance: '0',
       date: '15/04/2020',
       ),
   Trail(
@@ -54,7 +54,7 @@ final List<Trail> trails = [
       thumbNail: 'assets/2.png',
       duration: '53min',
       velocity: '5km/h',
-      distance: '5222m',
+      distance: '0',
       date: '15/04/2020',
       ),
   Trail(
@@ -68,7 +68,7 @@ final List<Trail> trails = [
       thumbNail: 'assets/3.png',
       duration: '53min',
       velocity: '5km/h',
-      distance: '5222m',
+      distance: '0',
       date: '15/04/2020',
       ),
   Trail(
@@ -82,7 +82,7 @@ final List<Trail> trails = [
       thumbNail: 'assets/1.png',
       duration: '53min',
       velocity: '5km/h',
-      distance: '5222m',
+      distance: '0',
       date: '15/04/2020',
       ),
   Trail(
@@ -96,7 +96,7 @@ final List<Trail> trails = [
       thumbNail: 'assets/2.png',
       duration: '53min',
       velocity: '5km/h',
-      distance: '5222m',
+      distance: '0',
       date: '15/04/2020',
       )
 ];
