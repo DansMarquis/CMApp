@@ -105,6 +105,12 @@ class MapPageState extends State<MapPage> {
   void showTrails() {
     setState(() {
       _showTrailOnMap = !_showTrailOnMap;
+      if(_showTrailOnMap){
+        _onScroll();
+      }
+      else{
+        _hideTrails();
+      }
     });
   }
 
@@ -181,6 +187,13 @@ class MapPageState extends State<MapPage> {
           icon: destinationIcon));
       moveCamera();
     }
+  }
+  void _hideTrails() {
+      _markers.removeWhere((m) => m.markerId.value == 'finish');
+      prevPage = _pageController.page.toInt();
+      polylineCoordinates.clear();
+      
+    
   }
 
   moveCamera() {
@@ -517,6 +530,7 @@ class MapPageState extends State<MapPage> {
                 ),
               ))
               ),
+              
               Visibility(
                 visible: (!_showTrailOnMap && !_showTimer),
                 child:
