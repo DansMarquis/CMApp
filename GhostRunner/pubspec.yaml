@@ -28,6 +28,8 @@ dependencies:
   shared_preferences: ^0.5.3
   url_launcher: ^5.2.4
   uuid: ^2.0.4
+  image_picker: ^0.6.4
+  firebase_storage: ^3.1.5
 
   great_circle_distance:
     git:

@@ -255,7 +255,7 @@ class _MyOnboardingPageState extends State<MyOnboardingPage> {
                         borderRadius: BorderRadius.all(Radius.circular(50.0)),
                       ),
                       onPressed: () async {
-                        Firestore.instance.collection("users").document().setData({'name' : 'Daniel'});
+                        //Firestore.instance.collection("users").document().setData({'name' : 'Daniel'});
                         widget.helper.setBool('isFirstLaunchChat', false);
                         widget.helper.setString('uuid', widget.identity);
 

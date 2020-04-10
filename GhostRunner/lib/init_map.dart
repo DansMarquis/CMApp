@@ -9,6 +9,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'models/pin_pill_info.dart';
 import 'trail_model.dart';
 import 'package:ghostrunner/utils/text_styles.dart';
+import 'global.dart' as global;
+import 'ui/widgets/trailForm.dart';
 
 const double CAMERA_ZOOM = 16;
 const double CAMERA_TILT = 80;
@@ -84,7 +86,7 @@ class MapPageState extends State<MapPage> {
     // subscribe to changes in the user's location
     // by "listening" to the location's onLocationChanged event
     geolocator.getPositionStream().listen((position) {
-      print('Accuracy = ${position.accuracy}');
+      /*print('Accuracy = ${position.accuracy}');
       print('Altitude = ${position.altitude}');
       print('Speed = ${position.speed}');
       print('SpeedAccuracy = ${position.speedAccuracy}');
@@ -92,9 +94,13 @@ class MapPageState extends State<MapPage> {
       print('Timestamp = ${position.timestamp}');
       print('Lat = ${position.latitude}');
       print('Long = ${position.longitude}');
-      print("------------------------");
+      print("------------------------");*/
       currentLocation = position;
-      updatePinOnMap();
+      if(global.isOnMap == true){
+        updatePinOnMap();
+      }
+        
+    
     });
 
     // set custom marker pins
@@ -159,6 +165,21 @@ class MapPageState extends State<MapPage> {
       "latitude": DEST_LOCATION.latitude,
       "longitude": DEST_LOCATION.longitude
     });
+  }
+
+  void newTrail(){
+
+    trails.add(
+      Trail(
+        trailName: 'Silveirinha',
+        address: '18 W 29th St',
+        description:
+            'Beautiful trail',
+        locationCoordsStart: LatLng(currentLocation.latitude, currentLocation.longitude),
+        locationCoordsFinish: LatLng(40.011490, -8.818760),
+        thumbNail: 'assets/1.png'
+      )
+    );
   }
 
   _trailsList(index) {
@@ -382,7 +403,7 @@ class MapPageState extends State<MapPage> {
           ),
           Positioned(
               left: (MediaQuery.of(context).size.width) / 2 - 68,
-              bottom: _showTrailOnMap ? 230 : 65,
+              bottom: _showTrailOnMap ? 230 : 85,
               child: ButtonTheme(
                 height: 50.0,
                 minWidth: 100.0,
@@ -401,6 +422,33 @@ class MapPageState extends State<MapPage> {
                   onPressed: showTrails,
                 ),
               )),
+              Visibility(
+                visible: !_showTrailOnMap,
+                child:
+                Positioned(
+                right: 0.0,
+                bottom: 85,
+                child: RawMaterialButton(
+                          onPressed: () {
+                            Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => NewTrailPage()
+                            ),
+                            (Route<dynamic> route) => false);
+                          },
+                          child: Icon(
+                            Icons.add,
+                            color: Colors.white,
+                            size: 35.0,
+                          ),
+                          shape: CircleBorder(),
+                          elevation: 2.0,
+                          fillColor: Colors.blue,
+                          padding: const EdgeInsets.all(15.0),
+                        ),
+                )
+              ),
           Positioned(
             bottom: 0,
             height: 70,
@@ -522,7 +570,7 @@ class MapPageState extends State<MapPage> {
     }
   }
 
-  void updatePinOnMap() async {
+  void updatePinOnMap() async{
     // create a new CameraPosition instance
     // every time the location changes, so the camera
     // follows the pin as it moves with an animation
@@ -534,7 +582,7 @@ class MapPageState extends State<MapPage> {
     );
     try {
       if(_showTrailOnMap == false){
-        mapController.animateCamera(CameraUpdate.newCameraPosition(cPosition));
+          mapController.animateCamera(CameraUpdate.newCameraPosition(cPosition));
       }
       // do this inside the setState() so Flutter gets notified
       // that a widget update is due
@@ -746,6 +794,9 @@ class RadiantGradientMask extends StatelessWidget {
     );
   }
 }
+
+
+
 // FOR LATER DISTANCE CALCULATION
 /*import 'dart:math' show cos, sqrt, asin;
 void main() {

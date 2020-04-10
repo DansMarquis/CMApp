@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ghostrunner/ui/screens/home.dart';
 import 'package:ghostrunner/ui/widgets/mybottomnavbaritem.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import '../../global.dart' as global;
 import '../../init_map.dart';
 
 class MyBottomNavBar extends StatefulWidget {
@@ -32,6 +32,7 @@ class _MyBottomNavBarState extends State<MyBottomNavBar> {
           icon: Icons.home,
           text: "Home",
           function: () {
+            global.isOnMap = false;
             Navigator.pushAndRemoveUntil(
                             context,
                             MaterialPageRoute(
@@ -51,6 +52,7 @@ class _MyBottomNavBarState extends State<MyBottomNavBar> {
           icon: Icons.map,
           text: "Map",
           function: () {
+            global.isOnMap = true;
             Navigator.pushAndRemoveUntil(
                             context,
                             MaterialPageRoute(

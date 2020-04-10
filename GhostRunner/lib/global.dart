@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+bool isOnMap = false;
+
 class MyColors {
   static Color darkBlue = Color(0xff2446a6),
       lightBlue = Color(0xff3a5fc8),
@@ -7,6 +9,8 @@ class MyColors {
       red = Color(0xfffa9d85),
       reder= Color(0xff992d2b);
 }
+
+
 
 class User {
   static String fullname = "Cybdom Tech",
