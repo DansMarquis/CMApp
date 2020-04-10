@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:ghostrunner/ui/screens/home.dart';
 import 'package:ghostrunner/ui/widgets/mybottomnavbaritem.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter/rendering.dart';
+import 'package:ghostrunner/classes/dependencies.dart';
 import '../../global.dart' as global;
 import '../../init_map.dart';
 
@@ -20,6 +22,7 @@ class MyBottomNavBar extends StatefulWidget {
 }
 
 class _MyBottomNavBarState extends State<MyBottomNavBar> {
+   final Dependencies dependencies = new Dependencies();
   int _active = 0;
   @override
   Widget build(BuildContext context) {
@@ -58,7 +61,8 @@ class _MyBottomNavBarState extends State<MyBottomNavBar> {
                             MaterialPageRoute(
                                 builder: (context) => MapPage(
                                   helper: widget.helper,
-                                    identity: widget.identity
+                                    identity: widget.identity,
+                                    dependencies: dependencies
                                     )),
                             (Route<dynamic> route) => false);
             setState(() {
