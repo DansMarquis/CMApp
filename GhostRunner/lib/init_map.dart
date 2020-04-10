@@ -39,10 +39,10 @@ class MapPage extends StatefulWidget {
 
 class MapPageState extends State<MapPage> {
   //SPEEDOMETER
-  double _lowerValue = 20.0;
-  double _upperValue = 40.0;
+  double _lowerValue = 5.0;
+  double _upperValue = 15.0;
   int start = 0;
-  int end = 60;
+  int end = 20;
   
   int counter = 0;
   
@@ -90,6 +90,7 @@ class MapPageState extends State<MapPage> {
       labelColor: Colors.grey);
   PinInformation sourcePinInfo;
   PinInformation destinationPinInfo;
+  double _currentTrailDistance = 0;
   ///////////////////////////////////////////
 
   GoogleMapController _controller2;
@@ -155,6 +156,7 @@ class MapPageState extends State<MapPage> {
       print('Long = ${position.longitude}');
       print("------------------------");
       currentLocation = position;
+      //position.speed
       new Timer.periodic(oneSec, (Timer t) => eventObservable.add(position.speed));
       if(global.isOnMap == true){
         updatePinOnMap();
@@ -636,7 +638,7 @@ class MapPageState extends State<MapPage> {
                       padding: new EdgeInsets.all(140.0),
                       child: new SpeedOMeter(start:start, end:end, highlightStart:(_lowerValue/end), highlightEnd:(_upperValue/end), themeData:somTheme, eventObservable: this.eventObservable),
                   ),
-          ) : Text("data"),
+          ) : Text(""),
           
          
     
@@ -728,6 +730,8 @@ startOrStopWatch() {
         },
         icon: sourceIcon));
     trails.forEach((element) {
+      
+      element.distance = getPolylineCoords(element.locationCoordsStart,element.locationCoordsFinish).toString();
       _markers.add(Marker(
           markerId: MarkerId(element.trailName),
           draggable: false,
@@ -750,7 +754,7 @@ startOrStopWatch() {
       result.forEach((PointLatLng point) {
         polylineCoordinates.add(LatLng(point.latitude, point.longitude));
       });
-
+   
       setState(() {
         _polylines.add(Polyline(
             width: 5, // set the width of the polylines
@@ -760,7 +764,39 @@ startOrStopWatch() {
       });
     }
   }
+  Future<double> getPolylineCoords(LatLng start, LatLng finish) async {
+    PolylinePoints points;
+   List<LatLng> polys = [];
+    List<PointLatLng> result = await points.getRouteBetweenCoordinates(
+        googleAPIKey,
+        start.latitude,
+        start.longitude,
+        finish.latitude,
+        finish.longitude);
 
+    if (result.isNotEmpty) {
+      result.forEach((PointLatLng point) {
+        polys.add(LatLng(point.latitude, point.longitude));
+      });
+    }
+    return getDistance(polys);
+  }
+  double calculateDistance(lat1, lon1, lat2, lon2){
+    var p = 0.017453292519943295;
+    var c = cos;
+    var a = 0.5 - c((lat2 - lat1) * p)/2 + 
+          c(lat1 * p) * c(lat2 * p) * 
+          (1 - c((lon2 - lon1) * p))/2;
+    return 12742 * asin(sqrt(a));
+  }
+  double getDistance(List<LatLng> polylineCoordinates){
+
+  double totalDistance = 0;
+    for(var i = 0; i < polylineCoordinates.length-1; i++){
+      totalDistance += calculateDistance(polylineCoordinates[i].latitude, polylineCoordinates[i].longitude, polylineCoordinates[i+1].latitude, polylineCoordinates[i+1].longitude);
+    }
+    return totalDistance;
+  }
 
   void updatePinOnMap() async{
     // create a new CameraPosition instance

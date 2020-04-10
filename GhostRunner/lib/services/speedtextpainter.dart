@@ -39,21 +39,13 @@ class SpeedTextPainter extends CustomPainter {
         // drawing
         canvas.translate(radius, radius);
         for (var i = 0; i < 60; i++) {
-            //make the length and stroke of the tick marker longer and thicker depending
-            tickMarkLength = i % 5 == 0 && !(i < 41 && i > 19)
-                ? hourTickMarkLength
-                : minuteTickMarkLength;
-            tickPaint.strokeWidth = i % 5 == 0 && !(i < 41 && i > 19)
-                ? hourTickMarkWidth
-                : minuteTickMarkWidth;
-            canvas.drawLine(new Offset(0.0, -radius - 20),
-                new Offset(0.0, -radius - 20 + tickMarkLength), tickPaint);
+           
             
             //draw the text
-            if (i == 40 || i == 20) {
-                String label = i == 40 ? start.toString() : this.end.toString();
+            if (i == 15 || i == 5) {
+                String label = i == 15 ? start.toString() : this.end.toString();
                 canvas.save();
-                canvas.translate(i == 40 ? -20.0 : 20.0, -radius + 50.0);
+                canvas.translate(i == 15 ? -20.0 : 20.0, -radius + 50.0);
                 
                 textPainter.text = new TextSpan(
                     text: label,
@@ -72,7 +64,7 @@ class SpeedTextPainter extends CustomPainter {
             } else if (i == 30) {
                 String label = this.value.toStringAsFixed(1);
                 canvas.save();
-                canvas.translate(0.0, -radius + 50.0);
+                canvas.translate(0.0, -radius + 10.0);
                 
                 textPainter.text = new TextSpan(
                     text: label,

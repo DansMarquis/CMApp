@@ -63,11 +63,10 @@ class _SpeedOMeterState extends State<SpeedOMeter>
     subscription = this.eventObservable.listen((value) {
       textVal = value;
       (value >= this.end) ? reloadData(this.end.toDouble()) : reloadData(value);
-    }); //(value) => reloadData(value));
+    }); 
   }
 
   reloadData(double value) {
-    print(value);
     newVal = value;
     percentageAnimationController.forward(from: 0.0);
   }
@@ -121,8 +120,6 @@ class _SpeedOMeterState extends State<SpeedOMeter>
               ),
             ),
             Positioned(
-              top: 120,
-              left: 40,
               child: new CustomPaint(
                 painter: new SpeedTextPainter(
                   

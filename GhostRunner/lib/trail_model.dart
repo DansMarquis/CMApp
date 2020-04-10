@@ -1,6 +1,7 @@
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class Trail {
+  int trailID;
   String trailName;
   String address;
   String description;
@@ -13,7 +14,9 @@ class Trail {
   String date;
 
   Trail(
-      {this.trailName,
+      {
+      this.trailID,
+      this.trailName,
       this.address,
       this.description,
       this.thumbNail,
@@ -27,6 +30,7 @@ class Trail {
 
 final List<Trail> trails = [
   Trail(
+    trailID: 0,
       trailName: 'Dam Trail',
       address: '18 W 29th St',
       description:
@@ -40,6 +44,7 @@ final List<Trail> trails = [
       date: '15/04/2020',
       ),
   Trail(
+    trailID: 1,
       trailName: 'Andrews Coffee Shop',
       address: '463 7th Ave',
       description:
@@ -53,6 +58,7 @@ final List<Trail> trails = [
       date: '15/04/2020',
       ),
   Trail(
+    trailID: 2,
       trailName: 'Third Rail Coffee',
       address: '240 Sullivan St',
       description:
@@ -66,6 +72,7 @@ final List<Trail> trails = [
       date: '15/04/2020',
       ),
   Trail(
+    trailID: 3,
       trailName: 'Hi-Collar',
       address: '214 E 10th St',
       description:
@@ -79,6 +86,7 @@ final List<Trail> trails = [
       date: '15/04/2020',
       ),
   Trail(
+    trailID: 4,
       trailName: 'Everyman Espresso',
       address: '301 W Broadway',
       description:
