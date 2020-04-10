@@ -661,17 +661,6 @@ startOrStopWatch() {
           });
         },
         icon: sourceIcon));
-    // destination pin
-    _markers.add(Marker(
-        markerId: MarkerId('destPin'),
-        position: destPosition,
-        onTap: () {
-          setState(() {
-            currentlySelectedPin = destinationPinInfo;
-            pinPillPosition = 0;
-          });
-        },
-        icon: destinationIcon));
     trails.forEach((element) {
       _markers.add(Marker(
           markerId: MarkerId(element.trailName),
@@ -681,9 +670,6 @@ startOrStopWatch() {
           position: element.locationCoordsStart,
           icon: sourceIconTrail));
     });
-    // set the route lines on the map from source to destination
-    // for more info follow this tutorial
-    setPolylines();
   }
 
   void setPolylinesTrails(LatLng start, LatLng finish) async {
