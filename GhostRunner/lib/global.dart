@@ -1,6 +1,16 @@
 import 'package:flutter/material.dart';
-
+import 'package:geolocator/geolocator.dart' as geo;
 bool isOnMap = false;
+String trailName;
+String address;
+String description;
+String thumbNail;
+geo.Position locationCoordsStart;
+geo.Position locationCoordsFinish;
+String duration;
+String velocity = '54km/h';
+String distance = '4330m';
+String date;
 
 class MyColors {
   static Color darkBlue = Color(0xff2446a6),

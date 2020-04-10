@@ -11,8 +11,11 @@ import 'package:ghostrunner/utils/text_styles.dart';
 import 'dart:async';
 import 'package:ghostrunner/classes/dependencies.dart';
 import 'package:ghostrunner/widgets/timer_clock.dart';
+import 'package:toast/toast.dart';
 import 'global.dart' as global;
 import 'ui/widgets/trailForm.dart';
+import 'package:intl/intl.dart';
+
 
 const double CAMERA_ZOOM = 16;
 const double CAMERA_TILT = 80;
@@ -85,6 +88,7 @@ class MapPageState extends State<MapPage> {
   geo.Position thisTrailFinish;
   int prevPage;
   bool _showTrailOnMap = false;
+  bool _showTimer = false;
   void showTrails() {
     setState(() {
       _showTrailOnMap = !_showTrailOnMap;
@@ -202,21 +206,6 @@ class MapPageState extends State<MapPage> {
     });
   }
 
-  void newTrail(){
-
-    trails.add(
-      Trail(
-        trailName: 'Silveirinha',
-        address: '18 W 29th St',
-        description:
-            'Beautiful trail',
-        locationCoordsStart: LatLng(currentLocation.latitude, currentLocation.longitude),
-        locationCoordsFinish: LatLng(40.011490, -8.818760),
-        thumbNail: 'assets/1.png'
-      )
-    );
-  }
-
   _trailsList(index) {
     return Visibility(
         visible: _showTrailOnMap,
@@ -291,7 +280,7 @@ class MapPageState extends State<MapPage> {
                                           padding:
                                               const EdgeInsets.only(left: 4.0),
                                           child: Text(
-                                            "54 min",
+                                            trails[index].duration,
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                               fontWeight: FontWeight.w500,
@@ -316,7 +305,7 @@ class MapPageState extends State<MapPage> {
                                           padding:
                                               const EdgeInsets.only(left: 4.0),
                                           child: Text(
-                                            "1324 m",
+                                            trails[index].distance,
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                               fontWeight: FontWeight.w500,
@@ -341,7 +330,7 @@ class MapPageState extends State<MapPage> {
                                           padding:
                                               const EdgeInsets.only(left: 4.0),
                                           child: Text(
-                                            "32 km/h",
+                                            trails[index].velocity,
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                               fontWeight: FontWeight.w500,
@@ -362,7 +351,7 @@ class MapPageState extends State<MapPage> {
                                       padding:
                                           const EdgeInsets.only(left: 20.0),
                                       child: Text(
-                                        "22 Nov, 2019",
+                                        trails[index].date,
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                           fontWeight: FontWeight.w500,
@@ -412,6 +401,7 @@ class MapPageState extends State<MapPage> {
           tilt: CAMERA_TILT,
           bearing: CAMERA_BEARING);
     }
+
     return Scaffold(
       body: Stack(
         children: <Widget>[
@@ -432,7 +422,7 @@ class MapPageState extends State<MapPage> {
                 pinPillPosition = -100;
               }),
                
-          !_showTrailOnMap ? Positioned(
+          (!_showTrailOnMap && _showTimer) ? Positioned(
             top: 30.0,
             child: Container(
           height: 170.0,
@@ -440,7 +430,7 @@ class MapPageState extends State<MapPage> {
           child: TimerClock(widget.dependencies),
         ),
           ) : Text(""),
-           !_showTrailOnMap ? Positioned(
+           (!_showTrailOnMap && _showTimer) ? Positioned(
             top: 190.0,
             left: 20,
             child: Container(
@@ -482,6 +472,9 @@ class MapPageState extends State<MapPage> {
               ),
             ),
           ),
+          Visibility(
+            visible: !_showTimer,
+            child:
           Positioned(
               left: (MediaQuery.of(context).size.width) / 2 - 68,
               bottom: _showTrailOnMap ? 230 : 85,
@@ -502,21 +495,29 @@ class MapPageState extends State<MapPage> {
                   ),
                   onPressed: showTrails,
                 ),
-              )),
+              ))
+              ),
               Visibility(
-                visible: !_showTrailOnMap,
+                visible: (!_showTrailOnMap && !_showTimer),
                 child:
                 Positioned(
                 right: 0.0,
                 bottom: 85,
                 child: RawMaterialButton(
                           onPressed: () {
-                            Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => NewTrailPage()
-                            ),
-                            (Route<dynamic> route) => false);
+                            Toast.show("NEW TRAIL STARTED!", context, duration: Toast.LENGTH_LONG, gravity:  Toast.CENTER);
+                            global.locationCoordsStart = currentLocation;
+                             _showTimer = true;
+                            leftButtonIcon = Icon(Icons.pause);
+                            leftButtonColor = Colors.red;
+                            rightButtonIcon = Icon(
+                              Icons.fiber_manual_record,
+                              color: Colors.red,);
+                            rightButtonColor = Colors.white70;
+                            widget.dependencies.stopwatch.start();
+                            timer = new Timer.periodic(new Duration(milliseconds: 20), updateTime);
+                             
+                    
                           },
                           child: Icon(
                             Icons.add,
@@ -548,6 +549,8 @@ class MapPageState extends State<MapPage> {
       ),
     );
   }
+
+
 startOrStopWatch() {
     if (widget.dependencies.stopwatch.isRunning) {
       leftButtonIcon = Icon(Icons.play_arrow);
@@ -576,6 +579,18 @@ startOrStopWatch() {
             0,
             widget.dependencies.transformMilliSecondsToString(
                 widget.dependencies.stopwatch.elapsedMilliseconds));
+        widget.dependencies.stopwatch.reset();
+        _showTimer = false;
+        global.locationCoordsFinish = currentLocation;
+        global.duration = widget.dependencies.savedTimeList[0];
+        DateTime now = DateTime.now();
+        global.date = DateFormat('yyyy-MM-dd – kk:mm').format(now);
+        Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => NewTrailPage()
+                            ),
+                            (Route<dynamic> route) => false);
       } else {
         widget.dependencies.stopwatch.reset();
         widget.dependencies.savedTimeList.clear();

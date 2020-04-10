@@ -4,7 +4,12 @@ import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:ghostrunner/utils/text_styles.dart';
+import 'package:ghostrunner/classes/dependencies.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:ghostrunner/ui/screens/home.dart';
 import '../../init_map.dart';
+import '../../global.dart' as global;
+import '../../trail_model.dart';
 class NewTrailPage extends StatefulWidget {
   @override
   _NewTrailPageState createState() => _NewTrailPageState();
@@ -37,6 +42,24 @@ class _NewTrailPageState extends State<NewTrailPage>{
           Scaffold.of(context).showSnackBar(SnackBar(content: Text('Picture Uploaded')));
        });
     }
+
+    void newTrail(){
+      trails.add(
+        Trail(
+          trailName: global.trailName,
+          address: global.address,
+          description:
+              global.description,
+          locationCoordsStart: LatLng(global.locationCoordsStart.latitude, global.locationCoordsStart.longitude),
+          locationCoordsFinish: LatLng(global.locationCoordsFinish.latitude, global.locationCoordsFinish.longitude),
+          duration: global.duration,
+          velocity: global.velocity,
+          distance: global.distance,
+          date: global.date,
+          thumbNail: 'assets/1.png'
+        )
+      );
+  }
     
     return Scaffold(
       resizeToAvoidBottomPadding: false,
@@ -47,7 +70,7 @@ class _NewTrailPageState extends State<NewTrailPage>{
                         Navigator.pushAndRemoveUntil(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => MapPage(
+                                builder: (context) => HomeScreen(
                                     )),
                             (Route<dynamic> route) => false);
           }),            
@@ -137,7 +160,7 @@ class _NewTrailPageState extends State<NewTrailPage>{
                             width:300,
                             child:   TextField(
                                     onChanged:(String value){
-     
+                                      global.trailName = value;
                                     },
                                   decoration: InputDecoration(
                                     border: OutlineInputBorder(),
@@ -175,6 +198,9 @@ class _NewTrailPageState extends State<NewTrailPage>{
                             Container(
                             width:300,
                             child:   TextField(
+                                    onChanged:(String value){
+                                      global.address = value;
+                                    },
                                   decoration: InputDecoration(
                                     border: OutlineInputBorder(),
                                     hintText: 'Ex: r do deti'
@@ -211,6 +237,9 @@ class _NewTrailPageState extends State<NewTrailPage>{
                             Container(
                             width:300,
                             child:   TextField(
+                                    onChanged:(String value){
+                                      global.description = value;
+                                    },
                                   decoration: InputDecoration(
                                     border: OutlineInputBorder(),
                                     hintText: 'Ex: Beautifull trail'
@@ -245,6 +274,14 @@ class _NewTrailPageState extends State<NewTrailPage>{
                         ),
                         onPressed: () {
                           uploadPic(context);
+                          newTrail();
+                            Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => HomeScreen(
+                                    )),
+                            (Route<dynamic> route) => false);
+
                         }
                       ),
               )   
