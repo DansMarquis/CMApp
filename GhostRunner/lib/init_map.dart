@@ -68,6 +68,7 @@ class MapPageState extends State<MapPage> {
   Set<Marker> _markers = Set<Marker>();
 // for my drawn routes on the map
   Set<Polyline> _polylines = Set<Polyline>();
+  List<Polyline> polylinesForDistance = [];
   List<LatLng> polylineCoordinates = [];
   PolylinePoints polylinePoints;
   String googleAPIKey = 'AIzaSyD4Qdvrk2evUhs_EeBG9jVAPAMaya43yrs';
@@ -730,8 +731,9 @@ startOrStopWatch() {
         },
         icon: sourceIcon));
     trails.forEach((element) {
+      element.distance = "x";
+      //getDistance(polylinesForDistance[element.trailID].points).toString();
       
-      element.distance = getPolylineCoords(element.locationCoordsStart,element.locationCoordsFinish).toString();
       _markers.add(Marker(
           markerId: MarkerId(element.trailName),
           draggable: false,
@@ -756,6 +758,11 @@ startOrStopWatch() {
       });
    
       setState(() {
+        polylinesForDistance.add(Polyline(
+            width: 5, // set the width of the polylines
+            polylineId: PolylineId("poly"),
+            color: Color.fromARGB(125, 0, 0, 255),
+            points: polylineCoordinates));
         _polylines.add(Polyline(
             width: 5, // set the width of the polylines
             polylineId: PolylineId("poly"),
@@ -764,23 +771,7 @@ startOrStopWatch() {
       });
     }
   }
-  Future<double> getPolylineCoords(LatLng start, LatLng finish) async {
-    PolylinePoints points;
-   List<LatLng> polys = [];
-    List<PointLatLng> result = await points.getRouteBetweenCoordinates(
-        googleAPIKey,
-        start.latitude,
-        start.longitude,
-        finish.latitude,
-        finish.longitude);
-
-    if (result.isNotEmpty) {
-      result.forEach((PointLatLng point) {
-        polys.add(LatLng(point.latitude, point.longitude));
-      });
-    }
-    return getDistance(polys);
-  }
+ 
   double calculateDistance(lat1, lon1, lat2, lon2){
     var p = 0.017453292519943295;
     var c = cos;
