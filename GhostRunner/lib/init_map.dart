@@ -15,6 +15,10 @@ import 'package:toast/toast.dart';
 import 'global.dart' as global;
 import 'ui/widgets/trailForm.dart';
 import 'package:intl/intl.dart';
+import 'dart:async';
+import 'dart:math';
+import 'package:ghostrunner/services/speedometer.dart';
+import 'package:rxdart/rxdart.dart';
 
 
 const double CAMERA_ZOOM = 16;
@@ -34,6 +38,15 @@ class MapPage extends StatefulWidget {
 }
 
 class MapPageState extends State<MapPage> {
+  //SPEEDOMETER
+  double _lowerValue = 20.0;
+  double _upperValue = 40.0;
+  int start = 0;
+  int end = 60;
+  
+  int counter = 0;
+  
+  PublishSubject<double> eventObservable = new PublishSubject();
   //TIMER
   Icon leftButtonIcon;
   Icon rightButtonIcon;
@@ -98,6 +111,7 @@ class MapPageState extends State<MapPage> {
 ////////////////////////////////////////////////////
   @override
   void initState() {
+    const oneSec = const Duration(seconds:1);
     if (widget.dependencies.stopwatch.isRunning) {
       timer = new Timer.periodic(new Duration(milliseconds: 20), updateTime);
       leftButtonIcon = Icon(Icons.pause);
@@ -125,7 +139,7 @@ class MapPageState extends State<MapPage> {
     // subscribe to changes in the user's location
     // by "listening" to the location's onLocationChanged event
     geolocator.getPositionStream().listen((position) {
-      /*print('Accuracy = ${position.accuracy}');
+      print('Accuracy = ${position.accuracy}');
       print('Altitude = ${position.altitude}');
       print('Speed = ${position.speed}');
       print('SpeedAccuracy = ${position.speedAccuracy}');
@@ -133,8 +147,9 @@ class MapPageState extends State<MapPage> {
       print('Timestamp = ${position.timestamp}');
       print('Lat = ${position.latitude}');
       print('Long = ${position.longitude}');
-      print("------------------------");*/
+      print("------------------------");
       currentLocation = position;
+      new Timer.periodic(oneSec, (Timer t) => eventObservable.add(position.speed));
       if(global.isOnMap == true){
         updatePinOnMap();
       }
@@ -388,6 +403,11 @@ class MapPageState extends State<MapPage> {
 
   @override
   Widget build(BuildContext context) {
+       final ThemeData somTheme = new ThemeData(
+          primaryColor: Colors.blue,
+          accentColor: Colors.black,
+          backgroundColor: Colors.grey
+      );
     CameraPosition initialCameraPosition = CameraPosition(
         zoom: CAMERA_ZOOM,
         tilt: CAMERA_TILT,
@@ -541,6 +561,15 @@ class MapPageState extends State<MapPage> {
               child: MyBottomNavBar(
                   helper: widget.helper, identity: widget.identity, act: 1),
             ),
+          ),
+           Positioned(
+            top: -60,
+            left: 0,
+            right: 0,
+            child: new Padding(
+                      padding: new EdgeInsets.all(140.0),
+                      child: new SpeedOMeter(start:start, end:end, highlightStart:(_lowerValue/end), highlightEnd:(_upperValue/end), themeData:somTheme, eventObservable: this.eventObservable),
+                  ),
           ),
           
          
