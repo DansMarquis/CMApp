@@ -70,6 +70,42 @@ class MapPageState extends State<MapPage> {
   Set<Polyline> _polylines = Set<Polyline>();
   List<Polyline> polylinesForDistance = [];
   List<LatLng> polylineCoordinates = [];
+  List<LatLng> ghost = [LatLng(40.5866917 , -8.0807823),
+LatLng(40.5869320, -8.0806831  ),  
+LatLng(40.5871377 , -8.0806831),
+LatLng(40.5871377, -8.0806831),
+LatLng(40.5872355 , -8.0800608),
+LatLng(40.5873353, -8.0798006),
+LatLng(40.5873883 , -8.0796558),
+LatLng(40.5874718, -8.0793098),
+LatLng(40.5873170, -8.0791381),
+LatLng(40.5869748 , -8.0787733),
+LatLng(40.5866855 , -8.0784863),
+LatLng(40.5864839 , -8.0782396),
+LatLng(40.5863372, -8.0780572),
+LatLng(40.5861539, -8.0778641),
+LatLng(40.5859176, -8.0776709),
+LatLng(40.5857343, -8.0773813),
+LatLng(40.5856121, -8.0770379),
+LatLng(40.5855754, -8.0767697),
+LatLng(40.5855510, -8.0764854),
+LatLng(40.5854654, -8.076126),
+LatLng(40.5854817, -8.0758953),
+LatLng(40.5855184  , -8.075552),
+LatLng(40.5855184, -8.075552),
+LatLng(40.5855347, -8.0752784),
+LatLng(40.5854247, -8.0748761),
+LatLng(40.5854247, -8.0747312),
+LatLng(40.5854002, -8.0746347),
+LatLng(40.5853962, -8.0745327),
+LatLng(40.5853636, -8.0744094),
+LatLng(40.5853636, -8.0744094),
+LatLng(40.5853432 , -8.0742216),
+LatLng(40.5853432, -8.0742216),
+LatLng(40.5852699, -8.0738997),
+LatLng(40.5852617, -8.0737656),
+LatLng(40.5853473, -8.0737174)];
+int ghostCount = 0;
   PolylinePoints polylinePoints;
    PolylinePoints points;
   String googleAPIKey = 'AIzaSyD4Qdvrk2evUhs_EeBG9jVAPAMaya43yrs';
@@ -77,6 +113,7 @@ class MapPageState extends State<MapPage> {
   BitmapDescriptor sourceIcon;
   BitmapDescriptor sourceIconTrail;
   BitmapDescriptor destinationIcon;
+  BitmapDescriptor ghostIcon;
 // the user's initial location and current location
 // as it moves
   geo.Position currentLocation;
@@ -93,6 +130,7 @@ class MapPageState extends State<MapPage> {
   PinInformation sourcePinInfo;
   PinInformation destinationPinInfo;
   double _currentTrailDistance = 0;
+  bool trailGhostSelected = false;
   ///////////////////////////////////////////
 
   GoogleMapController _controller2;
@@ -176,6 +214,12 @@ class MapPageState extends State<MapPage> {
 
   ////////////////////////////////////////////////////////////////////////////////////////
   void _onScroll() {
+    if(_pageController.page.toInt() == 3){
+      trailGhostSelected = true;
+    }
+    else{
+      trailGhostSelected = false;
+    }
     if (_pageController.page.toInt() != prevPage && _showTrailOnMap) {
       _markers.removeWhere((m) => m.markerId.value == 'finish');
       prevPage = _pageController.page.toInt();
@@ -237,6 +281,9 @@ class MapPageState extends State<MapPage> {
     destinationIcon = await BitmapDescriptor.fromAssetImage(
         ImageConfiguration(devicePixelRatio: 2.5),
         'assets/destination_map_marker.png');
+    ghostIcon = await BitmapDescriptor.fromAssetImage(
+        ImageConfiguration(devicePixelRatio: 2.5),
+        'assets/ghost-pin.png');
   }
 
   void setInitialLocation() async {
@@ -705,9 +752,14 @@ startOrStopWatch() {
     // from the LocationData currentLocation object
     var pinPosition =
         LatLng(currentLocation.latitude, currentLocation.longitude);
-    // get a LatLng out of the LocationData object
-    var destPosition =
-        LatLng(destinationLocation.latitude, destinationLocation.longitude);
+    var ghostPosition;
+    if(ghostCount <= ghost.length){
+      ghostPosition = ghost[ghostCount];
+    }
+    else{
+      ghostPosition = ghost[ghost.length];
+    }
+    
 
     sourcePinInfo = PinInformation(
         locationName: "Start Location",
@@ -726,6 +778,7 @@ startOrStopWatch() {
     // add the initial source location pin
     _markers.add(Marker(
         markerId: MarkerId('sourcePin'),
+        draggable: true,
         position: pinPosition,
         onTap: () {
           setState(() {
@@ -734,6 +787,16 @@ startOrStopWatch() {
           });
         },
         icon: sourceIcon));
+      
+       if(trailGhostSelected && _showTimer){ 
+            _markers.add(Marker(
+            markerId: MarkerId('ghost'),
+            
+            position: ghostPosition, // updated position
+            icon: ghostIcon));
+            ghostCount++;
+            }
+
     trails.forEach((element) {
       _markers.add(Marker(
           markerId: MarkerId(element.trailName),
@@ -808,6 +871,13 @@ startOrStopWatch() {
             LatLng(currentLocation.latitude, currentLocation.longitude);
 
         sourcePinInfo.location = pinPosition;
+         var ghostPosition;
+          if(ghostCount <= ghost.length){
+            ghostPosition = ghost[ghostCount];
+          }
+          else{
+            ghostPosition = ghost[ghost.length];
+          }
 
         // the trick is to remove the marker (by id)
         // and add it again at the updated location
@@ -822,7 +892,19 @@ startOrStopWatch() {
             },
             position: pinPosition, // updated position
             icon: sourceIcon));
-      });
+            
+          if(trailGhostSelected && _showTimer){ 
+            _markers.removeWhere((m) => m.markerId.value == 'ghost');
+            _markers.add(Marker(
+            markerId: MarkerId('ghost'),
+            
+            position: ghostPosition, // updated position
+            icon: ghostIcon));
+            ghostCount++;
+            }
+       
+      
+      }); 
     } catch (Exception) {
       return;
     }
