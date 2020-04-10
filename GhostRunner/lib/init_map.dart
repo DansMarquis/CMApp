@@ -562,7 +562,7 @@ class MapPageState extends State<MapPage> {
                   helper: widget.helper, identity: widget.identity, act: 1),
             ),
           ),
-           Positioned(
+           (!_showTrailOnMap && _showTimer) ?Positioned(
             top: -60,
             left: 0,
             right: 0,
@@ -570,7 +570,7 @@ class MapPageState extends State<MapPage> {
                       padding: new EdgeInsets.all(140.0),
                       child: new SpeedOMeter(start:start, end:end, highlightStart:(_lowerValue/end), highlightEnd:(_upperValue/end), themeData:somTheme, eventObservable: this.eventObservable),
                   ),
-          ),
+          ) : Text("data"),
           
          
     
