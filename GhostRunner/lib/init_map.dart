@@ -106,7 +106,7 @@ class MapPageState extends State<MapPage> {
     setState(() {
       _showTrailOnMap = !_showTrailOnMap;
       if(_showTrailOnMap){
-        _onScroll();
+        _showFirstTrail();
       }
       else{
         _hideTrails();
@@ -187,6 +187,20 @@ class MapPageState extends State<MapPage> {
           icon: destinationIcon));
       moveCamera();
     }
+  }
+  void _showFirstTrail() {
+      setPolylinesTrails(
+          trails[_pageController.page.toInt()].locationCoordsStart,
+          trails[_pageController.page.toInt()].locationCoordsFinish);
+      _markers.add(Marker(
+          markerId: MarkerId("finish"),
+          draggable: false,
+          infoWindow:
+              InfoWindow(title:trails[_pageController.page.toInt()].trailName, snippet: 'Finish Line'),
+          position: trails[_pageController.page.toInt()].locationCoordsFinish,
+          icon: destinationIcon));
+      moveCamera();
+    
   }
   void _hideTrails() {
       _markers.removeWhere((m) => m.markerId.value == 'finish');
