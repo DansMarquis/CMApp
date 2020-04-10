@@ -523,7 +523,7 @@ class MapPageState extends State<MapPage> {
             visible: !_showTimer,
             child:
           Positioned(
-              left: (MediaQuery.of(context).size.width) / 2 - 68,
+              left: _showTrailOnMap ?  42 : (MediaQuery.of(context).size.width) / 2 - 68,
               bottom: _showTrailOnMap ? 230 : 85,
               child: ButtonTheme(
                 height: 50.0,
@@ -544,7 +544,45 @@ class MapPageState extends State<MapPage> {
                 ),
               ))
               ),
-              
+              Visibility(
+            visible: _showTrailOnMap,
+            child:
+          Positioned(
+              left: (MediaQuery.of(context).size.width) / 2 + 10,
+              bottom: 230,
+              child: ButtonTheme(
+                height: 50.0,
+                minWidth: 100.0,
+                child: FlatButton.icon(
+                  color: Colors.green,
+                  icon: Icon( Icons.directions_run,
+                      color: Colors.white),
+                  label: Text('Start Trail',
+                      style: BodyStyles.white),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(50.0)),
+                  ),
+                  onPressed: () {
+                            Toast.show(trails[_pageController.page.toInt()].trailName+" TRAIL STARTED!", context, duration: Toast.LENGTH_LONG, gravity:  Toast.CENTER);
+                            global.locationCoordsStart = currentLocation;
+                             _showTimer = true;
+                             _showTrailOnMap = false;
+                             _hideTrails();
+                             _showFirstTrail();
+                            leftButtonIcon = Icon(Icons.pause);
+                            leftButtonColor = Colors.red;
+                            rightButtonIcon = Icon(
+                              Icons.fiber_manual_record,
+                              color: Colors.red,);
+                            rightButtonColor = Colors.white70;
+                            widget.dependencies.stopwatch.start();
+                            timer = new Timer.periodic(new Duration(milliseconds: 20), updateTime);
+                             
+                    
+                          },
+                ),
+              ))
+              ),
               Visibility(
                 visible: (!_showTrailOnMap && !_showTimer),
                 child:
@@ -723,28 +761,6 @@ startOrStopWatch() {
     }
   }
 
-  void setPolylines() async {
-    List<PointLatLng> result = await polylinePoints.getRouteBetweenCoordinates(
-        googleAPIKey,
-        currentLocation.latitude,
-        currentLocation.longitude,
-        destinationLocation.latitude,
-        destinationLocation.longitude);
-
-    if (result.isNotEmpty) {
-      result.forEach((PointLatLng point) {
-        polylineCoordinates.add(LatLng(point.latitude, point.longitude));
-      });
-
-      setState(() {
-        _polylines.add(Polyline(
-            width: 5, // set the width of the polylines
-            polylineId: PolylineId("poly"),
-            color: Color.fromARGB(125, 255, 0, 0),
-            points: polylineCoordinates));
-      });
-    }
-  }
 
   void updatePinOnMap() async{
     // create a new CameraPosition instance
