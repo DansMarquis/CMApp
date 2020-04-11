@@ -1,6 +1,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:ghostrunner/global.dart';
+import 'package:ghostrunner/init_map.dart';
+import 'package:ghostrunner/trail_model.dart';
 
 class DetailsScreen extends StatelessWidget {
   final int id;
@@ -68,16 +70,6 @@ class DetailsScreen extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          
-
-
-
-
-
-
-
-
-
                         Container(
                           height: MediaQuery.of(context).size.height / 4,
                           child: ListView.builder(
@@ -147,13 +139,13 @@ class DetailsScreen extends StatelessWidget {
 
 
                           Text(
-                            "${destinationsList[id].hotelName}",
+                            "${trails[id].trailName}",
                             style: Theme.of(context).textTheme.display1.apply(
                                   color: Colors.white,
                                 ),
                           ),
                           Text(
-                            "${destinationsList[id].placeName} - ${destinationsList[id].date}",
+                            "${trails[id].date}",
                             style: Theme.of(context)
                                 .textTheme
                                 .subtitle
@@ -167,14 +159,14 @@ class DetailsScreen extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
                                   Text(
-                                    "35km",
+                                    "${trails[id].distance}km",
                                     style: Theme.of(context)
                                         .textTheme
                                         .display1
                                         .apply(color: Colors.white),
                                   ),
                                   Text(
-                                    "1:32h",
+                                    "${trails[id].duration}min",
                                     style: Theme.of(context)
                                         .textTheme
                                         .body2
@@ -221,13 +213,6 @@ class DetailsScreen extends StatelessWidget {
                                         .display1
                                         .apply(color: Colors.white),
                                   ),
-                                  Text(
-                                    "until trip",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .body2
-                                        .apply(color: Colors.white70),
-                                  )
                                 ],
                               ),
                               Container(
