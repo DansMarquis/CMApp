@@ -1,11 +1,23 @@
 import 'dart:math' as math;
 
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:ghostrunner/global.dart';
 import 'package:ghostrunner/ui/screens/details.dart';
 import 'package:ghostrunner/ui/widgets/mybottomnavbar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../trail_model.dart';
+Future<Widget> _getImage(BuildContext context, String image) async {
+  Image m;
+  final ref = FirebaseStorage.instance.ref().child(image);
+  var downloadUrl = await ref.getDownloadURL();
+  m = Image.network(
+    downloadUrl,
+    fit: BoxFit.cover,
+  );
 
+  return m;
+}
 class HomeScreen extends StatelessWidget {
   final SharedPreferences helper;
   final String identity;
@@ -592,7 +604,7 @@ class HomeScreen extends StatelessWidget {
                           height: MediaQuery.of(context).size.height / 4,
                           child: ListView.builder(
                             scrollDirection: Axis.horizontal,
-                            itemCount: destinationsList.length,
+                            itemCount: trails.length,
                             itemBuilder: (ctx, i) {
                               return GestureDetector(
                                 onTap: () => Navigator.push(
@@ -601,7 +613,7 @@ class HomeScreen extends StatelessWidget {
                                     builder: (ctx) => DetailsScreen(id: i),
                                   ),
                                 ),
-                                child: Container(
+                                child:trails[i].myTrail ? Container(
                                   width: 150,
                                   margin:
                                       const EdgeInsets.symmetric(horizontal: 11.0),
@@ -610,10 +622,13 @@ class HomeScreen extends StatelessWidget {
                                     child: Stack(
                                       children: <Widget>[
                                         Positioned.fill(
-                                          child: Image.network(
-                                            destinationsList[i].imageUrl,
-                                            fit: BoxFit.cover,
-                                          ),
+                                          child:FutureBuilder(
+                            future: _getImage(context, (trails[i].trailID).toString()),
+                            builder: (context, snapshot) {
+                                return Container(
+                                  child: snapshot.data,
+                                );}
+                    ),
                                         ),
                                         Positioned(
                                           bottom: 0,
@@ -637,7 +652,7 @@ class HomeScreen extends StatelessWidget {
                                                       padding:
                                                           const EdgeInsets.only(top:2,left: 4.0),
                                                       child: Text(
-                                                        "${destinationsList[i].placeName}",
+                                                        "${trails[i].trailName}",
                                                         textAlign: TextAlign.center,
                                                         style: TextStyle(
                                                           fontSize: 17,
@@ -663,7 +678,7 @@ class HomeScreen extends StatelessWidget {
                                                       padding:
                                                           const EdgeInsets.only(left: 4.0),
                                                       child: Text(
-                                                       "54 min",
+                                                       "${trails[i].duration}",
                                                         textAlign: TextAlign.center,
                                                         style: TextStyle(
                                                           
@@ -690,7 +705,7 @@ class HomeScreen extends StatelessWidget {
                                                       padding:
                                                           const EdgeInsets.only(left: 4.0),
                                                       child: Text(
-                                                       "1324 m",
+                                                        "${trails[i].distance}",
                                                         textAlign: TextAlign.center,
                                                         style: TextStyle(
                                                           
@@ -717,7 +732,7 @@ class HomeScreen extends StatelessWidget {
                                                       padding:
                                                           const EdgeInsets.only(left: 4.0),
                                                       child: Text(
-                                                       "32 km/h",
+                                                        "${trails[i].velocity}",
                                                         textAlign: TextAlign.center,
                                                         style: TextStyle(
                                                           
@@ -738,7 +753,7 @@ class HomeScreen extends StatelessWidget {
                                                       padding:
                                                           const EdgeInsets.only(top:2,left: 4.0),
                                                       child: Text(
-                                                        "${destinationsList[i].date}",
+                                                         "${trails[i].date}",
                                                         textAlign: TextAlign.center,
                                                         style: TextStyle(
                                                           
@@ -758,7 +773,7 @@ class HomeScreen extends StatelessWidget {
                                       ],
                                     ),
                                   ),
-                                ),
+                                ): SizedBox(),
                               );
                             },
                           ),

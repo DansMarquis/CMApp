@@ -11,10 +11,12 @@ class Trail {
   LatLng locationCoordsStart;
   LatLng locationCoordsFinish;
   String date;
+  bool myTrail;
 
   Trail(
       {
       this.trailID,
+      this.myTrail,
       this.trailName,
       this.address,
       this.description,
@@ -29,6 +31,7 @@ class Trail {
 final List<Trail> trails = [
   Trail(
     trailID: 0,
+    myTrail: true,
       trailName: 'Dam Trail',
       address: '18 W 29th St',
       description:
@@ -42,6 +45,7 @@ final List<Trail> trails = [
       ),
   Trail(
     trailID: 1,
+    myTrail: false,
       trailName: 'Andrews Coffee Shop',
       address: '463 7th Ave',
       description:
@@ -55,6 +59,7 @@ final List<Trail> trails = [
       ),
   Trail(
     trailID: 2,
+    myTrail: false,
       trailName: 'Third Rail Coffee',
       address: '240 Sullivan St',
       description:
@@ -68,6 +73,7 @@ final List<Trail> trails = [
       ),
   Trail(
     trailID: 3,
+    myTrail: false,
       trailName: 'Hi-Collar',
       address: '214 E 10th St',
       description:
@@ -81,6 +87,7 @@ final List<Trail> trails = [
       ),
   Trail(
     trailID: 4,
+    myTrail: true,
       trailName: 'Everyman Espresso',
       address: '301 W Broadway',
       description:

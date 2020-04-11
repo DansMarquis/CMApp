@@ -44,6 +44,7 @@ class _NewTrailPageState extends State<NewTrailPage>{
       trails.add(
         Trail(
           trailID : global.trailID,
+          myTrail: true,
           trailName: global.trailName,
           address: global.address,
           description:
