@@ -9,6 +9,7 @@ import 'package:ghostrunner/ui/screens/home.dart';
 import '../../global.dart' as global;
 import '../../trail_model.dart';
 import 'package:toast/toast.dart';
+
 class NewTrailPage extends StatefulWidget {
   @override
   _NewTrailPageState createState() => _NewTrailPageState();
@@ -39,6 +40,7 @@ class _NewTrailPageState extends State<NewTrailPage>{
        StorageUploadTask uploadTask = firebaseStorageRef.putFile(_image);
        StorageTaskSnapshot taskSnapshot=await uploadTask.onComplete;
     }
+
 
     void newTrail(){
       trails.add(
