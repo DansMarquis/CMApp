@@ -12,6 +12,7 @@ class Trail {
   LatLng locationCoordsFinish;
   String date;
   bool myTrail;
+  String kcal;
 
   Trail(
       {
@@ -25,6 +26,7 @@ class Trail {
       this.duration,
       this.distance,
       this.velocity,
+      this.kcal,
       this.date});
 }
 
@@ -33,70 +35,75 @@ final List<Trail> trails = [
     trailID: 0,
     myTrail: true,
       trailName: 'Dam Trail',
-      address: '18 W 29th St',
+      address: 'Tondela',
       description:
           'Beautiful trail',
       locationCoordsStart: LatLng(40.580355, -8.078904),
       locationCoordsFinish: LatLng(40.579570, -8.068348),
-      duration: '53min',
-      velocity: '5km/h',
+      duration: '53',
+      velocity: '23',
       distance: '0',
+      kcal: '253',
       date: '15/04/2020',
       ),
   Trail(
     trailID: 1,
     myTrail: false,
-      trailName: 'Andrews Coffee Shop',
-      address: '463 7th Ave',
+      trailName: 'OverPass',
+      address: 'Tondela',
       description:
-          'All-day American comfort eats in a basic diner-style setting',
+          'Beautiful and Hard Trail.',
       locationCoordsStart: LatLng(40.572324, -8.084702),
        locationCoordsFinish: LatLng(40.574247, -8.060773),
-      duration: '53min',
-      velocity: '5km/h',
+      duration: '74',
+      velocity: '15',
       distance: '0',
+      kcal: '253',
       date: '15/04/2020',
       ),
   Trail(
     trailID: 2,
     myTrail: false,
-      trailName: 'Third Rail Coffee',
-      address: '240 Sullivan St',
+      trailName: 'Third Rail',
+      address: 'Tondela',
       description:
-          'Small spot draws serious caffeine lovers with wide selection of brews & baked goods.',
+          'Beautiful and Hard Trail.',
       locationCoordsStart: LatLng(40.568291, -8.077299),
        locationCoordsFinish: LatLng(40.560689, -8.084705),
-      duration: '53min',
-      velocity: '5km/h',
+      duration: '34',
+      velocity: '12',
       distance: '0',
+      kcal: '253',
       date: '15/04/2020',
       ),
   Trail(
     trailID: 3,
     myTrail: false,
-      trailName: 'Hi-Collar',
-      address: '214 E 10th St',
+      trailName: 'Hi Collar',
+      address: 'Tondela',
       description:
-          'Snazzy, compact Japanese cafe showcasing high-end coffee & sandwiches, plus sake & beer at night.',
+          'Beautiful and Hard Trail.',
       locationCoordsStart: LatLng(40.586690, -8.080808),
  locationCoordsFinish: LatLng(40.585393, -8.073783),
-      duration: '53min',
-      velocity: '5km/h',
+      duration: '68',
+      velocity: '15',
       distance: '0',
+      kcal: '253',
       date: '15/04/2020',
       ),
   Trail(
     trailID: 4,
     myTrail: true,
-      trailName: 'Everyman Espresso',
-      address: '301 W Broadway',
+      trailName: 'Montain',
+      address: 'Tondela',
       description:
-          'Compact coffee & espresso bar turning out drinks made from direct-trade beans in a low-key setting.',
+          'Beautiful and Hard Trail.',
       locationCoordsStart: LatLng(40.568982, -8.094214),
  locationCoordsFinish: LatLng(40.597495, -8.092849),
-      duration: '53min',
-      velocity: '5km/h',
+      duration: '24',
+      velocity: '25',
       distance: '0',
+      kcal: '253',
       date: '15/04/2020',
       )
 ];

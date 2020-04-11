@@ -610,7 +610,7 @@ class HomeScreen extends StatelessWidget {
                                 onTap: () => Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (ctx) => DetailsScreen(id: i),
+                                    builder: (ctx) => DetailsScreen(id: trails[i].trailID),
                                   ),
                                 ),
                                 child:trails[i].myTrail ? Container(
@@ -678,7 +678,7 @@ class HomeScreen extends StatelessWidget {
                                                       padding:
                                                           const EdgeInsets.only(left: 4.0),
                                                       child: Text(
-                                                       "${trails[i].duration}",
+                                                       "${trails[i].duration} min",
                                                         textAlign: TextAlign.center,
                                                         style: TextStyle(
                                                           
@@ -705,7 +705,7 @@ class HomeScreen extends StatelessWidget {
                                                       padding:
                                                           const EdgeInsets.only(left: 4.0),
                                                       child: Text(
-                                                        "${trails[i].distance}",
+                                                        "${trails[i].distance} km",
                                                         textAlign: TextAlign.center,
                                                         style: TextStyle(
                                                           
@@ -732,7 +732,7 @@ class HomeScreen extends StatelessWidget {
                                                       padding:
                                                           const EdgeInsets.only(left: 4.0),
                                                       child: Text(
-                                                        "${trails[i].velocity}",
+                                                        "${trails[i].velocity} km/h",
                                                         textAlign: TextAlign.center,
                                                         style: TextStyle(
                                                           
