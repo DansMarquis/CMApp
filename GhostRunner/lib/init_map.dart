@@ -19,6 +19,24 @@ import 'dart:async';
 import 'dart:math';
 import 'package:ghostrunner/services/speedometer.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/material.dart';
+
+
+Future<Widget> _getImage(BuildContext context, String image) async {
+  Image m;
+  final ref = FirebaseStorage.instance.ref().child(image);
+  var downloadUrl = await ref.getDownloadURL();
+  m = Image.network(
+    downloadUrl,
+    fit: BoxFit.cover,
+    width: 325,
+    height: 210,
+    alignment: Alignment.center,
+  );
+
+  return m;
+}
 
 
 const double CAMERA_ZOOM = 16;
@@ -318,14 +336,13 @@ int ghostCount = 0;
                   children: <Widget>[
                     Positioned(
                       top: -60.0,
-                      child: Image.asset(
-                        trails[index].thumbNail,
-                        fit: BoxFit.cover,
-                        width: 325,
-                        height: 210,
-                        alignment: Alignment.center,
-                      ),
-                    ),
+                      child:FutureBuilder(
+                            future: _getImage(context, (trails[index].trailID).toString()),
+                            builder: (context, snapshot) {
+                                return Container(
+                                  child: snapshot.data,
+                                );}
+                    )),
                     Positioned(
                       bottom: 49,
                       left: 0,

@@ -4,13 +4,13 @@ bool isOnMap = false;
 String trailName;
 String address;
 String description;
-String thumbNail;
 geo.Position locationCoordsStart;
 geo.Position locationCoordsFinish;
 String duration;
 String velocity = '54km/h';
 String distance = '4330m';
 String date;
+int trailID = 4; // 4 by default because there are 4 initial locations created 
 
 class MyColors {
   static Color darkBlue = Color(0xff2446a6),

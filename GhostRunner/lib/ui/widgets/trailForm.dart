@@ -4,12 +4,11 @@ import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:ghostrunner/utils/text_styles.dart';
-import 'package:ghostrunner/classes/dependencies.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:ghostrunner/ui/screens/home.dart';
-import '../../init_map.dart';
 import '../../global.dart' as global;
 import '../../trail_model.dart';
+import 'package:toast/toast.dart';
 class NewTrailPage extends StatefulWidget {
   @override
   _NewTrailPageState createState() => _NewTrailPageState();
@@ -34,18 +33,17 @@ class _NewTrailPageState extends State<NewTrailPage>{
     }
     
     Future uploadPic(BuildContext context) async{
-      String fileName = basename(_image.path);
-       StorageReference firebaseStorageRef = FirebaseStorage.instance.ref().child(fileName);
+      //String fileName = basename(_image.path);
+      String fileName = (global.trailID).toString();
+      StorageReference firebaseStorageRef = FirebaseStorage.instance.ref().child(fileName);
        StorageUploadTask uploadTask = firebaseStorageRef.putFile(_image);
        StorageTaskSnapshot taskSnapshot=await uploadTask.onComplete;
-       setState(() {
-          Scaffold.of(context).showSnackBar(SnackBar(content: Text('Picture Uploaded')));
-       });
     }
 
     void newTrail(){
       trails.add(
         Trail(
+          trailID : global.trailID,
           trailName: global.trailName,
           address: global.address,
           description:
@@ -56,7 +54,6 @@ class _NewTrailPageState extends State<NewTrailPage>{
           velocity: global.velocity,
           distance: global.distance,
           date: global.date,
-          thumbNail: 'assets/1.png'
         )
       );
   }
@@ -99,7 +96,7 @@ class _NewTrailPageState extends State<NewTrailPage>{
                                 fit: BoxFit.fill,
                                 ): 
                                 Image(
-                                image: AssetImage("assets/1.png"),
+                                image: AssetImage("assets/photos/1.png"),
                                 fit: BoxFit.fill,
                                 alignment: Alignment.center,
                                 ),
@@ -188,7 +185,7 @@ class _NewTrailPageState extends State<NewTrailPage>{
                         children: <Widget>[
                           Align(
                             alignment: Alignment.center,
-                            child: Text('Adress',
+                            child: Text('Address',
                                 style: TextStyle(
                                     color: Colors.blueGrey, fontSize: 18.0)),
                           ),
@@ -273,6 +270,8 @@ class _NewTrailPageState extends State<NewTrailPage>{
                           borderRadius: BorderRadius.all(Radius.circular(50.0)),
                         ),
                         onPressed: () {
+                          Toast.show(" New Trail Added!", context, duration: Toast.LENGTH_LONG, gravity:  Toast.CENTER);
+                          global.trailID +=1;
                           uploadPic(context);
                           newTrail();
                             Navigator.pushAndRemoveUntil(

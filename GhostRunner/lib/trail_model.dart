@@ -5,7 +5,6 @@ class Trail {
   String trailName;
   String address;
   String description;
-  String thumbNail;
   String duration;
   String distance;
   String velocity;
@@ -19,7 +18,6 @@ class Trail {
       this.trailName,
       this.address,
       this.description,
-      this.thumbNail,
       this.locationCoordsStart,
       this.locationCoordsFinish,
       this.duration,
@@ -37,7 +35,6 @@ final List<Trail> trails = [
           'Beautiful trail',
       locationCoordsStart: LatLng(40.580355, -8.078904),
       locationCoordsFinish: LatLng(40.579570, -8.068348),
-      thumbNail: 'assets/1.png',
       duration: '53min',
       velocity: '5km/h',
       distance: '0',
@@ -51,7 +48,6 @@ final List<Trail> trails = [
           'All-day American comfort eats in a basic diner-style setting',
       locationCoordsStart: LatLng(40.572324, -8.084702),
        locationCoordsFinish: LatLng(40.574247, -8.060773),
-      thumbNail: 'assets/2.png',
       duration: '53min',
       velocity: '5km/h',
       distance: '0',
@@ -65,7 +61,6 @@ final List<Trail> trails = [
           'Small spot draws serious caffeine lovers with wide selection of brews & baked goods.',
       locationCoordsStart: LatLng(40.568291, -8.077299),
        locationCoordsFinish: LatLng(40.560689, -8.084705),
-      thumbNail: 'assets/3.png',
       duration: '53min',
       velocity: '5km/h',
       distance: '0',
@@ -79,7 +74,6 @@ final List<Trail> trails = [
           'Snazzy, compact Japanese cafe showcasing high-end coffee & sandwiches, plus sake & beer at night.',
       locationCoordsStart: LatLng(40.586690, -8.080808),
  locationCoordsFinish: LatLng(40.585393, -8.073783),
-      thumbNail: 'assets/1.png',
       duration: '53min',
       velocity: '5km/h',
       distance: '0',
@@ -93,7 +87,6 @@ final List<Trail> trails = [
           'Compact coffee & espresso bar turning out drinks made from direct-trade beans in a low-key setting.',
       locationCoordsStart: LatLng(40.568982, -8.094214),
  locationCoordsFinish: LatLng(40.597495, -8.092849),
-      thumbNail: 'assets/2.png',
       duration: '53min',
       velocity: '5km/h',
       distance: '0',
