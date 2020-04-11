@@ -652,7 +652,9 @@ class HomeScreen extends StatelessWidget {
                                                       padding:
                                                           const EdgeInsets.only(top:2,left: 4.0),
                                                       child: Text(
-                                                        "${trails[i].trailName}",
+                                                        (trails[i].trailName).length < 13
+                                                        ? "${trails[i].trailName}"
+                                                        : "${trails[i].trailName.substring(0, 10)}" + "...",
                                                         textAlign: TextAlign.center,
                                                         style: TextStyle(
                                                           fontSize: 17,
