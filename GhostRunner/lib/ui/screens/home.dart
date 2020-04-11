@@ -680,7 +680,7 @@ class HomeScreen extends StatelessWidget {
                                                       padding:
                                                           const EdgeInsets.only(left: 4.0),
                                                       child: Text(
-                                                       "${trails[i].duration} min",
+                                                       "${trails[i].duration} ",
                                                         textAlign: TextAlign.center,
                                                         style: TextStyle(
                                                           

@@ -7,8 +7,8 @@ String description;
 geo.Position locationCoordsStart;
 geo.Position locationCoordsFinish;
 String duration;
-String velocity = '54km/h';
-String distance = '4330m';
+String velocity = '54k';
+String distance = '4330';
 String date;
 int trailID = 4; // 4 by default because there are 4 initial locations created 
 

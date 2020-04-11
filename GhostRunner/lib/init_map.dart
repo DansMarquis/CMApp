@@ -748,7 +748,7 @@ startOrStopWatch() {
         widget.dependencies.stopwatch.reset();
         _showTimer = false;
         global.locationCoordsFinish = currentLocation;
-        global.duration = widget.dependencies.savedTimeList[0];
+        global.duration = (widget.dependencies.savedTimeList[0]).substring(0,13);
         DateTime now = DateTime.now();
         global.date = DateFormat('yyyy-MM-dd – kk:mm').format(now);
         Navigator.pushAndRemoveUntil(
