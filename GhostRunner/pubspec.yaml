@@ -63,6 +63,7 @@ flutter:
      - assets/fitness_app/
      - assets/tracks/
      - assets/
+     - assets/mapStyle.txt
 
   fonts:
     - family: AvenirNextRounded
