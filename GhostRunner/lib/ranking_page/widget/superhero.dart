@@ -52,6 +52,7 @@ class SuperHero extends StatelessWidget {
         Navigator.of(context).push(router);
       },
       child: Card(
+        elevation:7,
         color: Colors.white,
         clipBehavior: Clip.antiAlias,
         shape: RoundedRectangleBorder(
@@ -63,7 +64,7 @@ class SuperHero extends StatelessWidget {
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
               colors: [
-                Color.fromRGBO(180, 43, 70, 1),
+                Color.fromRGBO(251, 171, 195, 1),
                 Color.fromRGBO(3, 5, 92, 1)
               ]),),
             child: Padding(
