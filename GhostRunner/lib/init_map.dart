@@ -1,7 +1,6 @@
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:geolocator/geolocator.dart' as geo;
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:location/location.dart';
 import 'package:flutter/material.dart';
 import 'package:ghostrunner/ui/widgets/mybottomnavbar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -15,12 +14,11 @@ import 'package:toast/toast.dart';
 import 'global.dart' as global;
 import 'ui/widgets/trailForm.dart';
 import 'package:intl/intl.dart';
-import 'dart:async';
 import 'dart:math';
 import 'package:ghostrunner/services/speedometer.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 
 
 Future<Widget> _getImage(BuildContext context, String image) async {
@@ -37,6 +35,11 @@ Future<Widget> _getImage(BuildContext context, String image) async {
 
   return m;
 }
+
+  Future getDistance2Points(initLat, initLong, finalLat, finalLong) async{
+    double distanceInMeters = await Geolocator().distanceBetween(initLat, initLong, finalLat, finalLong );
+    global.dailyDistance += distanceInMeters;
+  }
 
 
 const double CAMERA_ZOOM = 16;
@@ -205,7 +208,7 @@ int ghostCount = 0;
     // subscribe to changes in the user's location
     // by "listening" to the location's onLocationChanged event
     geolocator.getPositionStream().listen((position) {
-      print('Accuracy = ${position.accuracy}');
+      /*print('Accuracy = ${position.accuracy}');
       print('Altitude = ${position.altitude}');
       print('Speed = ${position.speed}');
       print('SpeedAccuracy = ${position.speedAccuracy}');
@@ -213,7 +216,14 @@ int ghostCount = 0;
       print('Timestamp = ${position.timestamp}');
       print('Lat = ${position.latitude}');
       print('Long = ${position.longitude}');
-      print("------------------------");
+      print("------------------------");*/
+      if ((position.speed > global.maxSpeed) && global.isRunning)
+        global.maxSpeed = position.speed;
+
+      if ((position.altitude > global.altitude) && global.isRunning)
+        global.altitude = position.altitude;
+      
+      currentLocation = position;
       currentLocation = position;
       //position.speed
       new Timer.periodic(oneSec, (Timer t) => eventObservable.add(position.speed));
@@ -647,6 +657,7 @@ int ghostCount = 0;
                               color: Colors.red,);
                             rightButtonColor = Colors.white70;
                             widget.dependencies.stopwatch.start();
+                            global.isRunning = true;
                             timer = new Timer.periodic(new Duration(milliseconds: 20), updateTime);
                              
                     
@@ -672,6 +683,7 @@ int ghostCount = 0;
                               color: Colors.red,);
                             rightButtonColor = Colors.white70;
                             widget.dependencies.stopwatch.start();
+                            global.isRunning = true;
                             timer = new Timer.periodic(new Duration(milliseconds: 20), updateTime);
                              
                     
@@ -719,6 +731,7 @@ int ghostCount = 0;
 
 startOrStopWatch() {
     if (widget.dependencies.stopwatch.isRunning) {
+      global.isRunning = false;
       leftButtonIcon = Icon(Icons.play_arrow);
       leftButtonColor = Colors.green;
       rightButtonIcon = Icon(Icons.refresh);
@@ -733,14 +746,17 @@ startOrStopWatch() {
         color: Colors.red,
       );
       rightButtonColor = Colors.white70;
+      global.isRunning = true;
       widget.dependencies.stopwatch.start();
       timer = new Timer.periodic(new Duration(milliseconds: 20), updateTime);
     }
   }
 
   saveOrRefreshWatch() {
-    setState(() {
+    setState(() { 
       if (widget.dependencies.stopwatch.isRunning) {
+        global.isRunning = false;
+        global.dailyTotalTime += widget.dependencies.stopwatch.elapsedMilliseconds;
         widget.dependencies.savedTimeList.insert(
             0,
             widget.dependencies.transformMilliSecondsToString(
@@ -748,7 +764,8 @@ startOrStopWatch() {
         widget.dependencies.stopwatch.reset();
         _showTimer = false;
         global.locationCoordsFinish = currentLocation;
-        global.duration = (widget.dependencies.savedTimeList[0]).substring(0,13);
+        global.duration = (widget.dependencies.savedTimeList[0]).substring(0,12);
+        getDistance2Points(global.locationCoordsStart.latitude, global.locationCoordsStart.longitude, global.locationCoordsFinish.latitude, global.locationCoordsFinish.longitude);
         DateTime now = DateTime.now();
         global.date = DateFormat('yyyy-MM-dd – kk:mm').format(now);
         Navigator.pushAndRemoveUntil(
@@ -758,6 +775,7 @@ startOrStopWatch() {
                             ),
                             (Route<dynamic> route) => false);
       } else {
+        global.isRunning = false;
         widget.dependencies.stopwatch.reset();
         widget.dependencies.savedTimeList.clear();
       }

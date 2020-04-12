@@ -2,11 +2,14 @@ import 'dart:math' as math;
 
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:ghostrunner/global.dart';
 import 'package:ghostrunner/ui/screens/details.dart';
 import 'package:ghostrunner/ui/widgets/mybottomnavbar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:ghostrunner/classes/dependencies.dart';
+import 'package:ghostrunner/widgets/timer_clock.dart';
 import '../../trail_model.dart';
+import '../../global.dart' as global;
+
 Future<Widget> _getImage(BuildContext context, String image) async {
   Image m;
   final ref = FirebaseStorage.instance.ref().child(image);
@@ -25,9 +28,8 @@ class HomeScreen extends StatelessWidget {
   const HomeScreen({Key key, this.helper, this.identity}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-   
         return Scaffold(
-          backgroundColor: MyColors.darkBlue,
+          backgroundColor: global.MyColors.darkBlue,
           body: SafeArea(
             child: Stack(
               
@@ -67,7 +69,7 @@ class HomeScreen extends StatelessWidget {
                       children: <Widget>[
                         Spacer(),
                         Text(
-                          "My Stats",
+                          "My Daily Stats",
                           style: Theme.of(context)
                               .textTheme
                               .display1
@@ -122,7 +124,7 @@ class HomeScreen extends StatelessWidget {
                                               padding: const EdgeInsets.only(
                                                   left: 4, bottom: 2),
                                               child: Text(
-                                                'Meters',
+                                                'Distance',
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                   
@@ -151,7 +153,7 @@ class HomeScreen extends StatelessWidget {
                                                       const EdgeInsets.only(
                                                           left: 4, bottom: 3),
                                                   child: Text(
-                                                    '233',
+                                                    global.dailyDistance.toString().substring(0,3),
                                                     textAlign: TextAlign.center,
                                                     style: TextStyle(
                                                      
@@ -330,7 +332,7 @@ class HomeScreen extends StatelessWidget {
                                               fontWeight: FontWeight.bold,
                                               fontSize: 12,
                                               letterSpacing: 0.0,
-                                              color: MyColors.darkBlue
+                                              color: global.MyColors.darkBlue
                                                   .withOpacity(0.5),
                                             ),
                                           ),
@@ -343,7 +345,7 @@ class HomeScreen extends StatelessWidget {
                                     child: CustomPaint(
                                       painter: CurvePainter(
                                           colors: [
-                                            MyColors.darkBlue,
+                                            global.MyColors.darkBlue,
                                             Colors.blue[300],
                                             Colors.blue[200]
                                           ],
@@ -413,7 +415,7 @@ class HomeScreen extends StatelessWidget {
                                           height: 4,
                                           decoration: BoxDecoration(
                                             gradient: LinearGradient(colors: [
-                                            MyColors.darkBlue,
+                                            global.MyColors.darkBlue,
                                             Colors.blue[300],
                                             Colors.blue[200],
                                             ]),
@@ -428,7 +430,7 @@ class HomeScreen extends StatelessWidget {
                                 Padding(
                                   padding: const EdgeInsets.only(top: 6),
                                   child: Text(
-                                    '1h:32m',
+                                    hometransformMilliSecondsToTime(global.dailyTotalTime) + " h:m:s",
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                     
@@ -452,7 +454,7 @@ class HomeScreen extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
                                     Text(
-                                      'Elevation',
+                                      'Altitude',
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         
@@ -481,7 +483,7 @@ class HomeScreen extends StatelessWidget {
                                               decoration: BoxDecoration(
                                                 gradient:
                                                     LinearGradient(colors: [
-                                                MyColors.darkBlue,
+                                                global.MyColors.darkBlue,
                                             Colors.blue[300],
                                             Colors.blue[200],
                                                 ]),
@@ -496,7 +498,7 @@ class HomeScreen extends StatelessWidget {
                                     Padding(
                                       padding: const EdgeInsets.only(top: 6),
                                       child: Text(
-                                        '12 m',
+                                        (global.altitude).toString().substring(0,3) + " m",
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                           
@@ -522,7 +524,7 @@ class HomeScreen extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
                                     Text(
-                                      'Speed Avg',
+                                      'Max Speed',
                                       style: TextStyle(
                                         
                                         fontWeight: FontWeight.w500,
@@ -551,7 +553,7 @@ class HomeScreen extends StatelessWidget {
                                               decoration: BoxDecoration(
                                                 gradient:
                                                     LinearGradient(colors: [
-                                                 MyColors.darkBlue,
+                                                 global.MyColors.darkBlue,
                                             Colors.blue[300],
                                             Colors.blue[200],
                                                 ]),
@@ -566,7 +568,7 @@ class HomeScreen extends StatelessWidget {
                                     Padding(
                                       padding: const EdgeInsets.only(top: 6),
                                       child: Text(
-                                        '14 km/h',
+                                        global.maxSpeed.toString().substring(0,3) +" m/s" ,
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                          
@@ -687,7 +689,7 @@ class HomeScreen extends StatelessWidget {
                                                           fontWeight: FontWeight.w500,
                                                           fontSize: 14,
                                                           letterSpacing: 0.0,
-                                                          color: MyColors.darkBlue,
+                                                          color: global.MyColors.darkBlue,
                                                         ),
                                                       ),
                                                     ),
@@ -714,7 +716,7 @@ class HomeScreen extends StatelessWidget {
                                                           fontWeight: FontWeight.w500,
                                                           fontSize: 14,
                                                           letterSpacing: 0.0,
-                                                          color:  MyColors.darkBlue,
+                                                          color:  global.MyColors.darkBlue,
                                                         ),
                                                       ),
                                                     ),
@@ -741,7 +743,7 @@ class HomeScreen extends StatelessWidget {
                                                           fontWeight: FontWeight.w500,
                                                           fontSize: 14,
                                                           letterSpacing: 0.0,
-                                                          color:  MyColors.darkBlue,
+                                                          color:  global.MyColors.darkBlue,
                                                         ),
                                                       ),
                                                     ),
@@ -762,7 +764,7 @@ class HomeScreen extends StatelessWidget {
                                                           fontWeight: FontWeight.w500,
                                                           fontSize: 14,
                                                           letterSpacing: 0.0,
-                                                          color: MyColors.darkBlue.withOpacity(0.5),
+                                                          color: global.MyColors.darkBlue.withOpacity(0.5),
                                                         ),
                                                       ),
                                                     ),
@@ -803,6 +805,12 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+  hometransformMilliSecondsToTime(int milliseconds) {
+    int seconds = ((milliseconds/1000)%60).toInt();
+    int minutes = ((milliseconds/(1000*60))%60).toInt();
+    int hours =  ((milliseconds/(1000*60*60))%24).toInt();
+    return hours.toString() + ":" + minutes.toString() + ":" + seconds.toString();
   }
 }
 class RadiantGradientMask extends StatelessWidget {
@@ -939,4 +947,5 @@ class CurvePainter extends CustomPainter {
     var redian = (math.pi / 180) * degree;
     return redian;
   }
+
 }
