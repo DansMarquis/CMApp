@@ -17,7 +17,7 @@ class _FirstPageState extends State<FirstPage> {
     String uuid = prefs.getString('uuid') ?? Uuid().v4();
     // generates random uuid as string
 
-    if (isFirstLaunch) {
+    if (true) {
       Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(

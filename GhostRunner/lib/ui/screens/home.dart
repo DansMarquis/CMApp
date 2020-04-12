@@ -787,20 +787,6 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                Positioned(
-                  bottom: 0,
-                  height: 70,
-                  left: 0,
-                  right: 0,
-                  child: Padding(
-                    padding: const EdgeInsets.all(11.0),
-                    child: MyBottomNavBar(
-                       helper: helper,
-                   identity: identity,
-                  act: 0
-                ),
-              ),
-            )
           ],
         ),
       ),

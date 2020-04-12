@@ -7,6 +7,7 @@ import 'package:ghostrunner/ui/screens/home.dart';
 import 'package:ghostrunner/utils/colors.dart';
 import 'package:ghostrunner/utils/text_styles.dart';
 import 'package:ghostrunner/utils/ui_helpers.dart';
+import 'package:ghostrunner/router_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MyOnboardingPage extends StatefulWidget {
@@ -268,14 +269,7 @@ class _MyOnboardingPageState extends State<MyOnboardingPage> {
                             ? logAnalyticsEvent('dark_mode')
                             : logAnalyticsEvent('light_mode');
 
-                        Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => HomeScreen(
-                                    helper: widget.helper,
-                                    identity: widget.identity
-                                    )),
-                            (Route<dynamic> route) => false);
+                       Navigator.of(context).pushReplacementNamed(RouteName.tab);
                       },
                     ),
                   ),

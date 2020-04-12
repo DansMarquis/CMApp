@@ -52,16 +52,12 @@ const LatLng SOURCE_LOCATION = LatLng(40.581979, -8.080434);
 const LatLng DEST_LOCATION = LatLng(40.611561, -8.101829);
 
 class MapPage extends StatefulWidget {
-  final SharedPreferences helper;
-  final String identity;
-   final Dependencies dependencies;
-
-  const MapPage({Key key, this.helper, this.identity, this.dependencies}) : super(key: key);
   @override
   State<StatefulWidget> createState() => MapPageState();
 }
 
 class MapPageState extends State<MapPage> {
+  final Dependencies dependencies = new Dependencies();
   bool isPlaying = false;
   FlutterTts _flutterTts;  
 
@@ -84,7 +80,7 @@ class MapPageState extends State<MapPage> {
   Timer timer;
 
   updateTime(Timer timer) {
-    if (widget.dependencies.stopwatch.isRunning) {
+    if (dependencies.stopwatch.isRunning) {
       setState(() {});
     } else {
       timer.cancel();
@@ -188,7 +184,7 @@ int ghostCount = 0;
 
     
     const oneSec = const Duration(seconds:1);
-    if (widget.dependencies.stopwatch.isRunning) {
+    if (dependencies.stopwatch.isRunning) {
       timer = new Timer.periodic(new Duration(milliseconds: 20), updateTime);
       leftButtonIcon = Icon(Icons.pause);
       leftButtonColor = Colors.red;
@@ -240,10 +236,10 @@ int ghostCount = 0;
       if(global.isOnMap == true){
         updatePinOnMap();
       }
-      if (widget.dependencies.stopwatch.elapsedMilliseconds >= 5000 && widget.dependencies.stopwatch.elapsedMilliseconds <= 6000 && global.isRunning){
+      if (dependencies.stopwatch.elapsedMilliseconds >= 5000 && dependencies.stopwatch.elapsedMilliseconds <= 6000 && global.isRunning){
         _speak("five seconds");
       }
-      /*if (widget.dependencies.stopwatch.elapsedMilliseconds == 10000){
+      /*if (dependencies.stopwatch.elapsedMilliseconds == 10000){
         _speak("ten seconds");
       }*/
       
@@ -619,7 +615,7 @@ Future _stop() async {
             child: Container(
           height: 170.0,
           width: 170.0,
-          child: TimerClock(widget.dependencies),
+          child: TimerClock(dependencies),
         ),
           ) : Text(""),
            (!_showTrailOnMap && _showTimer) ? Positioned(
@@ -720,7 +716,7 @@ Future _stop() async {
                               Icons.fiber_manual_record,
                               color: Colors.red,);
                             rightButtonColor = Colors.white70;
-                            widget.dependencies.stopwatch.start();
+                            dependencies.stopwatch.start();
                             global.isRunning = true;
                             timer = new Timer.periodic(new Duration(milliseconds: 20), updateTime);
                              
@@ -746,7 +742,7 @@ Future _stop() async {
                               Icons.fiber_manual_record,
                               color: Colors.red,);
                             rightButtonColor = Colors.white70;
-                            widget.dependencies.stopwatch.start();
+                            dependencies.stopwatch.start();
                             global.isRunning = true;
                             timer = new Timer.periodic(new Duration(milliseconds: 20), updateTime);
                              
@@ -764,17 +760,6 @@ Future _stop() async {
                         ),
                 )
               ),
-          Positioned(
-            bottom: 0,
-            height: 70,
-            left: 0,
-            right: 0,
-            child: Padding(
-              padding: const EdgeInsets.all(11.0),
-              child: MyBottomNavBar(
-                  helper: widget.helper, identity: widget.identity, act: 1),
-            ),
-          ),
            (!_showTrailOnMap && _showTimer) ?Positioned(
             top: -60,
             left: 0,
@@ -794,13 +779,13 @@ Future _stop() async {
 
 
 startOrStopWatch() {
-    if (widget.dependencies.stopwatch.isRunning) {
+    if (dependencies.stopwatch.isRunning) {
       global.isRunning = false;
       leftButtonIcon = Icon(Icons.play_arrow);
       leftButtonColor = Colors.green;
       rightButtonIcon = Icon(Icons.refresh);
       rightButtonColor = Colors.blue;
-      widget.dependencies.stopwatch.stop();
+      dependencies.stopwatch.stop();
       setState(() {});
     } else {
       leftButtonIcon = Icon(Icons.pause);
@@ -811,29 +796,29 @@ startOrStopWatch() {
       );
       rightButtonColor = Colors.white70;
       global.isRunning = true;
-      widget.dependencies.stopwatch.start();
+      dependencies.stopwatch.start();
       timer = new Timer.periodic(new Duration(milliseconds: 20), updateTime);
     }
   }
 
   saveOrRefreshWatch() {
     setState(() { 
-      if (widget.dependencies.stopwatch.isRunning) {
+      if (dependencies.stopwatch.isRunning) {
         global.isRunning = false;
-        global.dailyTotalTime += widget.dependencies.stopwatch.elapsedMilliseconds;
-        widget.dependencies.savedTimeList.insert(
+        global.dailyTotalTime += dependencies.stopwatch.elapsedMilliseconds;
+        dependencies.savedTimeList.insert(
             0,
-            widget.dependencies.transformMilliSecondsToString(
-                widget.dependencies.stopwatch.elapsedMilliseconds));
+            dependencies.transformMilliSecondsToString(
+                dependencies.stopwatch.elapsedMilliseconds));
         global.locationCoordsFinish = currentLocation;
         getDistance2Points(global.locationCoordsStart.latitude, global.locationCoordsStart.longitude, global.locationCoordsFinish.latitude, global.locationCoordsFinish.longitude);
         if(global.tempDistance == 0)
           global.velocity = 0.toString();
         else
-          global.velocity = (global.tempDistance / widget.dependencies.stopwatch.elapsedMilliseconds).toString();
-        widget.dependencies.stopwatch.reset();
+          global.velocity = (global.tempDistance / dependencies.stopwatch.elapsedMilliseconds).toString();
+        dependencies.stopwatch.reset();
         _showTimer = false;
-        global.duration = (widget.dependencies.savedTimeList[0]).substring(0,12);
+        global.duration = (dependencies.savedTimeList[0]).substring(0,12);
         
         DateTime now = DateTime.now();
         global.date = DateFormat('yyyy-MM-dd – kk:mm').format(now);
@@ -845,8 +830,8 @@ startOrStopWatch() {
                             (Route<dynamic> route) => false);
       } else {
         global.isRunning = false;
-        widget.dependencies.stopwatch.reset();
-        widget.dependencies.savedTimeList.clear();
+        dependencies.stopwatch.reset();
+        dependencies.savedTimeList.clear();
       }
     });
   }

@@ -60,9 +60,6 @@ class _MyBottomNavBarState extends State<MyBottomNavBar> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => MapPage(
-                                  helper: widget.helper,
-                                    identity: widget.identity,
-                                    dependencies: dependencies
                                     )),
                             (Route<dynamic> route) => false);
             setState(() {
