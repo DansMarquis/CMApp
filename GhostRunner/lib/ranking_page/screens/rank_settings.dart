@@ -92,7 +92,7 @@ class _SettingsState extends State<Settings> {
             Divider(),
 
             SizedBox(height: 10.0),
-            Text("Contribute to the Open source project at 'http://www.github.com/JideGuru/FlutterSuperHeroes'"),
+          
           ],
         ),
       ),

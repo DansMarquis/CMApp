@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:ghostrunner/anims/page_route_anim.dart';
 import 'package:ghostrunner/ui/page/splash_page.dart';
 import 'package:ghostrunner/ui/page/tab/tab_navigator.dart';
+import 'package:ghostrunner/global.dart' as global;
 
 class RouteName {
   static const String splash = 'splash';
@@ -18,7 +19,7 @@ class Router {
       case RouteName.splash:
         return NoAnimRouteBuilder(SplashPage());
       case RouteName.tab:
-        return NoAnimRouteBuilder(TabNavigator());
+        return  NoAnimRouteBuilder(TabNavigator());
       // case RouteName.login:
       //   return CupertinoPageRoute(
       //       fullscreenDialog: true, builder: (_) => LoginPage());

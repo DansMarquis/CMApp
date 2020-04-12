@@ -7,6 +7,7 @@ import 'package:ghostrunner/ranking_page/podo/heroitem.dart';
 import 'package:ghostrunner/ranking_page/screens/rank_search.dart';
 import 'package:ghostrunner/ranking_page/screens/rank_settings.dart';
 import 'package:ghostrunner/ranking_page/widget/superhero.dart';
+import 'package:ghostrunner/global.dart' as global;
 
 class Home extends StatefulWidget {
   final String title;

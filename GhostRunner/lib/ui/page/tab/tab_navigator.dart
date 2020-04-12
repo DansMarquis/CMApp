@@ -21,6 +21,7 @@ class TabNavigator extends StatefulWidget {
 class _TabNavigatorState extends State<TabNavigator> {
   var _pageController = PageController();
   int _selectedIndex = 0;
+  bool show = true;
 
   List<Widget> pages = <Widget>[
     HomePage(),
@@ -31,7 +32,7 @@ class _TabNavigatorState extends State<TabNavigator> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return  Scaffold(
       body: SafeArea(
         child: Stack(
           children: <Widget>[
@@ -56,7 +57,7 @@ class _TabNavigatorState extends State<TabNavigator> {
               right: 0,
               child: Padding(
                 padding: const EdgeInsets.all(11.0),
-                child: Container(
+                child: global.show  ? Container(
                   margin: EdgeInsets.all(0.0),
                   color: Colors.transparent,
                   child: BubbleBottomBar(
@@ -80,7 +81,7 @@ class _TabNavigatorState extends State<TabNavigator> {
                         title: Text(
                           'Home',
                           style: TextStyle(color: Colors.white),
-                        ),
+                        ) ,
                       ),
                       BubbleBottomBarItem(
                        backgroundColor: Colors.black38,
@@ -134,7 +135,7 @@ class _TabNavigatorState extends State<TabNavigator> {
                     opacity: 1,
                     elevation: 0,
                   ),
-                ),
+                ) : SizedBox(),
               ),
             ),
           ],

@@ -9,7 +9,7 @@ class FavoritePage extends StatefulWidget {
 }
 
 class _FavoritePageState extends State<FavoritePage>{
- var title = "Superheroes";
+ var title = "Runners";
   String theme;
 
 
@@ -30,7 +30,7 @@ class _FavoritePageState extends State<FavoritePage>{
 
   ThemeData dark = ThemeData(
     brightness: Brightness.dark,
-    primaryColor: Colors.black,
+    primaryColor: Colors.indigo[900],
     accentColor: Colors.redAccent,
     backgroundColor: Colors.black,
     textTheme: TextTheme(
@@ -82,7 +82,7 @@ class _FavoritePageState extends State<FavoritePage>{
         title: "$title",
       ),
 
-      theme: theme == "dark" ? dark : light,
+      theme: dark,
     );
   }
 }

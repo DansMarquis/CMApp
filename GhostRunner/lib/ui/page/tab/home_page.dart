@@ -96,7 +96,7 @@ class _HomePageState extends State<HomePage>
                           gradient: LinearGradient(
                               begin: Alignment.topRight,
                               end: Alignment.bottomLeft,
-                              colors: [Colors.blue, Colors.blue]),
+                              colors: [Colors.indigo[900],Colors.indigo[900]]),
                         ),
                       ),
                     ),

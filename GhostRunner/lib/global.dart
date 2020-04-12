@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart' as geo;
-
+bool show = true;
 bool isOnMap = false;
 bool isRunning = false;
 String trailName;
