@@ -37,9 +37,10 @@ class SuperHero extends StatelessWidget {
         Navigator.of(context).push(router);
       },
       child: Card(
+        color: Colors.white,
         clipBehavior: Clip.antiAlias,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
+          borderRadius: BorderRadius.circular(30.0),
         ),
         child: Container(
             child: Padding(
@@ -65,26 +66,27 @@ class SuperHero extends StatelessWidget {
                         children: <Widget>[
                           Text(
                             "$name",
-                            style: textTheme.title,
+                            
+                            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black, fontSize: 18),
                           ),
                           Text(
                             fullName.isEmpty ? name : fullName,
-                            style: textTheme.subtitle.copyWith(
-                              fontWeight: FontWeight.w300,
+                            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black, fontSize: 10
                             ),
                           ),
                           Row(
                             children: <Widget>[
                               Icon(
-                                Icons.book,
+                                Icons.map,
                                 size: 18.0,
+                                color: Colors.black,
                               ),
                               SizedBox(
                                 width: 2.0,
                               ),
                               Text(
-                                "$publisher",
-                                style: textTheme.caption,
+                                "Trails : $publisher",
+                                style:TextStyle(fontWeight: FontWeight.bold, color: Colors.black, fontSize: 8),
                               ),
                             ],
                           ),

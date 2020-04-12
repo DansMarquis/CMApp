@@ -92,7 +92,7 @@ class _HomeState extends State<Home> {
       body: _loading
           ? Center(
               child: CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).accentColor),
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.red),
               ),
             )
           : Padding(

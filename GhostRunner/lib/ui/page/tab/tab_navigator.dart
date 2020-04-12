@@ -57,7 +57,7 @@ class _TabNavigatorState extends State<TabNavigator> {
               right: 0,
               child: Padding(
                 padding: const EdgeInsets.all(11.0),
-                child: global.show  ? Container(
+                child: Container(
                   margin: EdgeInsets.all(0.0),
                   color: Colors.transparent,
                   child: BubbleBottomBar(
@@ -135,7 +135,7 @@ class _TabNavigatorState extends State<TabNavigator> {
                     opacity: 1,
                     elevation: 0,
                   ),
-                ) : SizedBox(),
+                ),
               ),
             ),
           ],
