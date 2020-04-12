@@ -736,7 +736,7 @@ class HomeScreen extends StatelessWidget {
                                                       padding:
                                                           const EdgeInsets.only(left: 4.0),
                                                       child: Text(
-                                                        "${trails[i].velocity} km/h",
+                                                        "${trails[i].velocity} km/ms",
                                                         textAlign: TextAlign.center,
                                                         style: TextStyle(
                                                           

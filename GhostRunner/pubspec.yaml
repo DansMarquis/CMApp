@@ -32,8 +32,9 @@ dependencies:
   firebase_storage: ^3.1.5
   toast: ^0.1.5
   rxdart: '>=0.18.1'
- 
+  flutter_tts: ^0.9.1
 
+ 
   great_circle_distance:
     git:
       url: git://github.com/fliverdev/great_circle_distance.git

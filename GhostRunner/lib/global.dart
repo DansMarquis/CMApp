@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart' as geo;
+
 bool isOnMap = false;
 bool isRunning = false;
 String trailName;
@@ -8,7 +9,7 @@ String description;
 geo.Position locationCoordsStart;
 geo.Position locationCoordsFinish;
 String duration;
-String velocity = '54k';
+String velocity = '0';
 String distance = '4330';
 String date;
 int trailID = 4; // 4 by default because there are 4 initial locations created
@@ -16,6 +17,7 @@ int dailyTotalTime = 0;
 double maxSpeed = 0.0;
 double altitude = 0.0;
 double dailyDistance = 0.0;
+double tempDistance = 0;
 
 class MyColors {
   static Color darkBlue = Color(0xff2446a6),

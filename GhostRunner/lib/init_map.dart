@@ -19,6 +19,8 @@ import 'package:ghostrunner/services/speedometer.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:flutter_tts/flutter_tts.dart';
+
 
 
 Future<Widget> _getImage(BuildContext context, String image) async {
@@ -38,6 +40,7 @@ Future<Widget> _getImage(BuildContext context, String image) async {
 
   Future getDistance2Points(initLat, initLong, finalLat, finalLong) async{
     double distanceInMeters = await Geolocator().distanceBetween(initLat, initLong, finalLat, finalLong );
+    global.tempDistance = distanceInMeters;
     global.dailyDistance += distanceInMeters;
   }
 
@@ -59,6 +62,9 @@ class MapPage extends StatefulWidget {
 }
 
 class MapPageState extends State<MapPage> {
+  bool isPlaying = false;
+  FlutterTts _flutterTts;  
+
   //SPEEDOMETER
   double _lowerValue = 5.0;
   double _upperValue = 15.0;
@@ -179,6 +185,8 @@ int ghostCount = 0;
 ////////////////////////////////////////////////////
   @override
   void initState() {
+
+    
     const oneSec = const Duration(seconds:1);
     if (widget.dependencies.stopwatch.isRunning) {
       timer = new Timer.periodic(new Duration(milliseconds: 20), updateTime);
@@ -196,6 +204,8 @@ int ghostCount = 0;
       rightButtonColor = Colors.blue;
     }
     super.initState();
+    
+    initializeTts(); 
     //////////////////////////////////////////////////////////////
     _pageController = PageController(initialPage: 1, viewportFraction: 0.8)
       ..addListener(_onScroll);
@@ -230,8 +240,13 @@ int ghostCount = 0;
       if(global.isOnMap == true){
         updatePinOnMap();
       }
-        
-    
+      if (widget.dependencies.stopwatch.elapsedMilliseconds >= 5000 && widget.dependencies.stopwatch.elapsedMilliseconds <= 6000 && global.isRunning){
+        _speak("five seconds");
+      }
+      /*if (widget.dependencies.stopwatch.elapsedMilliseconds == 10000){
+        _speak("ten seconds");
+      }*/
+      
     });
 
     // set custom marker pins
@@ -239,6 +254,54 @@ int ghostCount = 0;
     // set the initial location
     setInitialLocation();
   }
+
+  initializeTts() {
+  _flutterTts = FlutterTts();
+
+      setTtsLanguage();
+  
+
+  _flutterTts.setStartHandler(() {
+    setState(() {
+      isPlaying = true;
+    });
+  });
+
+  _flutterTts.setCompletionHandler(() {
+    setState(() {
+      isPlaying = false;
+    });
+  });
+
+  _flutterTts.setErrorHandler((err) {
+    setState(() {
+      print("error occurred: " + err);
+      isPlaying = false;
+    });
+  });
+}
+void setTtsLanguage() async {
+  await _flutterTts.setLanguage("en-US");
+}
+
+Future _speak(String text) async {
+  if (text != null && text.isNotEmpty) {
+    var result = await _flutterTts.speak(text);
+    if (result == 1)
+      setState(() {
+        isPlaying = true;
+      });
+  }
+}
+
+Future _stop() async {
+  var result = await _flutterTts.stop();
+  if (result == 1)
+    setState(() {
+      isPlaying = false;
+    });
+}
+
 
   ////////////////////////////////////////////////////////////////////////////////////////
   void _onScroll() {
@@ -506,6 +569,7 @@ int ghostCount = 0;
       timer.cancel();
       timer = null;
     }
+    _flutterTts.stop();
     super.dispose();
   }
 
@@ -761,11 +825,16 @@ startOrStopWatch() {
             0,
             widget.dependencies.transformMilliSecondsToString(
                 widget.dependencies.stopwatch.elapsedMilliseconds));
+        global.locationCoordsFinish = currentLocation;
+        getDistance2Points(global.locationCoordsStart.latitude, global.locationCoordsStart.longitude, global.locationCoordsFinish.latitude, global.locationCoordsFinish.longitude);
+        if(global.tempDistance == 0)
+          global.velocity = 0.toString();
+        else
+          global.velocity = (global.tempDistance / widget.dependencies.stopwatch.elapsedMilliseconds).toString();
         widget.dependencies.stopwatch.reset();
         _showTimer = false;
-        global.locationCoordsFinish = currentLocation;
         global.duration = (widget.dependencies.savedTimeList[0]).substring(0,12);
-        getDistance2Points(global.locationCoordsStart.latitude, global.locationCoordsStart.longitude, global.locationCoordsFinish.latitude, global.locationCoordsFinish.longitude);
+        
         DateTime now = DateTime.now();
         global.date = DateFormat('yyyy-MM-dd – kk:mm').format(now);
         Navigator.pushAndRemoveUntil(
