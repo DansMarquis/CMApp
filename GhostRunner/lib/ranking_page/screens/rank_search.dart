@@ -108,7 +108,7 @@ class HeroSearch extends SearchDelegate {
       query2 = query1[0].toUpperCase() + query1.substring(1);
     }
 
-
+/////////////////////////ADD HERE QUERY FOR TRAL NAMES
     var search = all.where(
             (hero)=> hero['name'].contains(query2)
     ).toList();

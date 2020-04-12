@@ -30,7 +30,7 @@ class _FavoritePageState extends State<FavoritePage>{
 
   ThemeData dark = ThemeData(
     brightness: Brightness.dark,
-    primaryColor: Colors.indigo[900],
+    primaryColor: Colors.white,
     accentColor: Colors.redAccent,
     backgroundColor: Colors.black,
     textTheme: TextTheme(
