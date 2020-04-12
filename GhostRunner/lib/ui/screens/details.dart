@@ -58,7 +58,10 @@ class DetailsState extends State<DetailsScreen> {
 
   void showTrails() {
     setState(() {
-        _showFirstTrail();
+       setTrail(trails[widget.id].locationCoordsStart, 
+                    trails[widget.id].locationCoordsFinish, 
+                    widget.id);
+  
     });
   }
 
@@ -71,15 +74,10 @@ class DetailsState extends State<DetailsScreen> {
     _mapStyle = string;
   });
     setSourceAndDestinationIcons();
-  
-   
-  }
- void _showFirstTrail() {
-       setTrail(trails[widget.id].locationCoordsStart, 
+  setTrail(trails[widget.id].locationCoordsStart, 
                     trails[widget.id].locationCoordsFinish, 
                     widget.id);
-  
-    
+   
   }
   ////////////////////////////////////////////////////////////////////////////////////////
 
