@@ -713,7 +713,7 @@ class _HomePageState extends State<HomePage>
                                                   global.maxSpeed
                                                           .toString()
                                                           .substring(0, 3) +
-                                                      " m/s",
+                                                      " km/ms",
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
                                                     fontWeight: FontWeight.w600,
@@ -915,7 +915,7 @@ class _HomePageState extends State<HomePage>
                                                                       .only(
                                                                   left: 4.0),
                                                           child: Text(
-                                                            "${trails[i].velocity} km/h",
+                                                            "${trails[i].velocity} km/ms",
                                                             textAlign: TextAlign
                                                                 .center,
                                                             style: TextStyle(

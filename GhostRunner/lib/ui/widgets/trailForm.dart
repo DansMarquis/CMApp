@@ -9,6 +9,7 @@ import 'package:ghostrunner/ui/screens/home.dart';
 import '../../global.dart' as global;
 import '../../trail_model.dart';
 import 'package:toast/toast.dart';
+import 'package:ghostrunner/router_manager.dart';
 
 class NewTrailPage extends StatefulWidget {
   @override
@@ -67,12 +68,7 @@ class _NewTrailPageState extends State<NewTrailPage>{
         leading: IconButton(
           icon: Icon(Icons.arrow_left),
           onPressed: (){
-                        Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => HomeScreen(
-                                    )),
-                            (Route<dynamic> route) => false);
+                   Navigator.of(context).pushReplacementNamed(RouteName.tab);
           }),            
           title: Text('Add New Trail'),
       ), 
@@ -277,12 +273,7 @@ class _NewTrailPageState extends State<NewTrailPage>{
                           global.trailID +=1;
                           uploadPic(context);
                           newTrail();
-                            Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => HomeScreen(
-                                    )),
-                            (Route<dynamic> route) => false);
+                             Navigator.of(context).pushReplacementNamed(RouteName.tab);
 
                         }
                       ),
