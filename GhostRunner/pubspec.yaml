@@ -18,7 +18,7 @@ dependencies:
   shimmer: ^1.0.0
   bubble_bottom_bar: ^1.2.0
   audioplayers: ^0.14.0
-  
+  percent_indicator: "^1.0.16"
   flutter_localizations:
     sdk: flutter
   cached_network_image: ^2.0.0
