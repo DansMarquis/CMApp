@@ -26,8 +26,8 @@ final List<User> users = [
       userWeight: '85',
       userHeight: '1.84',
       userGoal: '500',
-      mytrailsID: [0, 1],
-      trailsPerformed: [0, 1, 2],
+      mytrailsID: [0],
+      trailsPerformed: [4],
       img: 'user0.png'),
   User(
       userID: 1,
@@ -36,7 +36,7 @@ final List<User> users = [
       userHeight: '1.76',
       userGoal: '550',
       mytrailsID: [2],
-      trailsPerformed: [1],
+      trailsPerformed: [0,1],
       img: 'user1.png'),
   User(
       userID: 2,
@@ -45,7 +45,7 @@ final List<User> users = [
       userHeight: '1.75',
       userGoal: '500',
       mytrailsID: [3],
-      trailsPerformed: [3, 4],
+      trailsPerformed: [2, 4],
       img: 'user2.png'),
   User(
       userID: 3,

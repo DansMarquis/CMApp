@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:ghostrunner/ranking_page/screens/rank_details.dart';
 import 'package:ghostrunner/ranking_page/widget/superhero_avatar.dart';
 import 'package:ghostrunner/trail_model.dart';
+
+import '../../global.dart';
 Future<Widget> _getImage(BuildContext context, String image) async {
   Image m;
   final ref = FirebaseStorage.instance.ref().child(image);
@@ -60,7 +62,28 @@ class SuperUser extends StatelessWidget {
     return InkWell(
       onTap: () {
         var router = new MaterialPageRoute(builder: (BuildContext context) {
-          return Details(img: img, id: id, name: name);
+          return Stack(
+            children: <Widget>[
+            Details(img: img, id: id, name: name), Positioned(
+                          bottom:0,
+                          left: 0,
+                          right: 0,
+                          height: 80,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [
+                                  Colors.transparent,
+                                  MyColors.darkBlue,
+                                ],
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                              ),
+                            ),
+                          ),
+                        ),
+            ],
+            );
         });
 
         Navigator.of(context).push(router);

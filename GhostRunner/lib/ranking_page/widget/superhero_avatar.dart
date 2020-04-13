@@ -14,17 +14,20 @@ class SuperheroAvatar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          color: Colors.white,
+          color: Colors.indigo[900],
           shape: BoxShape.circle,
           border: Border.all(
             color: Colors.transparent,
           ),
           boxShadow: [
-            BoxShadow(
-                color: Colors.grey.withOpacity(0.3),
-                offset: new Offset(0.0, 0.0),
-                blurRadius: 2.0,
-                spreadRadius: 0.0),
+           BoxShadow(
+        color: Colors.indigo[900],
+        blurRadius: 10.0, // has the effect of softening the shadow
+        spreadRadius: 4.0, // has the effect of extending the shadow
+        offset: Offset(
+          2.0, // horizontal, move right 10
+          2.0, // vertical, move down 10
+        ),),
           ]),
       child: Padding(
         padding: const EdgeInsets.all(4.0),
