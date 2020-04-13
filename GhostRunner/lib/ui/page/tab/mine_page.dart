@@ -43,8 +43,8 @@ class _MinePageState extends State<MinePage> {
     if(global.userName != null){
       nameController.text = global.userName;
     }
-    if(global.userWeight != null){
-      weightController.text = global.userWeight;
+    if(global.weight != null){
+      weightController.text = global.weight.toString();
     }
     if(global.userHeight != null){
       heightController.text = global.userHeight;
@@ -409,7 +409,10 @@ class _MinePageState extends State<MinePage> {
                 onPressed: () {
                   setState(() {
                     global.userName = nameController.text;
-                     global.userWeight = weightController.text;
+                    if(weightController.text != null){
+                       global.weight = double.parse(weightController.text);
+                    }
+                    
                       global.userHeight = heightController.text;
                        global.userGoal = goalController.text;
                     _status = true;
