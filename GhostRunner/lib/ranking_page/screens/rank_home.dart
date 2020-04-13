@@ -8,6 +8,7 @@ import 'package:ghostrunner/ranking_page/screens/rank_search.dart';
 import 'package:ghostrunner/ranking_page/screens/rank_settings.dart';
 import 'package:ghostrunner/ranking_page/widget/superhero.dart';
 import 'package:ghostrunner/global.dart' as global;
+import 'package:ghostrunner/user_model.dart';
 
 import '../../global.dart';
 
@@ -104,21 +105,20 @@ Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.0),
               child: ListView.builder(
                 shrinkWrap: true,
-                itemCount: responseList == null ? 0 : responseList.length,
+                itemCount: users.length == null ? 0 : users.length,
                 itemBuilder: (BuildContext context, int index) {
-                  HeroItem heroItem = HeroItem.fromJson(responseList[index]);
-
+                  User user = users[index];
                   return Padding(
                     padding: const EdgeInsets.all(2.0),
-                    child: SuperHero(
-                      name: heroItem.name,
-                      fullName: heroItem.biography.fullName,
-                      race: heroItem.appearance.race,
-                      publisher: heroItem.biography.publisher,
-                      id: heroItem.id,
-                      hairColor: heroItem.appearance.hairColor,
-                      gender: heroItem.appearance.gender,
-                      img: heroItem.images.lg,
+                    child: SuperUser(
+                      id: user.userID,
+                      name: user.userName,
+                      weight: user.userWeight,
+                      height: user.userHeight,
+                      goal: user.userGoal,
+                      mytrails:  user.mytrailsID,
+                      trailsperformed:  user.trailsPerformed,
+                      img: user.img,
                     ),
                   );
                 },

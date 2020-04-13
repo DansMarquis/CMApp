@@ -100,7 +100,7 @@ class _MinePageState extends State<MinePage> {
                                           )
                                         : Image(
                                             image: AssetImage(
-                                                "assets/users/0.png"),
+                                                "assets/users/user0.png"),
                                             fit: BoxFit.cover,
                                             alignment: Alignment.center,
                                           ),

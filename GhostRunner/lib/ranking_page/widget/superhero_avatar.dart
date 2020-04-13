@@ -1,5 +1,18 @@
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 
+Future<Widget> _getImage(BuildContext context, String image) async {
+  Image m;
+  final ref = FirebaseStorage.instance.ref().child(image);
+  var downloadUrl = await ref.getDownloadURL();
+  m = Image.network(
+    downloadUrl,
+    fit: BoxFit.cover,
+    width: 325,
+    height: 210,
+    alignment: Alignment.center,
+  );
+}
 class SuperheroAvatar extends StatelessWidget {
   final radius;
   final img;
@@ -28,12 +41,20 @@ class SuperheroAvatar extends StatelessWidget {
           ]),
       child: Padding(
         padding: const EdgeInsets.all(4.0),
-        child: CircleAvatar(
+        child: FutureBuilder(
+                            future: _getImage(context, "$img"),
+                            builder: (context, snapshot) {
+                                return Container(
+                                  child: snapshot.data,
+                                );}
+                    )
+        
+        /*CircleAvatar(
           radius: radius,
           backgroundImage: NetworkImage(
             "$img",
           ),
-        ),
+        ),*/
       ),
     );
   }
