@@ -371,8 +371,7 @@ class DetailsState extends State<DetailsScreen> {
           markerId: MarkerId("finish"),
           position: trails[widget.id].locationCoordsFinish,
           icon: destinationIcon));
-            setTrail(trails[widget.id].locationCoordsStart,
-        trails[widget.id].locationCoordsFinish, widget.id);
+           
         setTrail(trails[widget.id].locationCoordsStart,
         trails[widget.id].locationCoordsFinish, widget.id);
       moveCamera();
