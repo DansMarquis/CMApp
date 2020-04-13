@@ -700,7 +700,6 @@ Future _stop() async {
               ),
             ),
           ),
-          Text('Step count: $_stepCountValue'),
           Visibility(
             visible: !_showTimer,
             child:
