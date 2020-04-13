@@ -254,7 +254,7 @@ class _MyOnboardingPageState extends State<MyOnboardingPage> {
                             alignment: Alignment.center,
                             child:                          
                             Container(
-                            width:300,
+                            width:200,
                             child:   TextField(
                                     onChanged:(String value){
                                       global.weight = double.parse(value);

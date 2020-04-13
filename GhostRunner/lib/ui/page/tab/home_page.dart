@@ -427,7 +427,7 @@ class _HomePageState extends State<HomePage>
                                                       CrossAxisAlignment.center,
                                                   children: <Widget>[
                                                     Text(
-                                                      '234',
+                                                      global.totalsteps,
                                                       textAlign:
                                                           TextAlign.center,
                                                       style: TextStyle(

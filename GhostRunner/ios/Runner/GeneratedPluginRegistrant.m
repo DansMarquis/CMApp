@@ -118,6 +118,12 @@
 @import path_provider;
 #endif
 
+#if __has_include(<pedometer/PedometerPlugin.h>)
+#import <pedometer/PedometerPlugin.h>
+#else
+@import pedometer;
+#endif
+
 #if __has_include(<share/SharePlugin.h>)
 #import <share/SharePlugin.h>
 #else
@@ -164,6 +170,7 @@
   [LocationPermissionsPlugin registerWithRegistrar:[registry registrarForPlugin:@"LocationPermissionsPlugin"]];
   [FLTPackageInfoPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTPackageInfoPlugin"]];
   [FLTPathProviderPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTPathProviderPlugin"]];
+  [PedometerPlugin registerWithRegistrar:[registry registrarForPlugin:@"PedometerPlugin"]];
   [FLTSharePlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTSharePlugin"]];
   [FLTSharedPreferencesPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTSharedPreferencesPlugin"]];
   [SqflitePlugin registerWithRegistrar:[registry registrarForPlugin:@"SqflitePlugin"]];

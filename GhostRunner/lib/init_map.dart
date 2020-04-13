@@ -21,6 +21,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:ghostrunner/router_manager.dart';
+import 'package:pedometer/pedometer.dart';
 
 
 
@@ -61,7 +62,11 @@ class MapPage extends StatefulWidget {
 class MapPageState extends State<MapPage> {
   final Dependencies dependencies = new Dependencies();
   bool isPlaying = false;
-  FlutterTts _flutterTts;  
+  FlutterTts _flutterTts;
+
+  /*Pedometer _pedometer;
+  StreamSubscription<int> _subscription;
+  String _stepCountValue = 'unknown';*/
 
   //SPEEDOMETER
   double _lowerValue = 5.0;
@@ -202,7 +207,9 @@ int ghostCount = 0;
       rightButtonColor = Colors.blue;
     }
     super.initState();
-    
+
+    //initPlatformState();///////////////////PEDOMETRO///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     initializeTts(); 
     //////////////////////////////////////////////////////////////
     _pageController = PageController(initialPage: 1, viewportFraction: 0.8)
@@ -244,7 +251,6 @@ int ghostCount = 0;
       /*if (dependencies.stopwatch.elapsedMilliseconds == 10000){
         _speak("ten seconds");
       }*/
-      
     });
 
     // set custom marker pins
@@ -252,6 +258,35 @@ int ghostCount = 0;
     // set the initial location
     setInitialLocation();
   }
+/*
+  Future<void> initPlatformState() async {
+    startListening();
+  }
+
+   void onData(int stepCountValue) {
+    print(stepCountValue);
+  }
+
+  void startListening() {
+    _pedometer = new Pedometer();
+    _subscription = _pedometer.pedometerStream.listen(_onData,
+        onError: _onError, onDone: _onDone, cancelOnError: true);
+  }
+
+  void stopListening() {
+    _subscription.cancel();
+  }
+
+  void _onData(int stepCountValue) async {
+    setState(() => _stepCountValue = "$stepCountValue");
+  }
+
+  void _onDone() => print("Finished pedometer tracking");
+
+  void _onError(error) => print("Flutter Pedometer Error: $error");
+
+*/
+  
 
   initializeTts() {
   _flutterTts = FlutterTts();
@@ -633,13 +668,16 @@ Future _stop() async {
                     FloatingActionButton(
                       heroTag: 'playPause',
                         backgroundColor: leftButtonColor,
-                        onPressed: startOrStopWatch,
+                        onPressed :
+                                startOrStopWatch
+                        ,
                         child: leftButtonIcon),
                     SizedBox(width: 20.0),
                     FloatingActionButton(
                       heroTag: 'reset',
                         backgroundColor: rightButtonColor,
-                        onPressed: saveOrRefreshWatch,
+                        onPressed: 
+                        saveOrRefreshWatch,
                         child: rightButtonIcon),
                   ],
                 )
@@ -662,6 +700,7 @@ Future _stop() async {
               ),
             ),
           ),
+          Text('Step count: $_stepCountValue'),
           Visibility(
             visible: !_showTimer,
             child:
@@ -749,7 +788,6 @@ Future _stop() async {
                             dependencies.stopwatch.start();
                             global.isRunning = true;
                             timer = new Timer.periodic(new Duration(milliseconds: 20), updateTime);
-                             
                     
                           },
                           child: Icon(
@@ -828,6 +866,7 @@ startOrStopWatch() {
         
         DateTime now = DateTime.now();
         global.date = DateFormat('yyyy-MM-dd – kk:mm').format(now);
+        
         if(global.newTrail){
         Navigator.pushAndRemoveUntil(
                             context,
