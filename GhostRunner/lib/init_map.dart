@@ -964,7 +964,7 @@ startOrStopWatch() {
         _polylines.add(Polyline(
             width: 5, // set the width of the polylines
             polylineId: PolylineId("poly"),
-            color: Color.fromARGB(125, 0, 0, 255),
+            color: Color.fromARGB(125, 255, 0, 0),
             points: polylineCoordinates));
       });
     }

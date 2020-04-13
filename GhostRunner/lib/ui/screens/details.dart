@@ -57,8 +57,7 @@ class DetailsState extends State<DetailsScreen> {
 
   void showTrails() {
     setState(() {
-      setTrail(trails[widget.id].locationCoordsStart,
-          trails[widget.id].locationCoordsFinish, widget.id);
+    
     });
   }
 
@@ -71,8 +70,8 @@ class DetailsState extends State<DetailsScreen> {
       _mapStyle = string;
     });
     setSourceAndDestinationIcons();
-    setTrail(trails[widget.id].locationCoordsStart,
-        trails[widget.id].locationCoordsFinish, widget.id);
+    
+   
   }
   ////////////////////////////////////////////////////////////////////////////////////////
 
@@ -372,7 +371,12 @@ class DetailsState extends State<DetailsScreen> {
           markerId: MarkerId("finish"),
           position: trails[widget.id].locationCoordsFinish,
           icon: destinationIcon));
+            setTrail(trails[widget.id].locationCoordsStart,
+        trails[widget.id].locationCoordsFinish, widget.id);
+        setTrail(trails[widget.id].locationCoordsStart,
+        trails[widget.id].locationCoordsFinish, widget.id);
       moveCamera();
+
     });
   }
 
@@ -388,11 +392,13 @@ class DetailsState extends State<DetailsScreen> {
       result.forEach((PointLatLng point) {
         polylineCoordinates.add(LatLng(point.latitude, point.longitude));
       });
+      setState(() {
       _polylines.add(Polyline(
           width: 5, // set the width of the polylines
           polylineId: PolylineId("poly"),
-          color: Color.fromARGB(125, 0, 0, 255),
+          color: Color.fromARGB(125, 255, 0, 0),
           points: polylineCoordinates));
+      });
     }
   }
 }
