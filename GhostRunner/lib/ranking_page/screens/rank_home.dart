@@ -9,6 +9,8 @@ import 'package:ghostrunner/ranking_page/screens/rank_settings.dart';
 import 'package:ghostrunner/ranking_page/widget/superhero.dart';
 import 'package:ghostrunner/global.dart' as global;
 
+import '../../global.dart';
+
 class Home extends StatefulWidget {
   final String title;
   Home({Key key, this.title}) : super(key: key);
@@ -86,6 +88,7 @@ class _HomeState extends State<Home> {
             },
             tooltip: "Search",
           ),
+             
         ],
       ),
       backgroundColor: Theme.of(context).primaryColor,
@@ -95,7 +98,9 @@ class _HomeState extends State<Home> {
                 valueColor: AlwaysStoppedAnimation<Color>(Colors.red),
               ),
             )
-          : Padding(
+          : Stack(
+            children: <Widget>[
+Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.0),
               child: ListView.builder(
                 shrinkWrap: true,
@@ -118,7 +123,27 @@ class _HomeState extends State<Home> {
                   );
                 },
               ),
-            ),
+            ),   Positioned(
+                          bottom: 0,
+                          left: 0,
+                          right: 0,
+                          height: 80,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [
+                                  Colors.transparent,
+                                  MyColors.darkBlue,
+                                ],
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                              ),
+                            ),
+                          ),
+                        ),
+            ],
+            
+          ),
     );
   }
 }

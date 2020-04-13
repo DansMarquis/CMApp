@@ -59,14 +59,12 @@ class SuperHero extends StatelessWidget {
           borderRadius: BorderRadius.circular(30.0),
         ),
         child: Container(
-          decoration: BoxDecoration(
-          gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [
-                Color.fromRGBO(251, 171, 195, 1),
-                Color.fromRGBO(3, 5, 92, 1)
-              ]),),
+         decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/card.jpg"),
+            fit: BoxFit.cover,
+          ),
+        ),
             child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: IntrinsicHeight(
@@ -90,11 +88,11 @@ class SuperHero extends StatelessWidget {
                           Text(
                             "$name",
                             
-                            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 18),
+                            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black, fontSize: 18),
                           ),
                           Text(
                             fullName.isEmpty ? name : fullName,
-                            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 10
+                            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black, fontSize: 10
                             ),
                           ),
                           Row(
@@ -102,14 +100,14 @@ class SuperHero extends StatelessWidget {
                               Icon(
                                 Icons.map,
                                 size: 18.0,
-                                color: Colors.white,
+                                color: Colors.black,
                               ),
                               SizedBox(
                                 width: 2.0,
                               ),
                               Text(
                                 "Trails : $publisher",
-                                style:TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 8),
+                                style:TextStyle(fontWeight: FontWeight.bold, color: Colors.black, fontSize: 8),
                               ),
                              
                             ],
@@ -125,7 +123,8 @@ class SuperHero extends StatelessWidget {
                   Icon(
                                 Icons.arrow_forward_ios,
                                 size: 28.0,
-                                color: Colors.white,
+                                color: Colors.indigo[900],
+                                
                               ),
                 ]),
           ),
