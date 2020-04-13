@@ -8,6 +8,8 @@ import 'package:ghostrunner/utils/text_styles.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
+import '../../router_manager.dart';
+
 Future<Widget> _getImage(BuildContext context, String image) async {
   Image m;
   final ref = FirebaseStorage.instance.ref().child(image);
@@ -339,7 +341,7 @@ class DetailsState extends State<DetailsScreen> {
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(50.0)),
                                     ),
-                                    onPressed:(){           showAlertDialog(context);
+                                    onPressed:(){           showAlertDialog(context, widget.id);
                                     },
                                   ),
                                 )),
@@ -394,17 +396,18 @@ class DetailsState extends State<DetailsScreen> {
     }
   }
 }
-showAlertDialog(BuildContext context) {
+showAlertDialog(BuildContext context, int id) {
    Widget cancelaButton = FlatButton(
     child: Text("Cancel"),
     onPressed:  () {
-
+      Navigator.of(context).pop();
     },
   );
   Widget continuaButton = FlatButton(
     child: Text("Yes"),
     onPressed:  () {
-      
+      trails.removeAt(id);
+       Navigator.of(context).pushReplacementNamed(RouteName.tab);
     },
   );
   //configura o AlertDialog
