@@ -66,7 +66,7 @@ class _NewTrailPageState extends State<NewTrailPage>{
       resizeToAvoidBottomPadding: false,
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.arrow_left),
+          icon: Icon(Icons.arrow_back_ios),
           onPressed: (){
                    Navigator.of(context).pushReplacementNamed(RouteName.tab);
           }),            

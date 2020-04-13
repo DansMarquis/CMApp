@@ -1,9 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart' as geo;
 bool show = true;
 bool isOnMap = false;
 bool isRunning = false;
 String trailName;
+File image;
 String address;
 String description;
 geo.Position locationCoordsStart;

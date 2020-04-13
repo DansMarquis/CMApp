@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -5,6 +6,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:ghostrunner/generated/i18n.dart';
 import 'package:ghostrunner/model/local_view_model.dart';
 import 'package:ghostrunner/model/theme_model.dart';
+import 'package:ghostrunner/global.dart' as global;
+import 'package:image_picker/image_picker.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:provider/provider.dart';
 
@@ -23,6 +26,17 @@ class _MinePageState extends State<MinePage> {
   }
   @override
   Widget build(BuildContext context) {
+    
+     Future getImage() async {
+      var image;
+        image = await ImagePicker.pickImage(source: ImageSource.gallery);
+      
+      
+
+      setState(() {
+       global.image = image;
+      });
+    }
     return new Scaffold(
         body: new Container(
       color: Colors.white,
@@ -42,7 +56,7 @@ class _MinePageState extends State<MinePage> {
                           children: <Widget>[
                             Padding(
                               padding: EdgeInsets.only(left: 25.0),
-                              child: new Text('PROFILE',
+                              child: new Text('Profile',
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 20.0,
@@ -58,17 +72,25 @@ class _MinePageState extends State<MinePage> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            new Container(
-                                width: 140.0,
-                                height: 140.0,
-                                decoration: new BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  image: new DecorationImage(
-                                    image: new ExactAssetImage(
-                                        'assets/users/0.png'),
-                                    fit: BoxFit.cover,
-                                  ),
-                                )),
+                            CircleAvatar(
+                      radius:75,
+                      backgroundColor: Colors.white,
+                      child: ClipOval(
+                        child: SizedBox(
+                          width: 180.0,
+                          height: 180.0,
+                          child: (global.image!=null)?Image.file(
+                                global.image,
+                                fit: BoxFit.cover,
+                                ): 
+                                Image(
+                                image: AssetImage("assets/photos/1.png"),
+                                fit: BoxFit.cover,
+                                alignment: Alignment.center,
+                                ),
+                              )
+                          ,)
+                    )
                           ],
                         ),
                         Padding(
@@ -79,11 +101,15 @@ class _MinePageState extends State<MinePage> {
                                 new CircleAvatar(
                                   backgroundColor: Colors.red,
                                   radius: 25.0,
-                                  child: new Icon(
+                                  child: IconButton(
+                      icon:new Icon(
                                     Icons.camera_alt,
                                     color: Colors.white,
                                   ),
-                                )
+                                  onPressed: (){
+                              getImage();
+                            },
+                                ),),
                               ],
                             )),
                       ]),
@@ -111,7 +137,7 @@ class _MinePageState extends State<MinePage> {
                                 mainAxisSize: MainAxisSize.min,
                                 children: <Widget>[
                                   new Text(
-                                    'Parsonal Information',
+                                    'Personal Information',
                                     style: TextStyle(
                                         fontSize: 18.0,
                                         fontWeight: FontWeight.bold),
