@@ -24,29 +24,28 @@ class _MinePageState extends State<MinePage> {
   void initState() {
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
-    
-     Future getImage() async {
+    Future getImage() async {
       var image;
-        image = await ImagePicker.pickImage(source: ImageSource.gallery);
-      
-      
+      image = await ImagePicker.pickImage(source: ImageSource.gallery);
 
       setState(() {
-       global.image = image;
+        global.image = image;
       });
     }
+
     return new Scaffold(
         body: new Container(
-      color: Colors.white,
+      color: Colors.indigo[900],
       child: new ListView(
         children: <Widget>[
           Column(
             children: <Widget>[
               new Container(
                 height: 250.0,
-                color: Colors.white,
+                color: Colors.indigo[900],
                 child: new Column(
                   children: <Widget>[
                     Padding(
@@ -61,7 +60,7 @@ class _MinePageState extends State<MinePage> {
                                       fontWeight: FontWeight.bold,
                                       fontSize: 20.0,
                                       fontFamily: 'sans-serif-light',
-                                      color: Colors.black)),
+                                      color: Colors.white)),
                             )
                           ],
                         )),
@@ -73,24 +72,25 @@ class _MinePageState extends State<MinePage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             CircleAvatar(
-                      radius:75,
-                      backgroundColor: Colors.white,
-                      child: ClipOval(
-                        child: SizedBox(
-                          width: 180.0,
-                          height: 180.0,
-                          child: (global.image!=null)?Image.file(
-                                global.image,
-                                fit: BoxFit.cover,
-                                ): 
-                                Image(
-                                image: AssetImage("assets/photos/1.png"),
-                                fit: BoxFit.cover,
-                                alignment: Alignment.center,
-                                ),
-                              )
-                          ,)
-                    )
+                                radius: 75,
+                                backgroundColor: Colors.white,
+                                child: ClipOval(
+                                  child: SizedBox(
+                                    width: 180.0,
+                                    height: 180.0,
+                                    child: (global.image != null)
+                                        ? Image.file(
+                                            global.image,
+                                            fit: BoxFit.cover,
+                                          )
+                                        : Image(
+                                            image: AssetImage(
+                                                "assets/photos/1.png"),
+                                            fit: BoxFit.cover,
+                                            alignment: Alignment.center,
+                                          ),
+                                  ),
+                                ))
                           ],
                         ),
                         Padding(
@@ -99,17 +99,18 @@ class _MinePageState extends State<MinePage> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 new CircleAvatar(
-                                  backgroundColor: Colors.red,
+                                  backgroundColor: Colors.white,
                                   radius: 25.0,
                                   child: IconButton(
-                      icon:new Icon(
-                                    Icons.camera_alt,
-                                    color: Colors.white,
+                                    icon: new Icon(
+                                      Icons.camera_alt,
+                                      color: Colors.blue,
+                                    ),
+                                    onPressed: () {
+                                      getImage();
+                                    },
                                   ),
-                                  onPressed: (){
-                              getImage();
-                            },
-                                ),),
+                                ),
                               ],
                             )),
                       ]),
@@ -118,7 +119,7 @@ class _MinePageState extends State<MinePage> {
                 ),
               ),
               new Container(
-                color: Color(0xffFFFFFF),
+                color: Colors.indigo[900],
                 child: Padding(
                   padding: EdgeInsets.only(bottom: 25.0),
                   child: new Column(
@@ -140,7 +141,8 @@ class _MinePageState extends State<MinePage> {
                                     'Personal Information',
                                     style: TextStyle(
                                         fontSize: 18.0,
-                                        fontWeight: FontWeight.bold),
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white),
                                   ),
                                 ],
                               ),
@@ -163,11 +165,21 @@ class _MinePageState extends State<MinePage> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 mainAxisSize: MainAxisSize.min,
                                 children: <Widget>[
-                                  new Text(
-                                    'Name',
-                                    style: TextStyle(
-                                        fontSize: 16.0,
-                                        fontWeight: FontWeight.bold),
+                                  Row(
+                                    children: <Widget>[
+                                      new Icon(
+                                        Icons.face,
+                                        color: Colors.white,
+                                        size: 16.0,
+                                      ),
+                                      new Text(
+                                        'Name',
+                                        style: TextStyle(
+                                            fontSize: 16.0,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white),
+                                      )
+                                    ],
                                   ),
                                 ],
                               ),
@@ -186,7 +198,6 @@ class _MinePageState extends State<MinePage> {
                                   ),
                                   enabled: !_status,
                                   autofocus: !_status,
-
                                 ),
                               ),
                             ],
@@ -201,11 +212,21 @@ class _MinePageState extends State<MinePage> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 mainAxisSize: MainAxisSize.min,
                                 children: <Widget>[
-                                  new Text(
-                                    'Email ID',
-                                    style: TextStyle(
-                                        fontSize: 16.0,
-                                        fontWeight: FontWeight.bold),
+                                  Row(
+                                    children: <Widget>[
+                                      new Icon(
+                                        Icons.fitness_center,
+                                        color: Colors.white,
+                                        size: 16.0,
+                                      ),
+                                      new Text(
+                                        'Weight',
+                                        style: TextStyle(
+                                            fontSize: 16.0,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white),
+                                      )
+                                    ],
                                   ),
                                 ],
                               ),
@@ -236,11 +257,21 @@ class _MinePageState extends State<MinePage> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 mainAxisSize: MainAxisSize.min,
                                 children: <Widget>[
-                                  new Text(
-                                    'Mobile',
-                                    style: TextStyle(
-                                        fontSize: 16.0,
-                                        fontWeight: FontWeight.bold),
+                                   Row(
+                                    children: <Widget>[
+                                      new Icon(
+                                        Icons.face,
+                                        color: Colors.white,
+                                        size: 16.0,
+                                      ),
+                                      new Text(
+                                        'Height',
+                                        style: TextStyle(
+                                            fontSize: 16.0,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white),
+                                      )
+                                    ],
                                   ),
                                 ],
                               ),
@@ -274,7 +305,8 @@ class _MinePageState extends State<MinePage> {
                                     'Pin Code',
                                     style: TextStyle(
                                         fontSize: 16.0,
-                                        fontWeight: FontWeight.bold),
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white),
                                   ),
                                 ),
                                 flex: 2,
@@ -285,7 +317,8 @@ class _MinePageState extends State<MinePage> {
                                     'State',
                                     style: TextStyle(
                                         fontSize: 16.0,
-                                        fontWeight: FontWeight.bold),
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white),
                                   ),
                                 ),
                                 flex: 2,
@@ -331,6 +364,7 @@ class _MinePageState extends State<MinePage> {
       ),
     ));
   }
+
   @override
   void dispose() {
     // Clean up the controller when the Widget is disposed
@@ -393,11 +427,11 @@ class _MinePageState extends State<MinePage> {
   Widget _getEditIcon() {
     return new GestureDetector(
       child: new CircleAvatar(
-        backgroundColor: Colors.red,
+        backgroundColor: Colors.white,
         radius: 14.0,
         child: new Icon(
           Icons.edit,
-          color: Colors.white,
+          color: Colors.blue,
           size: 16.0,
         ),
       ),

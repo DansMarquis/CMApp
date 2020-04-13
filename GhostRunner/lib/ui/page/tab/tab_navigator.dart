@@ -102,16 +102,16 @@ class _TabNavigatorState extends State<TabNavigator> {
                       BubbleBottomBarItem(
                        backgroundColor: Colors.black38,
                         icon: Icon(
-                          Icons.trending_up,
+                          Icons.group,
                           size: 25.0,
                         ),
                         activeIcon: Icon(
-                          Icons.trending_up,
+                          Icons.group,
                           size: 25.0,
                           color: Colors.white,
                         ),
                         title: Text(
-                          'Ranking',
+                          'Runners',
                           style: TextStyle(color: Colors.white),
                         ),
                       ),
