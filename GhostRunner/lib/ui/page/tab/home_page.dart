@@ -50,7 +50,6 @@ class _HomePageState extends State<HomePage>
   @override
   void initState() {
     super.initState();
-
     controllerRecord = new AnimationController(
         duration: const Duration(milliseconds: 15000), vsync: this);
     animationRecord =
@@ -348,7 +347,7 @@ class _HomePageState extends State<HomePage>
                                                               ),
                                                             )
                                                             :  Text(
-                                                              (global.burned).toString().substring(5),
+                                                              (global.burned).toString().substring(0,5),
                                                               textAlign:
                                                                   TextAlign
                                                                       .center,
@@ -440,7 +439,7 @@ class _HomePageState extends State<HomePage>
                                                       ),
                                                     ),
                                                     Text(
-                                                      'Kcal left',
+                                                      'Steps',
                                                       textAlign:
                                                           TextAlign.center,
                                                       style: TextStyle(
