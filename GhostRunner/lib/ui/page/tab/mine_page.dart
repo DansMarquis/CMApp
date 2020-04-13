@@ -19,6 +19,11 @@ class MinePage extends StatefulWidget {
 class _MinePageState extends State<MinePage> {
   bool _status = true;
   final FocusNode myFocusNode = FocusNode();
+  final nameController = TextEditingController();
+  final weightController = TextEditingController();
+  final heightController = TextEditingController();
+  final goalController = TextEditingController();
+
 
   @override
   void initState() {
@@ -35,7 +40,18 @@ class _MinePageState extends State<MinePage> {
         global.image = image;
       });
     }
-
+    if(global.userName != null){
+      nameController.text = global.userName;
+    }
+    if(global.weight != null){
+      weightController.text = global.weight.toString();
+    }
+    if(global.userHeight != null){
+      heightController.text = global.userHeight;
+    }
+    if(global.userGoal!= null){
+      goalController.text = global.userGoal;
+    }
     return new Scaffold(
         body: new Container(
       color: Colors.indigo[900],
@@ -49,17 +65,16 @@ class _MinePageState extends State<MinePage> {
                 child: new Column(
                   children: <Widget>[
                     Padding(
-                        padding: EdgeInsets.only(left: 20.0, top: 20.0),
+                        padding: EdgeInsets.only(left: 0.0, top: 40.0),
                         child: new Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Padding(
                               padding: EdgeInsets.only(left: 25.0),
-                              child: new Text('Profile',
+                              child: new Text('PROFILE',
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 20.0,
-                                      fontFamily: 'sans-serif-light',
                                       color: Colors.white)),
                             )
                           ],
@@ -85,7 +100,7 @@ class _MinePageState extends State<MinePage> {
                                           )
                                         : Image(
                                             image: AssetImage(
-                                                "assets/photos/1.png"),
+                                                "assets/users/user0.png"),
                                             fit: BoxFit.cover,
                                             alignment: Alignment.center,
                                           ),
@@ -134,7 +149,7 @@ class _MinePageState extends State<MinePage> {
                             mainAxisSize: MainAxisSize.max,
                             children: <Widget>[
                               new Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 mainAxisSize: MainAxisSize.min,
                                 children: <Widget>[
                                   new Text(
@@ -166,12 +181,15 @@ class _MinePageState extends State<MinePage> {
                                 mainAxisSize: MainAxisSize.min,
                                 children: <Widget>[
                                   Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: <Widget>[
                                       new Icon(
                                         Icons.face,
-                                        color: Colors.white,
-                                        size: 16.0,
+                                        color: Colors.purple[100],
+                                        size: 20.0,
                                       ),
+                                      SizedBox(),
                                       new Text(
                                         'Name',
                                         style: TextStyle(
@@ -193,8 +211,12 @@ class _MinePageState extends State<MinePage> {
                             children: <Widget>[
                               new Flexible(
                                 child: new TextField(
-                                  decoration: const InputDecoration(
+                                  controller: nameController,
+                                  style: new TextStyle(color: Colors.white),
+                                  decoration: new InputDecoration(
+                                    fillColor: Colors.white,
                                     hintText: "Enter Your Name",
+                                     hintStyle: TextStyle( color: Colors.red[100]),
                                   ),
                                   enabled: !_status,
                                   autofocus: !_status,
@@ -216,8 +238,8 @@ class _MinePageState extends State<MinePage> {
                                     children: <Widget>[
                                       new Icon(
                                         Icons.fitness_center,
-                                        color: Colors.white,
-                                        size: 16.0,
+                                        color: Colors.blue,
+                                        size: 20.0,
                                       ),
                                       new Text(
                                         'Weight',
@@ -240,8 +262,11 @@ class _MinePageState extends State<MinePage> {
                             children: <Widget>[
                               new Flexible(
                                 child: new TextField(
-                                  decoration: const InputDecoration(
-                                      hintText: "Enter Email ID"),
+                                       controller: weightController,
+                                  style: new TextStyle(color: Colors.white),
+                                  decoration: new InputDecoration(
+                                      hintStyle: TextStyle( color: Colors.red[100]),
+                                      hintText: "Enter Weight"),
                                   enabled: !_status,
                                 ),
                               ),
@@ -257,12 +282,12 @@ class _MinePageState extends State<MinePage> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 mainAxisSize: MainAxisSize.min,
                                 children: <Widget>[
-                                   Row(
+                                  Row(
                                     children: <Widget>[
                                       new Icon(
-                                        Icons.face,
-                                        color: Colors.white,
-                                        size: 16.0,
+                                        Icons.nature_people,
+                                        color: Colors.green,
+                                        size: 20.0,
                                       ),
                                       new Text(
                                         'Height',
@@ -285,8 +310,12 @@ class _MinePageState extends State<MinePage> {
                             children: <Widget>[
                               new Flexible(
                                 child: new TextField(
-                                  decoration: const InputDecoration(
-                                      hintText: "Enter Mobile Number"),
+                                       controller:heightController,
+                                  style: new TextStyle(color: Colors.white),
+                                  decoration: new InputDecoration(
+                                      fillColor: Colors.white,
+                                      hintStyle: TextStyle( color: Colors.red[100]),
+                                      hintText: "Enter Height"),
                                   enabled: !_status,
                                 ),
                               ),
@@ -299,29 +328,23 @@ class _MinePageState extends State<MinePage> {
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: <Widget>[
-                              Expanded(
-                                child: Container(
-                                  child: new Text(
-                                    'Pin Code',
+                              Row(
+                                children: <Widget>[
+                                  new Icon(
+                                    Icons.whatshot,
+                                    color: Colors.red,
+                                    size: 20.0,
+                                  ),
+                                  new Text(
+                                    'Daily Burned kcal Goal',
                                     style: TextStyle(
+                                      
                                         fontSize: 16.0,
                                         fontWeight: FontWeight.bold,
                                         color: Colors.white),
-                                  ),
-                                ),
-                                flex: 2,
-                              ),
-                              Expanded(
-                                child: Container(
-                                  child: new Text(
-                                    'State',
-                                    style: TextStyle(
-                                        fontSize: 16.0,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white),
-                                  ),
-                                ),
-                                flex: 2,
+                                        
+                                  )
+                                ],
                               ),
                             ],
                           )),
@@ -336,20 +359,16 @@ class _MinePageState extends State<MinePage> {
                                 child: Padding(
                                   padding: EdgeInsets.only(right: 10.0),
                                   child: new TextField(
-                                    decoration: const InputDecoration(
-                                        hintText: "Enter Pin Code"),
+                                         controller: goalController,
+                                    style: new TextStyle(color: Colors.white),
+                                    decoration: new InputDecoration(
+                                      hintStyle: TextStyle( color: Colors.red[100]),
+                                        hintText: "Enter Goal Here"),
                                     enabled: !_status,
                                   ),
                                 ),
                                 flex: 2,
-                              ),
-                              Flexible(
-                                child: new TextField(
-                                  decoration: const InputDecoration(
-                                      hintText: "Enter State"),
-                                  enabled: !_status,
-                                ),
-                                flex: 2,
+                                
                               ),
                             ],
                           )),
@@ -374,7 +393,7 @@ class _MinePageState extends State<MinePage> {
 
   Widget _getActionButtons() {
     return Padding(
-      padding: EdgeInsets.only(left: 25.0, right: 25.0, top: 45.0),
+      padding: EdgeInsets.only(left: 25.0, right: 25.0, bottom: 50.0),
       child: new Row(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -389,6 +408,13 @@ class _MinePageState extends State<MinePage> {
                 color: Colors.green,
                 onPressed: () {
                   setState(() {
+                    global.userName = nameController.text;
+                    if(weightController.text != null){
+                       global.weight = double.parse(weightController.text);
+                    }
+                    
+                      global.userHeight = heightController.text;
+                       global.userGoal = goalController.text;
                     _status = true;
                     FocusScope.of(context).requestFocus(new FocusNode());
                   });

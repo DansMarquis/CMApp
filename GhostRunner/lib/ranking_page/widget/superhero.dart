@@ -17,32 +17,46 @@ Future<Widget> _getImage(BuildContext context, String image) async {
 
   return m;
 }
-class SuperHero extends StatelessWidget {
-  var id;
+class SuperUser extends StatelessWidget {
+  int id;
   String name;
-  String fullName;
-  var img;
-  var race;
-  var gender;
-  var hairColor;
-  var publisher;
-
-  SuperHero({
+  String weight;
+  String height;
+  String goal;
+  List<int> mytrails;
+  List<int> trailsperformed;
+  String img;
+  String trailsToString = "";
+  String mytrailsToString = "";
+  SuperUser({
     Key key,
     @required this.id,
     @required this.name,
-    @required this.fullName,
+    @required this.weight,
+    @required this.height,
+    @required this.goal,
+    @required this.mytrails,
+    @required this.trailsperformed,
     @required this.img,
-    @required this.race,
-    @required this.gender,
-    @required this.hairColor,
-    @required this.publisher,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
-
+    for(Trail t in trails){
+      for(int i in trailsperformed){
+        if(i == t.trailID){
+          trailsToString += t.trailName+" ";
+        }
+      }
+    }
+     for(Trail t in trails){
+      for(int i in mytrails){
+        if(i == t.trailID){
+          mytrailsToString += t.trailName+" ";
+        }
+      }
+    }
     return InkWell(
       onTap: () {
         var router = new MaterialPageRoute(builder: (BuildContext context) {
@@ -59,14 +73,12 @@ class SuperHero extends StatelessWidget {
           borderRadius: BorderRadius.circular(30.0),
         ),
         child: Container(
-          decoration: BoxDecoration(
-          gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [
-                Color.fromRGBO(251, 171, 195, 1),
-                Color.fromRGBO(3, 5, 92, 1)
-              ]),),
+         decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/card.jpg"),
+            fit: BoxFit.cover,
+          ),
+        ),
             child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: IntrinsicHeight(
@@ -90,11 +102,11 @@ class SuperHero extends StatelessWidget {
                           Text(
                             "$name",
                             
-                            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 18),
+                            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black, fontSize: 18),
                           ),
                           Text(
-                            fullName.isEmpty ? name : fullName,
-                            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 10
+                            mytrailsToString.isEmpty ? " " : "My Trails: $mytrailsToString",
+                            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black, fontSize: 10
                             ),
                           ),
                           Row(
@@ -102,14 +114,14 @@ class SuperHero extends StatelessWidget {
                               Icon(
                                 Icons.map,
                                 size: 18.0,
-                                color: Colors.white,
+                                color: Colors.black,
                               ),
                               SizedBox(
                                 width: 2.0,
                               ),
                               Text(
-                                "Trails : $publisher",
-                                style:TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 8),
+                                "Done : $trailsToString",
+                                style:TextStyle(fontWeight: FontWeight.bold, color: Colors.black, fontSize: 8),
                               ),
                              
                             ],
@@ -125,7 +137,8 @@ class SuperHero extends StatelessWidget {
                   Icon(
                                 Icons.arrow_forward_ios,
                                 size: 28.0,
-                                color: Colors.white,
+                                color: Colors.indigo[900],
+                                
                               ),
                 ]),
           ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ghostrunner/ranking_page/podo/heroitem.dart';
 import 'package:ghostrunner/ranking_page/widget/superhero.dart';
-
+import 'package:ghostrunner/user_model.dart';
 class HeroSearch extends SearchDelegate {
 
 
@@ -81,18 +81,18 @@ class HeroSearch extends SearchDelegate {
         shrinkWrap: true,
         itemCount: search == null ? 0 : search.length,
         itemBuilder: (BuildContext context, int position){
-          HeroItem heroItem = HeroItem.fromJson(search[position]);
+         User user = users[position];
 
-          return SuperHero(
-            name: heroItem.name,
-            fullName: heroItem.biography.fullName,
-            race: heroItem.appearance.race,
-            publisher: heroItem.biography.publisher,
-            id: heroItem.id,
-            hairColor: heroItem.appearance.hairColor,
-            gender: heroItem.appearance.gender,
-            img: heroItem.images.lg,
-          );
+          return SuperUser(
+                      id: user.userID,
+                      name: user.userName,
+                      weight: user.userWeight,
+                      height: user.userHeight,
+                      goal: user.userGoal,
+                      mytrails:  user.mytrailsID,
+                      trailsperformed:  user.trailsPerformed,
+                      img: user.img,
+                    );
         },
       ),
     );
@@ -125,18 +125,18 @@ class HeroSearch extends SearchDelegate {
         shrinkWrap: true,
         itemCount: search == null ? 0 : search.length,
         itemBuilder: (BuildContext context, int position){
-          HeroItem heroItem = HeroItem.fromJson(search[position]);
+         User user = users[position];
 
-          return SuperHero(
-            name: heroItem.name,
-            fullName: heroItem.biography.fullName,
-            race: heroItem.appearance.race,
-            publisher: heroItem.biography.publisher,
-            id: heroItem.id,
-            hairColor: heroItem.appearance.hairColor,
-            gender: heroItem.appearance.gender,
-            img: heroItem.images.lg,
-          );
+          return SuperUser(
+                      id: user.userID,
+                      name: user.userName,
+                      weight: user.userWeight,
+                      height: user.userHeight,
+                      goal: user.userGoal,
+                      mytrails:  user.mytrailsID,
+                      trailsperformed:  user.trailsPerformed,
+                      img: user.img,
+                    );
         },
       ),
     );

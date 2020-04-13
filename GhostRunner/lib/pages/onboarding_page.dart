@@ -27,6 +27,7 @@ class MyOnboardingPage extends StatefulWidget {
 
 class _MyOnboardingPageState extends State<MyOnboardingPage> {
   Color dynamicColor = MyColors.white;
+  final weightController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -256,6 +257,7 @@ class _MyOnboardingPageState extends State<MyOnboardingPage> {
                             Container(
                             width:200,
                             child:   TextField(
+                               controller: weightController,
                                     onChanged:(String value){
                                       global.weight = double.parse(value);
                                     },
@@ -303,6 +305,7 @@ class _MyOnboardingPageState extends State<MyOnboardingPage> {
                         borderRadius: BorderRadius.all(Radius.circular(50.0)),
                       ),
                       onPressed: () async {
+                        global.weight = double.parse(weightController.text);
                         //Firestore.instance.collection("users").document().setData({'name' : 'Daniel'});
                         widget.helper.setBool('isFirstLaunchChat', false);
                         widget.helper.setString('uuid', widget.identity);

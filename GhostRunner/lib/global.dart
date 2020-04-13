@@ -7,6 +7,10 @@ bool isOnMap = false;
 bool isRunning = false;
 String trailName;
 File image;
+String userName;
+String userWeight;
+String userHeight;
+String userGoal;
 String address;
 String description;
 geo.Position locationCoordsStart;
@@ -35,11 +39,7 @@ class MyColors {
 
 
 
-class User {
-  static String fullname = "Cybdom Tech",
-      profilePicture =
-          "https://cdn.pixabay.com/photo/2019/11/19/21/44/animal-4638598_960_720.jpg";
-}
+
 
 class DestinationModel {
   final String placeName, imageUrl, date, hotelName;
