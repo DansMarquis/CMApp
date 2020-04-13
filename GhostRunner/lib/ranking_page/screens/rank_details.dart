@@ -87,14 +87,14 @@ class _SuperheroDetailsState extends State<SuperheroDetails> {
     for (Trail t in trails) {
       for (int i in users[widget.widget.id].trailsPerformed) {
         if (i == t.trailID) {
-          trailsToString += t.trailName + "\n ";
+          trailsToString += t.trailName+"\n ";
         }
       }
     }
     for (Trail t in trails) {
       for (int i in users[widget.widget.id].mytrailsID) {
         if (i == t.trailID) {
-          mytrailsToString += t.trailName + "\n ";
+          mytrailsToString += t.trailName + "\n    Description: "+t.description+"\n ";
         }
       }
     }
