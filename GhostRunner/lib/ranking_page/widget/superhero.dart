@@ -105,7 +105,10 @@ class SuperUser extends StatelessWidget {
                             style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black, fontSize: 18),
                           ),
                           Text(
-                            mytrailsToString.isEmpty ? " " : "My Trails: $mytrailsToString",
+                            mytrailsToString.isEmpty ? "My Trails: none " : (mytrailsToString)
+                                                                          .length <
+                                                                      13 ?"My Trails: $mytrailsToString" : "My Trails: ${mytrailsToString.substring(0, 10)}" +
+                                                                      "...",
                             style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black, fontSize: 10
                             ),
                           ),
