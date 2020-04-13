@@ -41,7 +41,7 @@ Future<Widget> _getImage(BuildContext context, String image) async {
   Future getDistance2Points(initLat, initLong, finalLat, finalLong) async{
     double distanceInMeters = await Geolocator().distanceBetween(initLat, initLong, finalLat, finalLong );
     global.tempDistance = distanceInMeters;
-    global.distance = distanceInMeters.toString().substring(5);
+    global.distance = distanceInMeters.toString().substring(0,5);
     global.dailyDistance += distanceInMeters;
   }
 
