@@ -65,17 +65,16 @@ class _MinePageState extends State<MinePage> {
                 child: new Column(
                   children: <Widget>[
                     Padding(
-                        padding: EdgeInsets.only(left: 20.0, top: 20.0),
+                        padding: EdgeInsets.only(left: 0.0, top: 40.0),
                         child: new Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Padding(
                               padding: EdgeInsets.only(left: 25.0),
-                              child: new Text('Profile',
+                              child: new Text('PROFILE',
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 20.0,
-                                      fontFamily: 'sans-serif-light',
                                       color: Colors.white)),
                             )
                           ],
