@@ -339,7 +339,8 @@ class DetailsState extends State<DetailsScreen> {
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(50.0)),
                                     ),
-                                    onPressed: showTrails,
+                                    onPressed:(){           showAlertDialog(context);
+                                    },
                                   ),
                                 )),
                               ],
@@ -392,4 +393,34 @@ class DetailsState extends State<DetailsScreen> {
           points: polylineCoordinates));
     }
   }
+}
+showAlertDialog(BuildContext context) {
+   Widget cancelaButton = FlatButton(
+    child: Text("Cancel"),
+    onPressed:  () {
+
+    },
+  );
+  Widget continuaButton = FlatButton(
+    child: Text("Yes"),
+    onPressed:  () {
+      
+    },
+  );
+  //configura o AlertDialog
+  AlertDialog alert = AlertDialog(
+    title: Text("Attention"),
+    content: Text("Are you sure you want to delete this Trail?"),
+    actions: [
+      cancelaButton,
+      continuaButton,
+    ],
+  );
+  //exibe o diálogo
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
 }
