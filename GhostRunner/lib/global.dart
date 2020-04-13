@@ -18,6 +18,8 @@ double maxSpeed = 0.0;
 double altitude = 0.0;
 double dailyDistance = 0.0;
 double tempDistance = 0;
+double weight = 70.0;
+double burned = 0.0;
 
 class MyColors {
   static Color darkBlue = Color(0xff2446a6),

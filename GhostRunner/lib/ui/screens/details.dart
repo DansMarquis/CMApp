@@ -291,7 +291,7 @@ class DetailsState extends State<DetailsScreen> {
                                             padding: const EdgeInsets.only(
                                                 left: 4.0),
                                             child: Text(
-                                              "${trails[widget.id].velocity} km/ms",
+                                              "${trails[widget.id].velocity} m/s",
                                               textAlign: TextAlign.center,
                                               style: TextStyle(
                                                 fontWeight: FontWeight.w500,

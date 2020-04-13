@@ -41,6 +41,7 @@ Future<Widget> _getImage(BuildContext context, String image) async {
   Future getDistance2Points(initLat, initLong, finalLat, finalLong) async{
     double distanceInMeters = await Geolocator().distanceBetween(initLat, initLong, finalLat, finalLong );
     global.tempDistance = distanceInMeters;
+    global.distance = distanceInMeters.toString().substring(5);
     global.dailyDistance += distanceInMeters;
   }
 
@@ -815,7 +816,9 @@ startOrStopWatch() {
         if(global.tempDistance == 0)
           global.velocity = 0.toString();
         else
-          global.velocity = (global.tempDistance / dependencies.stopwatch.elapsedMilliseconds).toString();
+          global.velocity = ((global.tempDistance / dependencies.stopwatch.elapsedMilliseconds)*1000000).toString();
+        double hour = ((dependencies.stopwatch.elapsedMilliseconds/3.6)*0.001)*0.001;   
+        global.burned += 8*global.weight*hour; //MET*weight(kg)*time(hour)
         dependencies.stopwatch.reset();
         _showTimer = false;
         global.duration = (dependencies.savedTimeList[0]).substring(0,12);

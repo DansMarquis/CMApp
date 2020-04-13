@@ -331,8 +331,24 @@ class _HomePageState extends State<HomePage>
                                                                         .only(
                                                                     left: 4,
                                                                     bottom: 3),
-                                                            child: Text(
-                                                              '23',
+                                                            child:
+                                                            (global.burned == 0.0)
+                                                            ?  Text(
+                                                              (global.burned).toString(),
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .center,
+                                                              style: TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                                fontSize: 16,
+                                                                color: Colors
+                                                                    .black,
+                                                              ),
+                                                            )
+                                                            :  Text(
+                                                              (global.burned).toString().substring(5),
                                                               textAlign:
                                                                   TextAlign
                                                                       .center,
@@ -915,7 +931,7 @@ class _HomePageState extends State<HomePage>
                                                                       .only(
                                                                   left: 4.0),
                                                           child: Text(
-                                                            "${trails[i].velocity} km/ms",
+                                                            "${(trails[i].velocity)}. m/s",
                                                             textAlign: TextAlign
                                                                 .center,
                                                             style: TextStyle(

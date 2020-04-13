@@ -9,6 +9,7 @@ import 'package:ghostrunner/utils/text_styles.dart';
 import 'package:ghostrunner/utils/ui_helpers.dart';
 import 'package:ghostrunner/router_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../global.dart' as global;
 
 class MyOnboardingPage extends StatefulWidget {
   final SharedPreferences helper;
@@ -97,7 +98,7 @@ class _MyOnboardingPageState extends State<MyOnboardingPage> {
                     ),
                   ),
                   SizedBox(
-                    height: 90.0,
+                    height: 40.0,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -111,8 +112,8 @@ class _MyOnboardingPageState extends State<MyOnboardingPage> {
                             width: 36.0,
                             height: 36.0,
                             child: Image.asset(
-                              'assets/other/swipe_button.png',
-                              fit: BoxFit.cover,
+                              'assets/fitness_app/eaten.png',
+                              fit: BoxFit.fill,
                             ),
                           ),
                         ],
@@ -156,8 +157,8 @@ class _MyOnboardingPageState extends State<MyOnboardingPage> {
                             width: 32.0,
                             height: 38.0,
                             child: Image.asset(
-                              'assets/other/notification.png',
-                              fit: BoxFit.cover,
+                              'assets/fitness_app/tab_1.png',
+                              fit: BoxFit.fill,
                             ),
                           ),
                         ],
@@ -201,8 +202,8 @@ class _MyOnboardingPageState extends State<MyOnboardingPage> {
                             width: 32.0,
                             height: 38.0,
                             child: Image.asset(
-                              'assets/other/rickshaw-mini.png',
-                              fit: BoxFit.cover,
+                              'assets/fitness_app/tab_2.png',
+                              fit: BoxFit.fill,
                             ),
                           ),
                         ],
@@ -232,6 +233,52 @@ class _MyOnboardingPageState extends State<MyOnboardingPage> {
 
                     ],
                   ),
+                  SizedBox(
+                        height: 50.0,
+                    ),
+                Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Align(
+                    alignment: Alignment.center,
+                    child: Container(
+                      child: Column(
+                        children: <Widget>[
+                          Align(
+                            alignment: Alignment.center,
+                            child: Text('Weight (kg)',
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 18.0)),
+                          ),
+                          Align(
+                            alignment: Alignment.center,
+                            child:                          
+                            Container(
+                            width:300,
+                            child:   TextField(
+                                    onChanged:(String value){
+                                      global.weight = double.parse(value);
+                                    },
+                                  decoration: InputDecoration(
+                                    icon: Icon(
+                                            Icons.fitness_center ,
+                                            color: Colors.blue,
+                                            size: 36.0,
+                                          ),
+                                    border: OutlineInputBorder(),
+                                    filled: true,
+                                    fillColor: Colors.white,
+                                    hintText: '70'
+                                  ),
+                          )
+                          )     
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ]
+                ),
                     SizedBox(
                         height: 50.0,
                     ),
