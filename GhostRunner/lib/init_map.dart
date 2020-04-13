@@ -20,6 +20,7 @@ import 'package:rxdart/rxdart.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:ghostrunner/router_manager.dart';
 
 
 
@@ -705,6 +706,7 @@ Future _stop() async {
                     borderRadius: BorderRadius.all(Radius.circular(50.0)),
                   ),
                   onPressed: () {
+                            global.newTrail = false;
                             Toast.show(trails[_pageController.page.toInt()].trailName+" TRAIL STARTED!", context, duration: Toast.LENGTH_LONG, gravity:  Toast.CENTER);
                             global.locationCoordsStart = currentLocation;
                              _showTimer = true;
@@ -734,6 +736,7 @@ Future _stop() async {
                 bottom: 85,
                 child: RawMaterialButton(
                           onPressed: () {
+                            global.newTrail = true;
                             Toast.show("NEW TRAIL STARTED!", context, duration: Toast.LENGTH_LONG, gravity:  Toast.CENTER);
                             global.locationCoordsStart = currentLocation;
                              _showTimer = true;
@@ -825,12 +828,18 @@ startOrStopWatch() {
         
         DateTime now = DateTime.now();
         global.date = DateFormat('yyyy-MM-dd – kk:mm').format(now);
+        if(global.newTrail){
         Navigator.pushAndRemoveUntil(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => NewTrailPage()
                             ),
                             (Route<dynamic> route) => false);
+        }else{
+        Navigator.of(context).pushReplacementNamed(RouteName.tab);
+
+        }
+
       } else {
         global.isRunning = false;
         dependencies.stopwatch.reset();

@@ -20,6 +20,7 @@ double dailyDistance = 0.0;
 double tempDistance = 0;
 double weight = 70.0;
 double burned = 0.0;
+bool newTrail = true;
 
 class MyColors {
   static Color darkBlue = Color(0xff2446a6),
