@@ -63,6 +63,11 @@ class _HomePageState extends State<HomePage>
     });
   }
 
+  String caloriesLeftToGoal(){
+    double calories = global.userGoal - global.burned;
+    return calories.toString();
+  }
+
   @override
   void dispose() {
     _inputController.dispose();
@@ -427,7 +432,7 @@ class _HomePageState extends State<HomePage>
                                                       CrossAxisAlignment.center,
                                                   children: <Widget>[
                                                     Text(
-                                                      '0',
+                                                      caloriesLeftToGoal().substring(0,3),
                                                       textAlign:
                                                           TextAlign.center,
                                                       style: TextStyle(
@@ -439,7 +444,7 @@ class _HomePageState extends State<HomePage>
                                                       ),
                                                     ),
                                                     Text(
-                                                      'Steps',
+                                                      'Calories Left',
                                                       textAlign:
                                                           TextAlign.center,
                                                       style: TextStyle(
@@ -1015,6 +1020,8 @@ class _HomePageState extends State<HomePage>
         ":" +
         seconds.toString();
   }
+
+
 }
 
 class RadiantGradientMask extends StatelessWidget {
@@ -1149,4 +1156,6 @@ class CurvePainter extends CustomPainter {
     var redian = (math.pi / 180) * degree;
     return redian;
   }
+
+
 }

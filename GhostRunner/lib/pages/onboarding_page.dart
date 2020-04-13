@@ -99,7 +99,7 @@ class _MyOnboardingPageState extends State<MyOnboardingPage> {
                     ),
                   ),
                   SizedBox(
-                    height: 40.0,
+                    height: 20.0,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -131,20 +131,13 @@ class _MyOnboardingPageState extends State<MyOnboardingPage> {
                               'Run against you or your ghost friends',
                               style: SubHeadingStyles.white,
                             ),
-                            SizedBox(
-                              height: 5.0,
-                            ),
-                            Text(
-                              'escrever aqui cenas',
-                              style: BodyStyles.white,
-                            ),
                           ],
                         ),
                       ),
                     ],
                   ),
                   SizedBox(
-                    height: 30.0,
+                    height: 25.0,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -176,20 +169,13 @@ class _MyOnboardingPageState extends State<MyOnboardingPage> {
                               'Create a route or explore one made by friends',
                               style: SubHeadingStyles.white,
                             ),
-                            SizedBox(
-                              height: 5.0,
-                            ),
-                            Text(
-                              'Escrever aqui mais cenas',
-                              style: BodyStyles.white,
-                            ),
                           ],
                         ),
                       ),
                     ],
                   ),
                   SizedBox(
-                    height: 30.0,
+                    height: 25.0,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -221,13 +207,6 @@ class _MyOnboardingPageState extends State<MyOnboardingPage> {
                               'See your stats!',
                               style: SubHeadingStyles.white,
                             ),
-                            SizedBox(
-                              height: 5.0,
-                            ),
-                            Text(
-                              'Nao esquecer de escrever aqui coisas',
-                              style: BodyStyles.white,
-                            ),
                           ],
                         ),
                       ),
@@ -235,7 +214,7 @@ class _MyOnboardingPageState extends State<MyOnboardingPage> {
                     ],
                   ),
                   SizedBox(
-                        height: 50.0,
+                        height: 20.0,
                     ),
                 Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -281,8 +260,100 @@ class _MyOnboardingPageState extends State<MyOnboardingPage> {
                   ),
                 ]
                 ),
+                SizedBox(
+                height: 20.0,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Align(
+                    alignment: Alignment.center,
+                    child: Container(
+                      child: Column(
+                        children: <Widget>[
+                          Align(
+                            alignment: Alignment.center,
+                            child: Text('Height (cm)',
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 18.0)),
+                          ),
+                          Align(
+                            alignment: Alignment.center,
+                            child:                          
+                            Container(
+                            width:200,
+                            child:   TextField(
+                                    onChanged:(String value){
+                                      global.userHeight = value;
+                                    },
+                                  decoration: InputDecoration(
+                                    icon: Icon(
+                                            Icons.nature_people ,
+                                            color: Colors.blue,
+                                            size: 36.0,
+                                          ),
+                                    border: OutlineInputBorder(),
+                                    filled: true,
+                                    fillColor: Colors.white,
+                                    hintText: '176'
+                                  ),
+                          )
+                          )     
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+                              SizedBox(
+                height: 20.0,
+              ),
+                            Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Align(
+                    alignment: Alignment.center,
+                    child: Container(
+                      child: Column(
+                        children: <Widget>[
+                          Align(
+                            alignment: Alignment.center,
+                            child: Text('Goal of calories (kcal)',
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 18.0)),
+                          ),
+                          Align(
+                            alignment: Alignment.center,
+                            child:                          
+                            Container(
+                            width:200,
+                            child:   TextField(
+                                    onChanged:(String value){
+                                      global.userGoal = double.parse(value);
+                                    },
+                                  decoration: InputDecoration(
+                                    icon: Icon(
+                                            Icons.whatshot ,
+                                            color: Colors.blue,
+                                            size: 36.0,
+                                          ),
+                                    border: OutlineInputBorder(),
+                                    filled: true,
+                                    fillColor: Colors.white,
+                                    hintText: '500'
+                                  ),
+                          )
+                          )     
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
                     SizedBox(
-                        height: 50.0,
+                        height: 25.0,
                     ),
                     ButtonTheme(
                     height: 50.0,

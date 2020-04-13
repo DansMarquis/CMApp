@@ -50,7 +50,7 @@ class _MinePageState extends State<MinePage> {
       heightController.text = global.userHeight;
     }
     if(global.userGoal!= null){
-      goalController.text = global.userGoal;
+      goalController.text = global.userGoal.toString();
     }
     return new Scaffold(
         body: new Container(
@@ -414,7 +414,7 @@ class _MinePageState extends State<MinePage> {
                     }
                     
                       global.userHeight = heightController.text;
-                       global.userGoal = goalController.text;
+                       global.userGoal = double.parse(goalController.text);
                     _status = true;
                     FocusScope.of(context).requestFocus(new FocusNode());
                   });
