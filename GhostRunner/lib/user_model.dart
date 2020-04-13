@@ -18,7 +18,7 @@ class User {
       this.trailsPerformed});
 }
 
-final List<User> trails = [
+final List<User> users = [
   User(
     userID: 0,
     userName: 'Daniel Marques',
