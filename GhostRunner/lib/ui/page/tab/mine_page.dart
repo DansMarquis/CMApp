@@ -13,162 +13,373 @@ class MinePage extends StatefulWidget {
   _MinePageState createState() => _MinePageState();
 }
 
-class _MinePageState extends State<MinePage>
-    with AutomaticKeepAliveClientMixin {
-  @override
-  bool get wantKeepAlive => true;
+class _MinePageState extends State<MinePage> {
+  bool _status = true;
+  final FocusNode myFocusNode = FocusNode();
 
   @override
+  void initState() {
+    super.initState();
+  }
+  @override
   Widget build(BuildContext context) {
-    super.build(context);
-    return Scaffold(
-        body: SafeArea(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+    return new Scaffold(
+        body: new Container(
+      color: Colors.white,
+      child: new ListView(
         children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Text(S.of(context).tabUser,
-                style: TextStyle(
-                    fontSize: 22.0,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 1.2)),
-          ),
-          Expanded(
-            child: CustomScrollView(
-              slivers: <Widget>[
-                UserListWidget(),
-              ],
-            ),
-          ),
-        ],
-      ),
-    ));
-  }
-}
-
-class UserListWidget extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    var iconColor = Theme.of(context).accentColor;
-    var localModel = Provider.of<LocaleModel>(context);
-    return ListTileTheme(
-      contentPadding: const EdgeInsets.symmetric(horizontal: 20),
-      child: SliverList(
-        delegate: SliverChildListDelegate([
-          ListTile(
-            title: Text(S.of(context).darkMode),
-            onTap: () {
-              switchDarkMode(context);
-            },
-            leading: Transform.rotate(
-              angle: -pi,
-              child: Icon(
-                Theme.of(context).brightness == Brightness.light
-                    ? Icons.brightness_5
-                    : Icons.brightness_2,
-                color: iconColor,
-              ),
-            ),
-            trailing: CupertinoSwitch(
-                activeColor: Theme.of(context).accentColor,
-                value: Theme.of(context).brightness == Brightness.dark,
-                onChanged: (value) {
-                  switchDarkMode(context);
-                }),
-          ),
-          SettingThemeWidget(),
-          ListTile(
-            title: Text(S.of(context).settingLanguage),
-            onTap: () {
-              var model = Provider.of<LocaleModel>(context);
-              model.switchLocale();
-            },
-            leading: Icon(
-              Icons.public,
-              color: iconColor,
-            ),
-            trailing: CupertinoSwitch(
-                activeColor: Theme.of(context).accentColor,
-                value: localModel.localeIndex == 0,
-                onChanged: (value) {
-                  localModel.switchLocale();
-                }),
-          ),
-        ]),
-      ),
-    );
-  }
-
-  void switchDarkMode(BuildContext context) {
-    if (MediaQuery.of(context).platformBrightness == Brightness.dark) {
-      showToast("检测到系统为暗黑模式,已为你自动切换", position: ToastPosition.bottom);
-    } else {
-      Provider.of<ThemeModel>(context).switchTheme(
-          userDarkMode: Theme.of(context).brightness == Brightness.light);
-    }
-  }
-}
-
-class SettingThemeWidget extends StatelessWidget {
-  SettingThemeWidget();
-
-  @override
-  Widget build(BuildContext context) {
-    return ExpansionTile(
-      title: Text(S.of(context).theme),
-      leading: Icon(
-        Icons.color_lens,
-        color: Theme.of(context).accentColor,
-      ),
-      children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-          child: Wrap(
-            spacing: 5,
-            runSpacing: 5,
+          Column(
             children: <Widget>[
-              ...Colors.primaries.map((color) {
-                return Material(
-                  color: color,
-                  child: InkWell(
-                    onTap: () {
-                      var model = Provider.of<ThemeModel>(context);
-                      model.switchTheme(color: color);
-                    },
-                    child: Container(
-                      width: 40,
-                      height: 40,
-                    ),
-                  ),
-                );
-              }).toList(),
-              Material(
-                child: InkWell(
-                  onTap: () {
-                    var model = Provider.of<ThemeModel>(context);
-                    var brightness = Theme.of(context).brightness;
-                    model.switchRandomTheme(brightness: brightness);
-                  },
-                  child: Container(
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                        border:
-                            Border.all(color: Theme.of(context).accentColor)),
-                    width: 40,
-                    height: 40,
-                    child: Text(
-                      "?",
-                      style: TextStyle(
-                          fontSize: 20, color: Theme.of(context).accentColor),
-                    ),
+              new Container(
+                height: 250.0,
+                color: Colors.white,
+                child: new Column(
+                  children: <Widget>[
+                    Padding(
+                        padding: EdgeInsets.only(left: 20.0, top: 20.0),
+                        child: new Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Padding(
+                              padding: EdgeInsets.only(left: 25.0),
+                              child: new Text('PROFILE',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20.0,
+                                      fontFamily: 'sans-serif-light',
+                                      color: Colors.black)),
+                            )
+                          ],
+                        )),
+                    Padding(
+                      padding: EdgeInsets.only(top: 20.0),
+                      child: new Stack(fit: StackFit.loose, children: <Widget>[
+                        new Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            new Container(
+                                width: 140.0,
+                                height: 140.0,
+                                decoration: new BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  image: new DecorationImage(
+                                    image: new ExactAssetImage(
+                                        'assets/users/0.png'),
+                                    fit: BoxFit.cover,
+                                  ),
+                                )),
+                          ],
+                        ),
+                        Padding(
+                            padding: EdgeInsets.only(top: 90.0, right: 100.0),
+                            child: new Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                new CircleAvatar(
+                                  backgroundColor: Colors.red,
+                                  radius: 25.0,
+                                  child: new Icon(
+                                    Icons.camera_alt,
+                                    color: Colors.white,
+                                  ),
+                                )
+                              ],
+                            )),
+                      ]),
+                    )
+                  ],
+                ),
+              ),
+              new Container(
+                color: Color(0xffFFFFFF),
+                child: Padding(
+                  padding: EdgeInsets.only(bottom: 25.0),
+                  child: new Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      Padding(
+                          padding: EdgeInsets.only(
+                              left: 25.0, right: 25.0, top: 25.0),
+                          child: new Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisSize: MainAxisSize.max,
+                            children: <Widget>[
+                              new Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  new Text(
+                                    'Parsonal Information',
+                                    style: TextStyle(
+                                        fontSize: 18.0,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ],
+                              ),
+                              new Column(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  _status ? _getEditIcon() : new Container(),
+                                ],
+                              )
+                            ],
+                          )),
+                      Padding(
+                          padding: EdgeInsets.only(
+                              left: 25.0, right: 25.0, top: 25.0),
+                          child: new Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: <Widget>[
+                              new Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  new Text(
+                                    'Name',
+                                    style: TextStyle(
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          )),
+                      Padding(
+                          padding: EdgeInsets.only(
+                              left: 25.0, right: 25.0, top: 2.0),
+                          child: new Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: <Widget>[
+                              new Flexible(
+                                child: new TextField(
+                                  decoration: const InputDecoration(
+                                    hintText: "Enter Your Name",
+                                  ),
+                                  enabled: !_status,
+                                  autofocus: !_status,
+
+                                ),
+                              ),
+                            ],
+                          )),
+                      Padding(
+                          padding: EdgeInsets.only(
+                              left: 25.0, right: 25.0, top: 25.0),
+                          child: new Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: <Widget>[
+                              new Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  new Text(
+                                    'Email ID',
+                                    style: TextStyle(
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          )),
+                      Padding(
+                          padding: EdgeInsets.only(
+                              left: 25.0, right: 25.0, top: 2.0),
+                          child: new Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: <Widget>[
+                              new Flexible(
+                                child: new TextField(
+                                  decoration: const InputDecoration(
+                                      hintText: "Enter Email ID"),
+                                  enabled: !_status,
+                                ),
+                              ),
+                            ],
+                          )),
+                      Padding(
+                          padding: EdgeInsets.only(
+                              left: 25.0, right: 25.0, top: 25.0),
+                          child: new Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: <Widget>[
+                              new Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  new Text(
+                                    'Mobile',
+                                    style: TextStyle(
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          )),
+                      Padding(
+                          padding: EdgeInsets.only(
+                              left: 25.0, right: 25.0, top: 2.0),
+                          child: new Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: <Widget>[
+                              new Flexible(
+                                child: new TextField(
+                                  decoration: const InputDecoration(
+                                      hintText: "Enter Mobile Number"),
+                                  enabled: !_status,
+                                ),
+                              ),
+                            ],
+                          )),
+                      Padding(
+                          padding: EdgeInsets.only(
+                              left: 25.0, right: 25.0, top: 25.0),
+                          child: new Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: <Widget>[
+                              Expanded(
+                                child: Container(
+                                  child: new Text(
+                                    'Pin Code',
+                                    style: TextStyle(
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                                flex: 2,
+                              ),
+                              Expanded(
+                                child: Container(
+                                  child: new Text(
+                                    'State',
+                                    style: TextStyle(
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                                flex: 2,
+                              ),
+                            ],
+                          )),
+                      Padding(
+                          padding: EdgeInsets.only(
+                              left: 25.0, right: 25.0, top: 2.0),
+                          child: new Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: <Widget>[
+                              Flexible(
+                                child: Padding(
+                                  padding: EdgeInsets.only(right: 10.0),
+                                  child: new TextField(
+                                    decoration: const InputDecoration(
+                                        hintText: "Enter Pin Code"),
+                                    enabled: !_status,
+                                  ),
+                                ),
+                                flex: 2,
+                              ),
+                              Flexible(
+                                child: new TextField(
+                                  decoration: const InputDecoration(
+                                      hintText: "Enter State"),
+                                  enabled: !_status,
+                                ),
+                                flex: 2,
+                              ),
+                            ],
+                          )),
+                      !_status ? _getActionButtons() : new Container(),
+                    ],
                   ),
                 ),
               )
             ],
           ),
+        ],
+      ),
+    ));
+  }
+  @override
+  void dispose() {
+    // Clean up the controller when the Widget is disposed
+    myFocusNode.dispose();
+    super.dispose();
+  }
+
+  Widget _getActionButtons() {
+    return Padding(
+      padding: EdgeInsets.only(left: 25.0, right: 25.0, top: 45.0),
+      child: new Row(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: <Widget>[
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.only(right: 10.0),
+              child: Container(
+                  child: new RaisedButton(
+                child: new Text("Save"),
+                textColor: Colors.white,
+                color: Colors.green,
+                onPressed: () {
+                  setState(() {
+                    _status = true;
+                    FocusScope.of(context).requestFocus(new FocusNode());
+                  });
+                },
+                shape: new RoundedRectangleBorder(
+                    borderRadius: new BorderRadius.circular(20.0)),
+              )),
+            ),
+            flex: 2,
+          ),
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.only(left: 10.0),
+              child: Container(
+                  child: new RaisedButton(
+                child: new Text("Cancel"),
+                textColor: Colors.white,
+                color: Colors.red,
+                onPressed: () {
+                  setState(() {
+                    _status = true;
+                    FocusScope.of(context).requestFocus(new FocusNode());
+                  });
+                },
+                shape: new RoundedRectangleBorder(
+                    borderRadius: new BorderRadius.circular(20.0)),
+              )),
+            ),
+            flex: 2,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _getEditIcon() {
+    return new GestureDetector(
+      child: new CircleAvatar(
+        backgroundColor: Colors.red,
+        radius: 14.0,
+        child: new Icon(
+          Icons.edit,
+          color: Colors.white,
+          size: 16.0,
         ),
-      ],
+      ),
+      onTap: () {
+        setState(() {
+          _status = false;
+        });
+      },
     );
   }
 }

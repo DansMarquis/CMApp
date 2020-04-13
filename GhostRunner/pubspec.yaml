@@ -74,6 +74,7 @@ flutter:
 
   assets:
      - assets/flare/
+     - assets/users/
      - assets/logo/
      - assets/other/
      - assets/photos/
