@@ -46,14 +46,14 @@ class SuperUser extends StatelessWidget {
     for(Trail t in trails){
       for(int i in trailsperformed){
         if(i == t.trailID){
-          trailsToString += t.trailName+" ";
+          trailsToString += t.trailName+"\n ";
         }
       }
     }
      for(Trail t in trails){
       for(int i in mytrails){
         if(i == t.trailID){
-          mytrailsToString += t.trailName+" ";
+          mytrailsToString += t.trailName+"\n ";
         }
       }
     }
@@ -104,26 +104,29 @@ class SuperUser extends StatelessWidget {
                             
                             style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black, fontSize: 18),
                           ),
-                          Text(
-                            mytrailsToString.isEmpty ? "My Trails: none " : (mytrailsToString)
-                                                                          .length <
-                                                                      13 ?"My Trails: $mytrailsToString" : "My Trails: ${mytrailsToString.substring(0, 10)}" +
-                                                                      "...",
-                            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black, fontSize: 10
-                            ),
+                           Row(
+                            children: <Widget>[
+                              Icon(
+                                Icons.person_pin_circle,
+                                size: 18.0,
+                                color: Colors.black,
+                              ),
+                              Text(
+                                trailsperformed.isEmpty ? "none " : "$mytrailsToString",
+                                style:TextStyle(fontWeight: FontWeight.bold, color: Colors.black, fontSize: 8),
+                              ),
+                             
+                            ],
                           ),
                           Row(
                             children: <Widget>[
                               Icon(
-                                Icons.map,
+                                Icons.check_box,
                                 size: 18.0,
                                 color: Colors.black,
                               ),
-                              SizedBox(
-                                width: 2.0,
-                              ),
                               Text(
-                                "Done : $trailsToString",
+                                trailsperformed.isEmpty ? "none " : "$trailsToString",
                                 style:TextStyle(fontWeight: FontWeight.bold, color: Colors.black, fontSize: 8),
                               ),
                              
