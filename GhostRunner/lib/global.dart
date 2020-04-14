@@ -29,6 +29,7 @@ double weight = 70.0;
 double burned = 0.0;
 bool newTrail = true;
 
+
 class MyColors {
   static Color darkBlue = Color(0xff2446a6),
       lightBlue = Color(0xff3a5fc8),

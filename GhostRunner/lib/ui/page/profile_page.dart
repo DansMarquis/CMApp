@@ -4,6 +4,7 @@ import 'package:ghostrunner/global.dart' as global;
 import 'package:ghostrunner/global.dart';
 import 'package:ghostrunner/models/user_model.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:ghostrunner/router_manager.dart';
 
 class MinePage extends StatefulWidget {
    int id = 0;
@@ -135,7 +136,7 @@ class _MinePageState extends State<MinePage> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                             Text(users[widget.id].userName,style: TextStyle(fontWeight:
+                             Text(global.userName,style: TextStyle(fontWeight:
                                                                     FontWeight
                                                                         .w600,
                                                                 fontSize: 26,
@@ -467,11 +468,12 @@ class _MinePageState extends State<MinePage> {
  if (heightController.text != null) {
                     global.userHeight = heightController.text;
  }
-  if (goalController.text != null) {
+if (goalController.text != null) {
                     global.userGoal = double.parse(goalController.text);
   }
                     _status = true;
                     FocusScope.of(context).requestFocus(new FocusNode());
+                    Navigator.of(context).pushReplacementNamed(RouteName.tab);
                   });
                 },
                 shape: new RoundedRectangleBorder(

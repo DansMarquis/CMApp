@@ -47,11 +47,11 @@ class _HomePageState extends State<HomePage>
   }
 
   String caloriesLeftToGoal(){
-    double calories = global.userGoal - global.burned;
-    String initCalories = global.userGoal.toString();
-    String caloriesString = calories.toString();
-    int nChar = initCalories.length;
-    return caloriesString.substring(0,nChar);
+      double calories = global.userGoal - global.burned;
+      String initCalories = global.userGoal.toString();
+      String caloriesString = calories.toString();
+      int nChar = initCalories.length;
+      return caloriesString.substring(0,nChar);
   }
 
   String msVelocity(int i){
@@ -425,7 +425,7 @@ class _HomePageState extends State<HomePage>
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.center,
                                                   children: <Widget>[
-                                                    Text(
+                                                     Text(
                                                       caloriesLeftToGoal(),
                                                       textAlign:
                                                           TextAlign.center,
