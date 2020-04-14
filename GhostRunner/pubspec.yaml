@@ -80,6 +80,7 @@ flutter:
      - assets/photos/
      - assets/fitness_app/
      - assets/
+     - assets/qr/
      - assets/mapStyle.txt
 
   fonts:

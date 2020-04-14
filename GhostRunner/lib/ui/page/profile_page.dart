@@ -16,7 +16,6 @@ class _MinePageState extends State<MinePage> {
   final heightController = TextEditingController();
   final goalController = TextEditingController();
 
-
   @override
   void initState() {
     super.initState();
@@ -32,16 +31,17 @@ class _MinePageState extends State<MinePage> {
         global.image = image;
       });
     }
-    if(global.userName != null){
+
+    if (global.userName != null) {
       nameController.text = global.userName;
     }
-    if(global.weight != null){
+    if (global.weight != null) {
       weightController.text = global.weight.toString();
     }
-    if(global.userHeight != null){
+    if (global.userHeight != null) {
       heightController.text = global.userHeight;
     }
-    if(global.userGoal!= null){
+    if (global.userGoal != null) {
       goalController.text = global.userGoal.toString();
     }
     return new Scaffold(
@@ -208,7 +208,8 @@ class _MinePageState extends State<MinePage> {
                                   decoration: new InputDecoration(
                                     fillColor: Colors.white,
                                     hintText: "Enter Your Name",
-                                     hintStyle: TextStyle( color: Colors.red[100]),
+                                    hintStyle:
+                                        TextStyle(color: Colors.red[100]),
                                   ),
                                   enabled: !_status,
                                   autofocus: !_status,
@@ -254,10 +255,11 @@ class _MinePageState extends State<MinePage> {
                             children: <Widget>[
                               new Flexible(
                                 child: new TextField(
-                                       controller: weightController,
+                                  controller: weightController,
                                   style: new TextStyle(color: Colors.white),
                                   decoration: new InputDecoration(
-                                      hintStyle: TextStyle( color: Colors.red[100]),
+                                      hintStyle:
+                                          TextStyle(color: Colors.red[100]),
                                       hintText: "Enter Weight"),
                                   enabled: !_status,
                                 ),
@@ -302,11 +304,12 @@ class _MinePageState extends State<MinePage> {
                             children: <Widget>[
                               new Flexible(
                                 child: new TextField(
-                                       controller:heightController,
+                                  controller: heightController,
                                   style: new TextStyle(color: Colors.white),
                                   decoration: new InputDecoration(
                                       fillColor: Colors.white,
-                                      hintStyle: TextStyle( color: Colors.red[100]),
+                                      hintStyle:
+                                          TextStyle(color: Colors.red[100]),
                                       hintText: "Enter Height"),
                                   enabled: !_status,
                                 ),
@@ -330,11 +333,9 @@ class _MinePageState extends State<MinePage> {
                                   new Text(
                                     'Daily Burned kcal Goal',
                                     style: TextStyle(
-                                      
                                         fontSize: 16.0,
                                         fontWeight: FontWeight.bold,
                                         color: Colors.white),
-                                        
                                   )
                                 ],
                               ),
@@ -351,19 +352,36 @@ class _MinePageState extends State<MinePage> {
                                 child: Padding(
                                   padding: EdgeInsets.only(right: 10.0),
                                   child: new TextField(
-                                         controller: goalController,
+                                    controller: goalController,
                                     style: new TextStyle(color: Colors.white),
                                     decoration: new InputDecoration(
-                                      hintStyle: TextStyle( color: Colors.red[100]),
+                                        hintStyle:
+                                            TextStyle(color: Colors.red[100]),
                                         hintText: "Enter Goal Here"),
                                     enabled: !_status,
                                   ),
                                 ),
                                 flex: 2,
-                                
                               ),
                             ],
                           )),
+                          Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                      SizedBox(
+                        width: 180.0,
+                        height: 180.0,
+                        child: Image(
+                                image: AssetImage("assets/qr/0.PNG"),
+                                fit: BoxFit.cover,
+                                alignment: Alignment.center,
+                              ),
+                      ),],),
+                      SizedBox(
+                        height: 50.0,
+                        
+                      ),
                       !_status ? _getActionButtons() : new Container(),
                     ],
                   ),
@@ -401,12 +419,12 @@ class _MinePageState extends State<MinePage> {
                 onPressed: () {
                   setState(() {
                     global.userName = nameController.text;
-                    if(weightController.text != null){
-                       global.weight = double.parse(weightController.text);
+                    if (weightController.text != null) {
+                      global.weight = double.parse(weightController.text);
                     }
-                    
-                      global.userHeight = heightController.text;
-                       global.userGoal = double.parse(goalController.text);
+
+                    global.userHeight = heightController.text;
+                    global.userGoal = double.parse(goalController.text);
                     _status = true;
                     FocusScope.of(context).requestFocus(new FocusNode());
                   });
