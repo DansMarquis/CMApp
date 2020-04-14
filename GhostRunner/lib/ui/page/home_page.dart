@@ -48,7 +48,19 @@ class _HomePageState extends State<HomePage>
 
   String caloriesLeftToGoal(){
     double calories = global.userGoal - global.burned;
-    return calories.toString();
+    String initCalories = global.userGoal.toString();
+    String caloriesString = calories.toString();
+    int nChar = initCalories.length;
+    return caloriesString.substring(0,nChar);
+  }
+
+  String msVelocity(int i){
+    String vel = trails[i].velocity;
+    int nChar = vel.length;
+    if (nChar > 10)
+      return trails[i].velocity.substring(0,9); 
+    else
+      return trails[i].velocity.substring(0,nChar);
   }
 
   @override
@@ -415,7 +427,7 @@ class _HomePageState extends State<HomePage>
                                                       CrossAxisAlignment.center,
                                                   children: <Widget>[
                                                     Text(
-                                                      caloriesLeftToGoal().substring(0,3),
+                                                      caloriesLeftToGoal(),
                                                       textAlign:
                                                           TextAlign.center,
                                                       style: TextStyle(
@@ -918,7 +930,7 @@ class _HomePageState extends State<HomePage>
                                                                       .only(
                                                                   left: 4.0),
                                                           child: Text(
-                                                            "${(trails[i].velocity)}. m/s",
+                                                            msVelocity(i) +  " m/s",
                                                             textAlign: TextAlign
                                                                 .center,
                                                             style: TextStyle(
