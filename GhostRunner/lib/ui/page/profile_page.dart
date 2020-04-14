@@ -59,7 +59,7 @@ class _MinePageState extends State<MinePage> {
           Column(
             children: <Widget>[
               new Container(
-                height: 250.0,
+                height: 270.0,
                 color: Colors.indigo[900],
                 child: new Column(
                   children: <Widget>[
@@ -107,6 +107,7 @@ class _MinePageState extends State<MinePage> {
                                 ))
                           ],
                         ),
+                        
                         Padding(
                             padding: EdgeInsets.only(top: 90.0, right: 100.0),
                             child: new Row(
@@ -128,7 +129,21 @@ class _MinePageState extends State<MinePage> {
                               ],
                             )),
                       ]),
-                    )
+                      
+                    ),
+                    new Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                             Text(users[widget.id].userName,style: TextStyle(fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                                fontSize: 26,
+                                                                color: Colors
+                                                                    .white,)),
+                          ],
+                        ),
+                   
                   ],
                 ),
               ),
@@ -449,9 +464,12 @@ class _MinePageState extends State<MinePage> {
                     if (weightController.text != null) {
                       global.weight = double.parse(weightController.text);
                     }
-
+ if (heightController.text != null) {
                     global.userHeight = heightController.text;
+ }
+  if (goalController.text != null) {
                     global.userGoal = double.parse(goalController.text);
+  }
                     _status = true;
                     FocusScope.of(context).requestFocus(new FocusNode());
                   });

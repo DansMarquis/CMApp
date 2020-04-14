@@ -127,8 +127,11 @@ class _HomePageState extends State<HomePage>
                         borderRadius: BorderRadius.circular(15.0),
                         child: Container(
                           decoration: BoxDecoration(
-                            color: Colors.white,
-                          ),
+          image: DecorationImage(
+            image: AssetImage("assets/homeback.jpg"),
+            fit: BoxFit.cover,
+          ),
+        ),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
@@ -184,8 +187,6 @@ class _HomePageState extends State<HomePage>
                                                             fontSize: 16,
                                                             letterSpacing: -0.1,
                                                             color: Colors.black
-                                                                .withOpacity(
-                                                                    0.5),
                                                           ),
                                                         ),
                                                       ),
@@ -304,8 +305,6 @@ class _HomePageState extends State<HomePage>
                                                             fontSize: 16,
                                                             letterSpacing: -0.1,
                                                             color: Colors.black
-                                                                .withOpacity(
-                                                                    0.5),
                                                           ),
                                                         ),
                                                       ),

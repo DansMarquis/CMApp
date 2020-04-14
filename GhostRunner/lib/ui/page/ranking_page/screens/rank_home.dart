@@ -77,7 +77,7 @@ class _HomeState extends State<Home> {
           : Stack(
             children: <Widget>[
 Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.0),
+              padding: EdgeInsets.symmetric(horizontal: 6.0),
               child: ListView.builder(
                 shrinkWrap: true,
                 itemCount: users.length == null ? 0 : users.length,
@@ -98,7 +98,8 @@ Padding(
                   ) :Text("");
                 },
               ),
-            ),   Positioned(
+            ),
+            Positioned(
                           bottom: 0,
                           left: 0,
                           right: 0,

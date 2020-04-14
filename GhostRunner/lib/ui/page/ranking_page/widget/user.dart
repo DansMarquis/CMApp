@@ -64,7 +64,9 @@ class SuperUser extends StatelessWidget {
         var router = new MaterialPageRoute(builder: (BuildContext context) {
           return Stack(
             children: <Widget>[
-            Details(img: img, id: id, name: name), Positioned(
+            Details(img: img, id: id, name: name), 
+            
+            Positioned(
                           bottom:0,
                           left: 0,
                           right: 0,
@@ -82,6 +84,7 @@ class SuperUser extends StatelessWidget {
                             ),
                           ),
                         ),
+                        
             ],
             );
         });
@@ -135,7 +138,7 @@ class SuperUser extends StatelessWidget {
                                 color: Colors.black,
                               ),
                               Text(
-                                trailsperformed.isEmpty ? "none " : "$mytrailsToString",
+                                mytrails.isEmpty ? "none " : "$mytrailsToString",
                                 style:TextStyle(fontWeight: FontWeight.bold, color: Colors.black, fontSize: 8),
                               ),
                              
