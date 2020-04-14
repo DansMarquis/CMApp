@@ -439,7 +439,7 @@ class _HomePageState extends State<HomePage>
                                                       ),
                                                     ),
                                                     Text(
-                                                      'Calories Left',
+                                                      'kCalories Left',
                                                       textAlign:
                                                           TextAlign.center,
                                                       style: TextStyle(
