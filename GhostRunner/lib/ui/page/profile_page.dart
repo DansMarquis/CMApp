@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:ghostrunner/global.dart' as global;
+import 'package:ghostrunner/global.dart';
 import 'package:image_picker/image_picker.dart';
 
 class MinePage extends StatefulWidget {
@@ -47,7 +48,10 @@ class _MinePageState extends State<MinePage> {
     return new Scaffold(
         body: new Container(
       color: Colors.indigo[900],
-      child: new ListView(
+      child: 
+      Stack(
+            children: <Widget>[
+      new ListView(
         children: <Widget>[
           Column(
             children: <Widget>[
@@ -390,6 +394,26 @@ class _MinePageState extends State<MinePage> {
             ],
           ),
         ],
+      ),
+       Positioned(
+                          bottom: 0,
+                          left: 0,
+                          right: 0,
+                          height: 80,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [
+                                  Colors.transparent,
+                                  MyColors.darkBlue,
+                                ],
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                              ),
+                            ),
+                          ),
+                        ),
+      ],
       ),
     ));
   }

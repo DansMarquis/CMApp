@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:ghostrunner/ui/page/ranking_page/widget/user_avatar.dart';
 import 'package:ghostrunner/models/user_model.dart';
 import 'package:ghostrunner/models/trail_model.dart';
+import 'package:ghostrunner/ui/page/runners_page.dart';
 
 class QrCodeDetails extends StatefulWidget {
   final String id;
@@ -52,6 +53,17 @@ class QrCodeDetailsState extends State<QrCodeDetails> {
     }
     return Scaffold(
       appBar: AppBar(
+        leading: new IconButton(
+          icon: new Icon(Icons.arrow_back),
+          onPressed: (){
+              Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => FavoritePage()
+                            ),
+                            (Route<dynamic> route) => false);
+            }
+        ),
         title: Text(userT.userName),
       ),
       backgroundColor: Colors.white,
