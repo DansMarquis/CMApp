@@ -1,16 +1,10 @@
 import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:ghostrunner/generated/i18n.dart';
-import 'package:ghostrunner/model/download_model.dart';
-import 'package:ghostrunner/model/favorite_model.dart';
-import 'package:ghostrunner/provider/provider_widget.dart';
-import 'package:ghostrunner/ui/page/tab/favorite_page.dart';
-import 'package:ghostrunner/ui/page/tab/home_page.dart';
-import 'package:ghostrunner/ui/page/tab/mine_page.dart';
-import 'package:ghostrunner/init_map.dart';
-import 'package:provider/provider.dart';
+import 'package:ghostrunner/ui/page/runners_page.dart';
+import 'package:ghostrunner/ui/page/home_page.dart';
+import 'package:ghostrunner/ui/page/profile_page.dart';
+import 'package:ghostrunner/ui/page/map_page.dart';
 import 'package:ghostrunner/global.dart'as global;
 
 class TabNavigator extends StatefulWidget {

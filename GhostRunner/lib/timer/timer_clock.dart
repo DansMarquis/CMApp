@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:ghostrunner/classes/curent_time.dart';
-import 'package:ghostrunner/classes/dependencies.dart';
-import 'package:ghostrunner/classes/clock_painter.dart';
+import 'package:ghostrunner/timer/classes/curent_time.dart';
+import 'package:ghostrunner/timer/classes/dependencies.dart';
+import 'package:ghostrunner/timer/classes/clock_painter.dart';
 
 class TimerClock extends StatefulWidget {
   final Dependencies dependencies;

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:ghostrunner/anims/page_route_anim.dart';
-import 'package:ghostrunner/ui/page/splash_page.dart';
 import 'package:ghostrunner/ui/page/tab/tab_navigator.dart';
-import 'package:ghostrunner/utils/first_page.dart';
+import 'package:ghostrunner/ui/page/firstPage/first_page.dart';
+
 class RouteName {
   static const String splash = 'splash';
   static const String tab = '/';
@@ -19,36 +19,7 @@ class Router {
         return NoAnimRouteBuilder(FirstPage());
       case RouteName.tab:
         return NoAnimRouteBuilder(TabNavigator());
-      // case RouteName.login:
-      //   return CupertinoPageRoute(
-      //       fullscreenDialog: true, builder: (_) => LoginPage());
-      // case RouteName.register:
-      //   return CupertinoPageRoute(builder: (_) => RegisterPage());
-      // case RouteName.articleDetail:
-      //   var article = settings.arguments as Article;
-      //   return CupertinoPageRoute(builder: (_) {
-      //     // 根据配置调用页面
-      //     return StorageManager.sharedPreferences.getBool(kUseWebViewPlugin) ??
-      //             false
-      //         ? ArticleDetailPluginPage(
-      //             article: article,
-      //           )
-      //         : ArticleDetailPage(
-      //             article: article,
-      //           );
-      //   });
-      // case RouteName.structureList:
-      //   var list = settings.arguments as List;
-      //   Tree tree = list[0] as Tree;
-      //   int index = list[1];
-      //   return CupertinoPageRoute(
-      //       builder: (_) => ArticleCategoryTabPage(tree, index));
-      // case RouteName.favouriteList:
-      //   return CupertinoPageRoute(builder: (_) => FavouriteListPage());
-      // case RouteName.coinRecordList:
-      //   return CupertinoPageRoute(builder: (_) => CoinRecordListPage());
-      // case RouteName.coinRankingList:
-      //   return CupertinoPageRoute(builder: (_) => CoinRankingListPage());
+      
       default:
         return CupertinoPageRoute(
             builder: (_) => Scaffold(
@@ -60,7 +31,6 @@ class Router {
   }
 }
 
-/// Pop路由
 class PopRoute extends PopupRoute {
   final Duration _duration = Duration(milliseconds: 300);
   Widget child;

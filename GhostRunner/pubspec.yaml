@@ -51,12 +51,6 @@ dependencies:
   flutter_tts: ^0.9.1
   pedometer: ^1.0.0
 
-
- 
-  great_circle_distance:
-    git:
-      url: git://github.com/fliverdev/great_circle_distance.git
-
 dev_dependencies:
   flutter_test:
     sdk: flutter

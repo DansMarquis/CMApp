@@ -45,7 +45,6 @@ class ImageHelper {
 class IconFonts {
   IconFonts._();
 
-  /// iconfont:flutter base
   static const String fontFamily = 'iconfont';
 
   static const IconData pageEmpty = IconData(0xe63c, fontFamily: fontFamily);

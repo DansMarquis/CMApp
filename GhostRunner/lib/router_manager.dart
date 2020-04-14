@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:ghostrunner/anims/page_route_anim.dart';
-import 'package:ghostrunner/ui/page/splash_page.dart';
+import 'package:ghostrunner/ui/page/firstPage/splash_page.dart';
 import 'package:ghostrunner/ui/page/tab/tab_navigator.dart';
-import 'package:ghostrunner/global.dart' as global;
 
 class RouteName {
   static const String splash = 'splash';
