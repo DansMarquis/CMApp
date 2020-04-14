@@ -18,7 +18,7 @@ import 'package:ghostrunner/ui/screens/details.dart';
 import 'package:ghostrunner/ui/widgets/mybottomnavbar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ghostrunner/classes/dependencies.dart';
-import 'package:ghostrunner/widgets/timer_clock.dart';
+import 'package:ghostrunner/timer/timer_clock.dart';
 import '../../../trail_model.dart';
 import '../../../global.dart' as global;
 

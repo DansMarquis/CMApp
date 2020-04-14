@@ -9,7 +9,7 @@ import 'package:ghostrunner/trail_model.dart';
 import 'package:ghostrunner/utils/text_styles.dart';
 import 'dart:async';
 import 'package:ghostrunner/classes/dependencies.dart';
-import 'package:ghostrunner/widgets/timer_clock.dart';
+import 'package:ghostrunner/timer/timer_clock.dart';
 import 'package:toast/toast.dart';
 import 'package:ghostrunner/global.dart' as global;
 import 'package:ghostrunner/ui/widgets/trailForm.dart';
