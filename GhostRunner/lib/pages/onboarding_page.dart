@@ -110,8 +110,8 @@ class _MyOnboardingPageState extends State<MyOnboardingPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Container(
-                            width: 36.0,
-                            height: 36.0,
+                            width: 38.0,
+                            height: 38.0,
                             child: Image.asset(
                               'assets/fitness_app/eaten.png',
                               fit: BoxFit.fill,
@@ -148,7 +148,7 @@ class _MyOnboardingPageState extends State<MyOnboardingPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Container(
-                            width: 32.0,
+                            width: 38.0,
                             height: 38.0,
                             child: Image.asset(
                               'assets/fitness_app/tab_1.png',
@@ -186,7 +186,7 @@ class _MyOnboardingPageState extends State<MyOnboardingPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Container(
-                            width: 32.0,
+                            width: 38.0,
                             height: 38.0,
                             child: Image.asset(
                               'assets/fitness_app/tab_2.png',

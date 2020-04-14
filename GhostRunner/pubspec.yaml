@@ -81,7 +81,6 @@ flutter:
      - assets/other/
      - assets/photos/
      - assets/fitness_app/
-     - assets/tracks/
      - assets/
      - assets/mapStyle.txt
 
