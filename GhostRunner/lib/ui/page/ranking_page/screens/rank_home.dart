@@ -83,7 +83,7 @@ Padding(
                 itemCount: users.length == null ? 0 : users.length,
                 itemBuilder: (BuildContext context, int index) {
                   User user = users[index];
-                  return Padding(
+                  return (user.userID != 0) ? Padding(
                     padding: const EdgeInsets.all(2.0),
                     child: SuperUser(
                       id: user.userID,
@@ -95,7 +95,7 @@ Padding(
                       trailsperformed:  user.trailsPerformed,
                       img: user.img,
                     ),
-                  );
+                  ) :Text("");
                 },
               ),
             ),   Positioned(

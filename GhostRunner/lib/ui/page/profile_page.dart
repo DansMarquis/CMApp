@@ -2,15 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:ghostrunner/global.dart' as global;
 import 'package:ghostrunner/global.dart';
+import 'package:ghostrunner/models/user_model.dart';
 import 'package:image_picker/image_picker.dart';
 
 class MinePage extends StatefulWidget {
+   int id = 0;
   @override
   _MinePageState createState() => _MinePageState();
 }
 
 class _MinePageState extends State<MinePage> {
   bool _status = true;
+  int id = 0;
   final FocusNode myFocusNode = FocusNode();
   final nameController = TextEditingController();
   final weightController = TextEditingController();
@@ -96,7 +99,7 @@ class _MinePageState extends State<MinePage> {
                                           )
                                         : Image(
                                             image: AssetImage(
-                                                "assets/users/user0.png"),
+                                                "assets/users/${users[widget.id].img}"),
                                             fit: BoxFit.cover,
                                             alignment: Alignment.center,
                                           ),

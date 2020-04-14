@@ -238,7 +238,7 @@ class About extends StatelessWidget {
                 fontWeight: FontWeight.w500, color: Colors.indigo[900]),
           ),
           subtitle: Text(
-            "${user.userHeight} m",
+            "${user.userHeight} cm",
             style: TextStyle(fontWeight: FontWeight.w300, color: Colors.black),
           ),
         )
