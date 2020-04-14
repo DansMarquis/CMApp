@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:ghostrunner/ui/page/ranking_page/widget/user.dart';
 import 'package:ghostrunner/models/user_model.dart';
+import 'package:ghostrunner/ui/page/ranking_page/screens/qrcode_main.dart';
 import 'package:ghostrunner/global.dart';
 
 class Home extends StatefulWidget {
@@ -51,7 +52,18 @@ class _HomeState extends State<Home> {
           ),
         ),
         actions: <Widget>[
-          
+          IconButton(
+            icon: Icon(Icons.center_focus_strong),
+            onPressed: () {
+               Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => QrCode()
+                            ),
+                            (Route<dynamic> route) => false);
+            },
+            tooltip: "Search",
+          ),
              
         ],
       ),
