@@ -159,7 +159,7 @@ class _NewTrailPageState extends State<NewTrailPage>{
                                     },
                                   decoration: InputDecoration(
                                     border: OutlineInputBorder(),
-                                    hintText: 'Ex: The mountain',
+                                    hintText: 'Ex: The Mountain Peak',
                                   ),
                           )
                           )     
@@ -198,7 +198,7 @@ class _NewTrailPageState extends State<NewTrailPage>{
                                     },
                                   decoration: InputDecoration(
                                     border: OutlineInputBorder(),
-                                    hintText: 'Ex: r do deti'
+                                    hintText: 'Ex: Aveiro'
                                   ),
                           )
                           )     
@@ -237,7 +237,7 @@ class _NewTrailPageState extends State<NewTrailPage>{
                                     },
                                   decoration: InputDecoration(
                                     border: OutlineInputBorder(),
-                                    hintText: 'Ex: Beautifull trail'
+                                    hintText: 'Ex: Beautifull Trail'
                                   ),
                           )
                           )     
