@@ -224,28 +224,32 @@ class _MyOnboardingPageState extends State<MyOnboardingPage> {
                     child: Container(
                       child: Column(
                         children: <Widget>[
+                           Row(
+                            children: <Widget>[
+                              Icon(
+                                            Icons.fitness_center ,
+                                            color: Colors.blue,
+                                            size: 26.0,
+                                          ),
                           Align(
                             alignment: Alignment.center,
                             child: Text('Weight (kg)',
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 18.0)),
-                          ),
+                          ),],),
                           Align(
                             alignment: Alignment.center,
                             child:                          
                             Container(
-                            width:200,
+                            width:110,
+                             height: 50,
                             child:   TextField(
                                controller: weightController,
                                     onChanged:(String value){
                                       global.weight = double.parse(value);
                                     },
                                   decoration: InputDecoration(
-                                    icon: Icon(
-                                            Icons.fitness_center ,
-                                            color: Colors.blue,
-                                            size: 36.0,
-                                          ),
+                                    
                                     border: OutlineInputBorder(),
                                     filled: true,
                                     fillColor: Colors.white,
@@ -271,27 +275,32 @@ class _MyOnboardingPageState extends State<MyOnboardingPage> {
                     child: Container(
                       child: Column(
                         children: <Widget>[
+                           Row(
+                            children: <Widget>[
+                              Icon(
+                                            Icons.nature_people ,
+                                            color: Colors.green,
+                                            size: 26.0,
+                                          ),
                           Align(
                             alignment: Alignment.center,
                             child: Text('Height (cm)',
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 18.0)),
                           ),
+                            ],),
                           Align(
                             alignment: Alignment.center,
                             child:                          
                             Container(
-                            width:200,
+                            width:110,
+                             height: 50,
                             child:   TextField(
                                     onChanged:(String value){
                                       global.userHeight = value;
                                     },
                                   decoration: InputDecoration(
-                                    icon: Icon(
-                                            Icons.nature_people ,
-                                            color: Colors.blue,
-                                            size: 36.0,
-                                          ),
+                                   
                                     border: OutlineInputBorder(),
                                     filled: true,
                                     fillColor: Colors.white,
@@ -317,27 +326,35 @@ class _MyOnboardingPageState extends State<MyOnboardingPage> {
                     child: Container(
                       child: Column(
                         children: <Widget>[
-                          Align(
+                          Row(
+                            children: <Widget>[
+                              Icon(
+                                            Icons.whatshot ,
+                                            color: Colors.red,
+                                            size: 26.0,
+                                          ),
+                               Align(
                             alignment: Alignment.center,
                             child: Text('Goal of calories (kcal)',
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 18.0)),
                           ),
+                            ]
+                          ),
+                         
+                          
                           Align(
                             alignment: Alignment.center,
                             child:                          
                             Container(
-                            width:200,
+                            width:110,
+                            height: 50,
                             child:   TextField(
                                     onChanged:(String value){
                                       global.userGoal = double.parse(value);
                                     },
                                   decoration: InputDecoration(
-                                    icon: Icon(
-                                            Icons.whatshot ,
-                                            color: Colors.blue,
-                                            size: 36.0,
-                                          ),
+                                    
                                     border: OutlineInputBorder(),
                                     filled: true,
                                     fillColor: Colors.white,
