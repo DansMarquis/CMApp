@@ -391,7 +391,7 @@ class _MyOnboardingPageState extends State<MyOnboardingPage> {
                         borderRadius: BorderRadius.all(Radius.circular(50.0)),
                       ),
                       onPressed: () async {
-                        global.weight = double.parse(weightController.text);
+                        
                         //Firestore.instance.collection("users").document().setData({'name' : 'Daniel'});
                         widget.helper.setBool('isFirstLaunchChat', false);
                         widget.helper.setString('uuid', widget.identity);
@@ -400,7 +400,7 @@ class _MyOnboardingPageState extends State<MyOnboardingPage> {
                             isColorCurrentlyDark(dynamicColor)
                                 ? Brightness.dark
                                 : Brightness.light);
-
+                      global.userName = "Daniel Marques";
 
                        Navigator.of(context).pushReplacementNamed(RouteName.tab);
                       },
