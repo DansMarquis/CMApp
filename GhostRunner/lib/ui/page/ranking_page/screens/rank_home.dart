@@ -76,12 +76,17 @@ class _HomeState extends State<Home> {
             )
           : Stack(
             children: <Widget>[
-Padding(
+            Padding(
               padding: EdgeInsets.symmetric(horizontal: 6.0),
-              child: ListView.builder(
+              child: 
+              Stack(
+                children: <Widget>[
+                  ListView.builder(
+                    padding: const EdgeInsets.only(bottom: 70),
                 shrinkWrap: true,
                 itemCount: users.length == null ? 0 : users.length,
                 itemBuilder: (BuildContext context, int index) {
+                  
                   User user = users[index];
                   return (user.userID != 0) ? Padding(
                     padding: const EdgeInsets.all(2.0),
@@ -98,7 +103,12 @@ Padding(
                   ) :Text("");
                 },
               ),
+              ],
+              ),
+              
+
             ),
+            
             Positioned(
                           bottom: 0,
                           left: 0,
