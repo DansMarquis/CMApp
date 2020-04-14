@@ -727,7 +727,7 @@ class _HomePageState extends State<HomePage>
                                                   global.maxSpeed
                                                           .toString()
                                                           .substring(0, 3) +
-                                                      " km/ms",
+                                                      " m/s",
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
                                                     fontWeight: FontWeight.w600,
