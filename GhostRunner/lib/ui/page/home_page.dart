@@ -896,7 +896,7 @@ class _HomePageState extends State<HomePage>
                                                                       .only(
                                                                   left: 4.0),
                                                           child: Text(
-                                                            "${trails[i].distance} m",
+                                                            "${trails[i].distance} km",
                                                             textAlign: TextAlign
                                                                 .center,
                                                             style: TextStyle(

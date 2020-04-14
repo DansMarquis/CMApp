@@ -34,7 +34,7 @@ final List<Trail> trails = [
   Trail(
     trailID: 0,
     myTrail: true,
-      trailName: 'Dam Trail',
+      trailName: 'Long Riviera',
       address: 'Tondela',
       description:
           'Beautiful trail',
@@ -42,14 +42,14 @@ final List<Trail> trails = [
       locationCoordsFinish: LatLng(40.579570, -8.068348),
       duration: '00 : 23 : 02',
       velocity: '23',
-      distance: '20',
+      distance: '1.041',
       kcal: '253',
-      date: '2020-04-15 - 20:22',
+      date: '2020-04-12 - 20:22',
       ),
   Trail(
     trailID: 1,
     myTrail: false,
-      trailName: 'OverPass',
+      trailName: 'Northern Circuit',
       address: 'Tondela',
       description:
           'Beautiful and Hard Trail.',
@@ -59,12 +59,12 @@ final List<Trail> trails = [
       velocity: '15',
       distance: '0',
       kcal: '253',
-      date: '2020-04-15 - 10:22',
+      date: '2020-04-14 - 10:22',
       ),
   Trail(
     trailID: 2,
     myTrail: false,
-      trailName: 'Third Rail',
+      trailName: 'Way Seeker',
       address: 'Tondela',
       description:
           'Beautiful and Hard Trail.',
@@ -72,14 +72,14 @@ final List<Trail> trails = [
        locationCoordsFinish: LatLng(40.560689, -8.084705),
       duration: '00 : 53 : 32',
       velocity: '12',
-      distance: '30',
+      distance: '0',
       kcal: '253',
-      date: '2020-04-15 - 09:22',
+      date: '2020-04-10 - 09:22',
       ),
   Trail(
     trailID: 3,
     myTrail: false,
-      trailName: 'Hi Collar',
+      trailName: 'Montains Dew',
       address: 'Tondela',
       description:
           'Beautiful and Hard Trail.',
@@ -89,12 +89,12 @@ final List<Trail> trails = [
       velocity: '15',
       distance: '0',
       kcal: '253',
-      date: '2020-04-15 - 20:22',
+      date: '2020-04-12 - 20:22',
       ),
   Trail(
     trailID: 4,
     myTrail: true,
-      trailName: 'Montain',
+      trailName: 'Devil\'s Peak',
       address: 'Tondela',
       description:
           'Beautiful and Hard Trail.',
@@ -102,9 +102,9 @@ final List<Trail> trails = [
  locationCoordsFinish: LatLng(40.597495, -8.092849),
       duration: '00 : 43 : 52',
       velocity: '25',
-      distance: '12',
+      distance: '5.114',
       kcal: '253',
-      date: '2020-04-15 - 14:22',
+      date: '2020-04-14 - 14:22',
       )
 ];
 
