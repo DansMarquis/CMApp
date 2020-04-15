@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:ghostrunner/utils/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
-import 'package:ghostrunner/config/router_manager.dart';
+import 'package:ghostrunner/page_routes/router_manager.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
